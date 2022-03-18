@@ -5,5 +5,6 @@ Twitter clone app with React Native
 - Clone repo.
 - npm install --global expo-cli.
 - npm install.
+- expo install react-native-screens react-native-safe-area-context.
 - Install React Native Extension:
 ![image](https://user-images.githubusercontent.com/62579790/158026872-15c59358-3825-4e19-9efd-2c7c840387d4.png)
