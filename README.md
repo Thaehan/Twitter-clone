@@ -20,6 +20,7 @@ expo install react-native-screens react-native-safe-area-context
 ```
 
 Then install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for visual studio code:
+
 ![image](https://user-images.githubusercontent.com/62579790/158026872-15c59358-3825-4e19-9efd-2c7c840387d4.png)
 
 ## Tech
