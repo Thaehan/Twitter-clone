@@ -1,5 +1,6 @@
 # Twitter-clone
 A Twitter clone app made for a course project.
+
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ## Installation
 Clone this repository.
