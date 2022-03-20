@@ -7,11 +7,12 @@ import {
 
 export default function PrimaryButton({ title, onPress }) {
   return (
-    <View style={styles.button}>
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.buttonText}>{title}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={onPress}
+    >
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
   );
 }
 

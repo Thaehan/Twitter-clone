@@ -2,7 +2,12 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Login, Signup, Home } from './screens/index';
+import {
+  Login,
+  Signup,
+  Home,
+  SignupInfo,
+} from './screens/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +19,15 @@ function MyStack() {
           name="Login"
           component={Login}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignupInfo"
+          component={SignupInfo}
         />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>

@@ -28,7 +28,9 @@ export default function Login({ navigation }) {
   };
 
   const signupHandle = () => {
-    console.log('Sign up');
+    setUsername('');
+    setPassword('');
+    navigation.navigate('Signup', {});
   };
 
   return (
@@ -39,7 +41,7 @@ export default function Login({ navigation }) {
         value={username}
         onChangeText={setUsername}
         style={styles.textInput}
-        placeholder="Your Username..."
+        placeholder="Username"
         placeholderTextColor="#BDBDBD"
         autoFocus
       />
@@ -47,7 +49,7 @@ export default function Login({ navigation }) {
         value={password}
         onChangeText={setPassword}
         style={styles.textInput}
-        placeholder="Your Password..."
+        placeholder="Password"
         placeholderTextColor="#BDBDBD"
         secureTextEntry={true}
       />
