@@ -1,14 +1,16 @@
 import {
   View,
   Text,
-  Button,
   Image,
   TextInput,
   StyleSheet,
+  Button,
 } from 'react-native';
 import React, { useState } from 'react';
 
-import { logo } from '../constants/ImagePath';
+import { logo } from '../constants/ImageAssets';
+import PrimaryButton from '../components/button/PrimaryButton';
+import SecondaryButton from '../components/button/SecondaryButton';
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
@@ -21,15 +23,24 @@ export default function Login({ navigation }) {
     navigation.navigate('Home', {});
   };
 
+  const forgotHandle = () => {
+    console.log('FORGOT PASSWORD');
+  };
+
+  const signupHandle = () => {
+    console.log('Sign up');
+  };
+
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.image} />
+      <Text style={styles.title}>Login to Twitter</Text>
       <TextInput
         value={username}
         onChangeText={setUsername}
         style={styles.textInput}
         placeholder="Your Username..."
-        placeholderTextColor="#ffffff"
+        placeholderTextColor="#BDBDBD"
         autoFocus
       />
       <TextInput
@@ -37,34 +48,72 @@ export default function Login({ navigation }) {
         onChangeText={setPassword}
         style={styles.textInput}
         placeholder="Your Password..."
-        placeholderTextColor="#ffffff"
+        placeholderTextColor="#BDBDBD"
         secureTextEntry={true}
       />
-      <Button title="Login" onPress={loginHandle} />
+      <View style={styles.buttonContainer}>
+        <SecondaryButton
+          title="Forgot your password?"
+          onPress={forgotHandle}
+        />
+      </View>
+      <PrimaryButton
+        title="Login"
+        onPress={loginHandle}
+        style={styles.forgotButton}
+      />
+      <View style={styles.signupContainer}>
+        <Text style={styles.signupText}>
+          Do not have an account?
+        </Text>
+        <SecondaryButton
+          title="Sign up"
+          onPress={signupHandle}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  title: {
+    marginLeft: 16,
+    fontWeight: '500',
+    marginBottom: 20,
+  },
+  signupContainer: {
+    marginTop: 20,
+    marginLeft: 59,
+    flexDirection: 'row',
+  },
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 375,
+    height: 768,
+    fontFamily: 'Open Sans',
     backgroundColor: 'white',
+    fontSize: 16,
   },
   image: {
-    height: 50,
-    width: 50,
+    marginBottom: 66,
+    marginLeft: 147,
+    height: 80,
+    width: 80,
   },
   textInput: {
-    width: '30%',
+    width: '90%',
     height: 40,
-    paddingLeft: 10,
-    fontSize: 15,
-    fontFamily: 'Arial',
-    margin: 15,
-    backgroundColor: '#E8E8E8',
-    borderColor: 'gray',
+    paddingLeft: 16,
+    marginBottom: 20,
+    fontSize: 16,
+    marginLeft: 16,
+    backgroundColor: '#F6F6F6',
+    borderColor: '#E8E8E8',
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 8,
+  },
+  signupText: {
+    fontWeight: '400',
+    marginLeft: 15,
+    marginRight: 8,
   },
 });
