@@ -11,6 +11,9 @@ import React, { useState } from 'react';
 import { logo } from '../constants/ImageAssets';
 import PrimaryButton from '../components/button/PrimaryButton';
 import SecondaryButton from '../components/button/SecondaryButton';
+import { CONTAINER_STYLES } from '../styles/Style';
+import Statusbar from '../components/functional/Statusbar';
+import { HOME, SIGN_UP } from '../constants/ScreenName';
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
@@ -20,7 +23,7 @@ export default function Login({ navigation }) {
     console.log(username, password);
     setUsername('');
     setPassword('');
-    navigation.navigate('Home', {});
+    navigation.navigate(HOME, {});
   };
 
   const forgotHandle = () => {
@@ -30,11 +33,12 @@ export default function Login({ navigation }) {
   const signupHandle = () => {
     setUsername('');
     setPassword('');
-    navigation.navigate('Signup', {});
+    navigation.navigate(SIGN_UP, {});
   };
 
   return (
-    <View style={styles.container}>
+    <View style={CONTAINER_STYLES.container}>
+      <Statusbar />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Login to Twitter</Text>
       <TextInput
@@ -87,13 +91,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 59,
     flexDirection: 'row',
-  },
-  container: {
-    width: 375,
-    height: 768,
-    fontFamily: 'Open Sans',
-    backgroundColor: 'white',
-    fontSize: 16,
   },
   image: {
     marginBottom: 66,

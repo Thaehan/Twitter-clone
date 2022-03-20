@@ -3,6 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
+  LOGIN,
+  SIGN_UP,
+  SIGN_UP_INFORMATION,
+  HOME,
+} from './constants/ScreenName';
+
+import {
   Login,
   Signup,
   Home,
@@ -16,20 +23,20 @@ function MyStack() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Login"
+          name={LOGIN}
           component={Login}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Signup"
+          name={SIGN_UP}
           component={Signup}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="SignupInfo"
+          name={SIGN_UP_INFORMATION}
           component={SignupInfo}
         />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name={HOME} component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

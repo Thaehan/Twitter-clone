@@ -4,13 +4,18 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  Button,
 } from 'react-native';
 import React, { useState } from 'react';
 
 import { logo } from '../constants/ImageAssets';
 import PrimaryButton from '../components/button/PrimaryButton';
 import SecondaryButton from '../components/button/SecondaryButton';
+import { CONTAINER_STYLES } from '../styles/Style';
+import Statusbar from '../components/functional/Statusbar';
+import {
+  LOGIN,
+  SIGN_UP_INFORMATION,
+} from '../constants/ScreenName';
 
 export default function Signup({ navigation }) {
   const [username, setUsername] = useState('');
@@ -22,7 +27,7 @@ export default function Signup({ navigation }) {
     setEmail('');
     setUsername('');
     setPassword('');
-    navigation.navigate('SignupInfo', {
+    navigation.navigate(SIGN_UP_INFORMATION, {
       username,
       email,
       password,
@@ -30,11 +35,12 @@ export default function Signup({ navigation }) {
   };
 
   const loginHandle = () => {
-    navigation.navigate('Login', {});
+    navigation.navigate(LOGIN, {});
   };
 
   return (
-    <View style={styles.container}>
+    <View style={CONTAINER_STYLES.container}>
+      <Statusbar />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Sign up an account</Text>
       <TextInput
@@ -88,13 +94,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 70,
     flexDirection: 'row',
-  },
-  container: {
-    width: 375,
-    height: 768,
-    fontFamily: 'Open Sans',
-    backgroundColor: 'white',
-    fontSize: 16,
   },
   image: {
     marginBottom: 66,
