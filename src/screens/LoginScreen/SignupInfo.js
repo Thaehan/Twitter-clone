@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-import { CONTAINER_STYLES } from '../styles/Style';
+import { CONTAINER_STYLES } from '../../styles/Style';
 
 export default function SignupInfo({ navigation, route }) {
   return (

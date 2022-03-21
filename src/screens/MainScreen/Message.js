@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function Navbar({ navigation, route }) {
+export default function Message() {
   return (
     <View>
-      <Text>Navbar</Text>
+      <Text>Message</Text>
     </View>
   );
 }

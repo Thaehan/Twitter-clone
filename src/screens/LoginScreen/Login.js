@@ -7,42 +7,39 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 
-import { logo } from '../constants/ImageAssets';
-import PrimaryButton from '../components/button/PrimaryButton';
-import SecondaryButton from '../components/button/SecondaryButton';
-import { CONTAINER_STYLES } from '../styles/Style';
-import Statusbar from '../components/functional/Statusbar';
-import {
-  LOGIN,
-  SIGN_UP_INFORMATION,
-} from '../constants/ScreenName';
+import { logo } from '../../constants/ImageAssets';
+import PrimaryButton from '../../components/button/PrimaryButton';
+import SecondaryButton from '../../components/button/SecondaryButton';
+import { CONTAINER_STYLES } from '../../styles/Style';
+import Statusbar from '../../components/functional/Statusbar';
+import { TAB, SIGN_UP } from '../../constants/ScreenName';
 
-export default function Signup({ navigation }) {
+export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const registerHandle = () => {
-    console.log(username, email, password);
-    setEmail('');
+  const loginHandle = () => {
+    console.log(username, password);
     setUsername('');
     setPassword('');
-    navigation.navigate(SIGN_UP_INFORMATION, {
-      username,
-      email,
-      password,
-    });
+    navigation.navigate(TAB, {});
   };
 
-  const loginHandle = () => {
-    navigation.navigate(LOGIN, {});
+  const forgotHandle = () => {
+    console.log('FORGOT PASSWORD');
+  };
+
+  const signupHandle = () => {
+    setUsername('');
+    setPassword('');
+    navigation.navigate(SIGN_UP, {});
   };
 
   return (
     <View style={CONTAINER_STYLES.container}>
       <Statusbar />
       <Image source={logo} style={styles.image} />
-      <Text style={styles.title}>Sign up an account</Text>
+      <Text style={styles.title}>Login to Twitter</Text>
       <TextInput
         value={username}
         onChangeText={setUsername}
@@ -52,13 +49,6 @@ export default function Signup({ navigation }) {
         autoFocus
       />
       <TextInput
-        value={email}
-        onChangeText={setEmail}
-        style={styles.textInput}
-        placeholder="Email"
-        placeholderTextColor="#BDBDBD"
-      />
-      <TextInput
         value={password}
         onChangeText={setPassword}
         style={styles.textInput}
@@ -66,18 +56,24 @@ export default function Signup({ navigation }) {
         placeholderTextColor="#BDBDBD"
         secureTextEntry={true}
       />
+      <View style={styles.buttonContainer}>
+        <SecondaryButton
+          title="Forgot your password?"
+          onPress={forgotHandle}
+        />
+      </View>
       <PrimaryButton
-        title="Register"
-        onPress={registerHandle}
+        title="Login"
+        onPress={loginHandle}
         style={styles.forgotButton}
       />
-      <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>
-          Already got an account?
+      <View style={styles.signupContainer}>
+        <Text style={styles.signupText}>
+          Do not have an account?
         </Text>
         <SecondaryButton
-          title="Login"
-          onPress={loginHandle}
+          title="Sign up"
+          onPress={signupHandle}
         />
       </View>
     </View>
@@ -90,9 +86,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 20,
   },
-  loginContainer: {
+  signupContainer: {
     marginTop: 20,
-    marginLeft: 70,
+    marginLeft: 59,
     flexDirection: 'row',
   },
   image: {
@@ -113,7 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
   },
-  loginText: {
+  signupText: {
     fontWeight: '400',
     marginLeft: 15,
     marginRight: 8,
