@@ -15,7 +15,7 @@ import {
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+export default function TabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen name={FEED} component={Feed} />

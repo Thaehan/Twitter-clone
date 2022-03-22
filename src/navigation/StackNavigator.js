@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
@@ -13,7 +12,7 @@ import {
   Signup,
   SignupInfo,
 } from '../screens/index';
-import TabNavigation from './TabNavigation';
+import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +33,11 @@ export default function StackNavigator() {
         name={SIGN_UP_INFORMATION}
         component={SignupInfo}
       />
-      <Stack.Screen name={TAB} component={TabNavigation} />
+      <Stack.Screen
+        name={TAB}
+        component={TabNavigator}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
