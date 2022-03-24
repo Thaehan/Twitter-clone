@@ -19,25 +19,29 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name={LOGIN}
-        component={Login}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={SIGN_UP}
-        component={Signup}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={SIGN_UP_INFORMATION}
-        component={SignupInfo}
-      />
-      <Stack.Screen
-        name={TAB}
-        component={TabNavigator}
-        options={{ headerShown: false }}
-      />
+      <Stack.Group>
+        <Stack.Screen
+          name={LOGIN}
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={SIGN_UP}
+          component={Signup}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={SIGN_UP_INFORMATION}
+          component={SignupInfo}
+        />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen
+          name={TAB}
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }

@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import SecondaryButton from '../../components/button/SecondaryButton';
-import { CONTAINER_STYLES } from '../../styles/Style';
+import { GLOBAL_STYLES } from '../../styles/Style';
 import Statusbar from '../../components/functional/Statusbar';
 import {
   LOGIN,
@@ -39,7 +39,7 @@ export default function Signup({ navigation }) {
   };
 
   return (
-    <View style={CONTAINER_STYLES.container}>
+    <View style={GLOBAL_STYLES.container}>
       <Statusbar />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Sign up an account</Text>

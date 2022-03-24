@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const SCREEN_HEIGHT = 812;
 const SCREEN_WIDTH = 375;
 
-const CONTAINER_STYLES = StyleSheet.create({
+const GLOBAL_STYLES = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
@@ -11,6 +11,22 @@ const CONTAINER_STYLES = StyleSheet.create({
     backgroundColor: 'white',
     fontSize: 16,
   },
+  fullname: {
+    fontFamily: 'Open Sans',
+    fontSize: '15',
+    fontWeight: 'bold',
+  },
+  username: {
+    fontFamily: 'Open Sans',
+    fontSize: '14',
+    fontWeight: '400',
+    color: '#86939A',
+  },
+  text: {
+    fontFamily: 'Open Sans',
+    fontSize: '15',
+    fontWeight: '400',
+  },
 });
 
-export { SCREEN_HEIGHT, SCREEN_WIDTH, CONTAINER_STYLES };
+export { SCREEN_HEIGHT, SCREEN_WIDTH, GLOBAL_STYLES };
