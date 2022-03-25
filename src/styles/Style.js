@@ -27,6 +27,30 @@ const GLOBAL_STYLES = StyleSheet.create({
     fontSize: '15',
     fontWeight: '400',
   },
+  header_bar_message: {
+    position: 'relative',
+    width: SCREEN_WIDTH,
+    height: 70,
+    fontFamily: 'Open Sans',
+    backgroundColor: 'white',
+    fontSize: 16,
+  },
+  conversation: {
+    //vung chua cac tin nhan
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT - 234,
+    fontFamily: 'Open Sans',
+    backgroundColor: 'white',
+    fontSize: 16,
+  },
+  message_input: {
+    position: 'relative',
+    width: SCREEN_WIDTH,
+    height: 55,
+    fontFamily: 'Open Sans',
+    backgroundColor: 'white',
+    fontSize: 16,
+  },
 });
 
 export { SCREEN_HEIGHT, SCREEN_WIDTH, GLOBAL_STYLES };
