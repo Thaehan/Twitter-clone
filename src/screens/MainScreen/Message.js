@@ -11,7 +11,6 @@ import {
   Bubble_Send,
   Bubble_Received,
 } from '../../components/ChatBubble';
-import { GLOBAL_STYLES } from '../../styles/Style';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -20,13 +19,16 @@ import {
   faFileImage,
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { Center } from 'native-base';
+
+const SCREEN_HEIGHT = 812;
+const SCREEN_WIDTH = 375;
+
 library.add(faPaperPlane, faFileImage);
 export default function Message() {
   const [message, setMessage] = useState('');
   return (
     <>
-      <View style={GLOBAL_STYLES.header_bar_message}>
+      <View style={styles.header_bar_message}>
         <TouchableOpacity>
           <FontAwesomeIcon
             icon={faArrowLeft}
@@ -41,27 +43,28 @@ export default function Message() {
             }}
             color="#000000"
           />
-          <Image
-            source={require('../../assets/no-avatar.png')}
-            style={{
-              left: 170,
-              top: 0,
-              width: 35,
-              height: 35,
-              borderRadius: 35 / 2,
-            }}
-          />
-          <Text style={styles.user_name}>Nowano</Text>
         </TouchableOpacity>
+
+        <Image
+          source={require('../../assets/no-avatar.png')}
+          style={{
+            left: 170,
+            top: 0,
+            width: 35,
+            height: 35,
+            borderRadius: 35 / 2,
+          }}
+        />
+        <Text style={styles.user_name}>Nowano</Text>
       </View>
-      <View style={GLOBAL_STYLES.conversation}>
+      <View style={styles.conversation}>
         <Bubble_Send content="tin nhan da gui 1" />
         <Bubble_Send content="tin nhan da gui 2" />
         <Bubble_Received content="tin nhan da nhan 1" />
         <Bubble_Received content="tin nhan da nhan 2" />
         <Bubble_Received content="tin nhan da nhan dai dai dai dai dai dai vai vai vai vai" />
       </View>
-      <View style={GLOBAL_STYLES.message_input}>
+      <View style={styles.message_input}>
         <TouchableOpacity>
           <FontAwesomeIcon
             icon={faFileImage}
@@ -76,6 +79,8 @@ export default function Message() {
             }}
             color="#1A8CD8"
           />
+        </TouchableOpacity>
+        <TouchableOpacity>
           <FontAwesomeIcon
             icon={faPaperPlane}
             style={{
@@ -104,6 +109,31 @@ export default function Message() {
   );
 }
 const styles = StyleSheet.create({
+  header_bar_message: {
+    position: 'relative',
+    width: SCREEN_WIDTH,
+    height: 70,
+    fontFamily: 'Open Sans',
+    backgroundColor: 'white',
+    fontSize: 16,
+  },
+  user_name: {
+    left: 128,
+    top: 40,
+    textAlign: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    color: '#000000',
+    backgroundColor: '#ffffff',
+  },
+  conversation: {
+    //vung chua cac tin nhan
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT - 234,
+    fontFamily: 'Open Sans',
+    backgroundColor: 'white',
+    fontSize: 16,
+  },
   textInput: {
     width: 275,
     height: 35,
@@ -117,13 +147,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
   },
-  user_name: {
-    left: 128,
-    top: 40,
-    textAlign: 'center',
-    alignItems: 'center',
-    fontWeight: '500',
-    color: '#000000',
-    backgroundColor: '#ffffff',
+  message_input: {
+    position: 'relative',
+    width: SCREEN_WIDTH,
+    height: 55,
+    fontFamily: 'Open Sans',
+    backgroundColor: 'white',
+    fontSize: 16,
   },
 });

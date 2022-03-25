@@ -1,3 +1,4 @@
+import { Button } from 'native-base';
 import {
   View,
   Text,
@@ -5,71 +6,67 @@ import {
   StyleSheet,
 } from 'react-native';
 
-function Bubble_Send({ content }) {
+const Bubble_Send = (props) => {
   return (
     <TouchableOpacity
-      style={message_send.bubble}
-
+      style={message.bubble_send}
       //onPress={onPress}
     >
-      <Text style={message_send.text_message}>
-        {content}
+      <Text style={message.text_message_send}>
+        {props.content}
       </Text>
     </TouchableOpacity>
   );
-}
-function Bubble_Received({ content }) {
+};
+const Bubble_Received = (props) => {
   return (
     <TouchableOpacity
-      style={message_received.bubble}
+      style={message.bubble_received}
       //onPress={onPress}
     >
-      <Text style={message_received.text_message}>
-        {content}
+      <Text style={message.text_message_received}>
+        {props.content}
       </Text>
     </TouchableOpacity>
   );
-}
+};
 
-const message_send = StyleSheet.create({
-  bubble: {
+const message = StyleSheet.create({
+  bubble_send: {
     alignSelf: 'flex-end',
     textAlign: 'right',
     alignContent: 'center',
-    //marginRight: 40,
+    maxWidth: '60%',
     marginTop: 5,
     fontWeight: '500',
-    borderRadius: 100,
+    borderRadius: 13,
     backgroundColor: '#1DA1F2',
   },
-  text_message: {
-    fontWeight: '500',
-    marginTop: 6,
-    marginBottom: 8,
-    marginLeft: 15,
-    marginRight: 15,
-    color: '#ffffff',
-  },
-});
-
-const message_received = StyleSheet.create({
-  bubble: {
+  bubble_received: {
     alignSelf: 'flex-start',
     textAlign: 'left',
     alignContent: 'left',
-    //marginLeft: 40,
+    maxWidth: '60%',
     marginTop: 5,
     fontWeight: '500',
-    borderRadius: 100,
+    borderRadius: 13,
     backgroundColor: '#EFF3F4',
   },
-  text_message: {
+  text_message_send: {
     fontWeight: '500',
-    marginTop: 6,
-    marginBottom: 8,
-    marginLeft: 15,
-    marginRight: 15,
-    color: '##5C6165',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    color: '#ffffff',
+  },
+  text_message_received: {
+    fontWeight: '500',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    color: '#000000',
   },
 });
 
