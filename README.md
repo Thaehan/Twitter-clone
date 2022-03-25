@@ -11,13 +11,11 @@ Install the dependencies with npm
 ```sh
 npm install --global expo-cli
 npm install
-expo install react-native-screens react-native-safe-area-context
 ```
 or with yarn
 ```sh
 yarn global add expo-cli
 yarn install
-expo install react-native-screens react-native-safe-area-context
 ```
 
 Then install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for visual studio code:
