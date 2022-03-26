@@ -20,10 +20,9 @@ import {
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
+library.add(faPaperPlane, faFileImage);
 const SCREEN_HEIGHT = 812;
 const SCREEN_WIDTH = 375;
-
-library.add(faPaperPlane, faFileImage);
 export default function Message() {
   const [message, setMessage] = useState('');
   return (

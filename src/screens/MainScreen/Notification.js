@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
+import ListItemUser from '../../components/Message/ListItemUser';
 import { GLOBAL_STYLES } from '../../styles/Style';
-import moment from 'moment';
+import ButtonCreateMessage from '../../components/button/ButtonCreateMessage';
 export default function Notification() {
-  var now = moment().format('DD/MM/YYYY');
   return (
     <View style={GLOBAL_STYLES.container}>
       {/* <Text>Notification</Text> */}
@@ -12,23 +12,26 @@ export default function Notification() {
         user_name="Nowano"
         user_email="_@hie"
         content="Toi co the buscu anh duoc khong? Hay de cho toi bu anh mot cai de giang hoa di nao!"
-        date={now}
         avatar="logo"
       ></ListItemMessageUser>
       <ListItemMessageUser
         user_name="Thaehan"
         user_email="_@datdo"
         content="Duoc thoi"
-        date={now}
         avatar="no-avatar"
       ></ListItemMessageUser>
       <ListItemMessageUser
         user_name="Weed"
         user_email="_@danh"
         content="*Quay clip...."
-        date={now}
         avatar="like"
       ></ListItemMessageUser>
+      <ListItemUser
+        avatar="no-avatar"
+        user_name="Trung Hieuuuuuuuuuuuu"
+        user_email="@Nowanoooooooooooooooo"
+      ></ListItemUser>
+      <ButtonCreateMessage></ButtonCreateMessage>
     </View>
   );
 }

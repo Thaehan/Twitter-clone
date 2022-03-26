@@ -6,15 +6,16 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
-
+import moment from 'moment';
 const SCREEN_WIDTH = 375;
 export default function ListItemMessageUser(props) {
   var avatar = props.avatar;
+  var now = moment().format('DD/MM/YYYY');
   return (
     <View style={styles.Item_size}>
       <TouchableOpacity style={styles.avatar_frame}>
         <Image
-          source={require('C:/Users/pc/source/repos/Twitter-clone/src/assets/' +
+          source={require('../../assets/' +
             avatar +
             '.png')}
           style={{
@@ -55,7 +56,7 @@ export default function ListItemMessageUser(props) {
         {props.content}
       </Text>
 
-      <Text style={styles.DateTime}>{props.date}</Text>
+      <Text style={styles.DateTime}>{now}</Text>
     </View>
   );
 }
