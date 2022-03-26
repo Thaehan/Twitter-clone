@@ -74,3 +74,4 @@ dist/
 
 # @end expo-cli
 *.lock
+package-lock.json
