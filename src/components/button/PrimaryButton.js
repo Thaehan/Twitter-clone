@@ -5,13 +5,13 @@ import {
   StyleSheet,
 } from 'react-native';
 
-export default function PrimaryButton({ title, onPress }) {
+export default function PrimaryButton(props) {
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={onPress}
+      onPress={props.onPress}
     >
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={styles.buttonText}>{props.title}</Text>
     </TouchableOpacity>
   );
 }
@@ -19,7 +19,6 @@ export default function PrimaryButton({ title, onPress }) {
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
-    textAlign: 'center',
     alignContent: 'center',
     marginLeft: 271,
     marginTop: 20,

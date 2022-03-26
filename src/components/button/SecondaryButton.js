@@ -5,16 +5,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function SecondaryButton({
-  title,
-  onPress,
-}) {
+export default function SecondaryButton(props) {
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={onPress}
+      onPress={props.onPress}
     >
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={styles.buttonText}>{props.title}</Text>
     </TouchableOpacity>
   );
 }

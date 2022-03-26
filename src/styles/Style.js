@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-const SCREEN_HEIGHT = 812;
-const SCREEN_WIDTH = 375;
+const SCREEN_HEIGHT = 736;
+const SCREEN_WIDTH = 414;
 
 const GLOBAL_STYLES = StyleSheet.create({
   container: {
@@ -13,19 +13,19 @@ const GLOBAL_STYLES = StyleSheet.create({
   },
   fullname: {
     fontFamily: 'Open Sans',
-    fontSize: '15',
+    fontSize: 15,
     fontWeight: 'bold',
   },
   username: {
     fontFamily: 'Open Sans',
-    fontSize: '14',
-    fontWeight: '400',
+    fontSize: 14,
+    fontWeight: 400,
     color: '#86939A',
   },
   text: {
     fontFamily: 'Open Sans',
-    fontSize: '15',
-    fontWeight: '400',
+    fontSize: 15,
+    fontWeight: 400,
   },
 });
 

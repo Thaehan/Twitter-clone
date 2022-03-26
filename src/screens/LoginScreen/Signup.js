@@ -86,8 +86,8 @@ export default function Signup({ navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    marginLeft: 16,
-    fontWeight: '500',
+    marginLeft: 30,
+    fontWeight: 500,
     marginBottom: 20,
   },
   loginContainer: {
@@ -102,19 +102,19 @@ const styles = StyleSheet.create({
     width: 80,
   },
   textInput: {
-    width: '90%',
-    height: 40,
+    width: 350,
+    height: 50,
     paddingLeft: 16,
     marginBottom: 20,
     fontSize: 16,
-    marginLeft: 16,
-    backgroundColor: '#F6F6F6',
-    borderColor: '#E8E8E8',
+    marginLeft: 30,
+    backgroundColor: '#f6f6f6',
+    borderColor: '#e8e8e8',
     borderWidth: 1,
     borderRadius: 8,
   },
   loginText: {
-    fontWeight: '400',
+    fontWeight: 400,
     marginLeft: 15,
     marginRight: 8,
   },
