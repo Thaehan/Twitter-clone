@@ -1,6 +1,5 @@
 import { View, Text, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { Box } from 'native-base';
 
 import TweetInFeed from '../../components/tweet/TweetInFeed';
 import { GLOBAL_STYLES } from '../../styles/Style';
