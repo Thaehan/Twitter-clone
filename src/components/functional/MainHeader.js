@@ -8,9 +8,8 @@ import React from 'react';
 
 import { SCREEN_WIDTH } from '../../styles/Style';
 import ImageButton from '../button/ImageButton';
-import IconButton from '../button/IconButton';
 import { logo } from '../../constants/ImageAssets';
-import { faGear } from '@fortawesome/free-solid-svg-icons';
+import IconButton from '../button/IconButton';
 
 //Nhận vào nội dung nút ở giữa
 export default function Headerbar(props) {
@@ -23,9 +22,9 @@ export default function Headerbar(props) {
       />
 
       <IconButton
-        size={'xl'}
-        style={styles.leftContainer}
-        icon={faGear}
+        icon="gear"
+        size={30}
+        style={styles.rightContainer}
       />
     </View>
   );

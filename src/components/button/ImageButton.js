@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 
 //Nhưng Image button là những cái ảnh tròn có thể ấn vào
-//nhận vào size= onPress= (size x size)
-export default function AvatarButton(props) {
+//nhận vào style=(Căn chỉnh container) size= onPress= (size x size), source ảnh
+export default function ImageButton(props) {
   return (
     <View style={props.style}>
       <TouchableOpacity

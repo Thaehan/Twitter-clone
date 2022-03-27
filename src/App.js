@@ -1,11 +1,20 @@
 import React from 'react';
+import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import RootNavigator from './navigation/RootNavigator';
-import { NativeBaseProvider } from 'native-base';
+//Nhận vào props: avatar, avatarPress, onPress, fullname, username, content
+import Comment from './components/tweet/Comment';
+import IconButton from './components/button/IconButton';
 
 export default function App() {
-  return (
-    <NativeBaseProvider>
-      <RootNavigator />
-    </NativeBaseProvider>
-  );
+  return <RootNavigator />;
+  // return (
+  //   <Comment
+  //     avatar={logo}
+  //     fullname={'Dat Do'}
+  //     username={'Thaehan'}
+  //     content={'Bai nay hay qua'}
+  //   />
+  // );
 }

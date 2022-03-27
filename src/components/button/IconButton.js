@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Nhận vào style cho container để căn chỉnh, icon để hiện, size
 export default function IconButton(props) {
@@ -14,10 +14,7 @@ export default function IconButton(props) {
         style={styles.container}
         onPress={props.onPress}
       >
-        <FontAwesomeIcon
-          icon={props.icon}
-          size={props.size}
-        />
+        <Icon name={props.icon} size={props.size} />
       </TouchableOpacity>
     </View>
   );

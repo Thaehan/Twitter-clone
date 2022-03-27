@@ -25,7 +25,7 @@ export default function TabNavigator() {
       <Tab.Screen
         name={FEED}
         component={Feed}
-        // options={{ headerTitle: (props) => <MainHeader /> }}
+        options={{ headerTitle: (props) => <MainHeader /> }}
       />
       <Tab.Screen
         name={SEARCH}

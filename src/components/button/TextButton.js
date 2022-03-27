@@ -1,15 +1,16 @@
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
-export default function PrimaryButton(props) {
+// Nhận vào title, onPress, style
+export default function TextButton(props) {
   return (
     <View style={props.style}>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.container}
         onPress={props.onPress}
       >
         <Text style={styles.buttonText}>{props.title}</Text>
@@ -19,20 +20,14 @@ export default function PrimaryButton(props) {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  container: {
     alignSelf: 'center',
     alignContent: 'center',
-    fontWeight: '500',
-    borderRadius: 100,
-    backgroundColor: '#1da1f2',
+    borderRadius: 50,
   },
   buttonText: {
+    padding: 0,
     fontWeight: '500',
-    paddingTop: 6,
-    paddingBottom: 8,
-    paddingLeft: 15,
-    paddingRight: 15,
-
-    color: '#ffffff',
+    color: '#1da1f2',
   },
 });

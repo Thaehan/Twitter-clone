@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
-import SecondaryButton from '../../components/button/SecondaryButton';
+import TextButton from '../../components/button/TextButton';
 import { GLOBAL_STYLES } from '../../styles/Style';
 import Statusbar from '../../components/functional/Statusbar';
 import { TAB, SIGN_UP } from '../../constants/ScreenName';
@@ -57,7 +57,7 @@ export default function Login({ navigation }) {
         secureTextEntry={true}
       />
       <View style={styles.buttonContainer}>
-        <SecondaryButton
+        <TextButton
           title="Forgot your password?"
           onPress={forgotHandle}
         />
@@ -65,13 +65,13 @@ export default function Login({ navigation }) {
       <PrimaryButton
         title="Login"
         onPress={loginHandle}
-        style={styles.forgotButton}
+        style={styles.loginButton}
       />
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>
           Do not have an account?
         </Text>
-        <SecondaryButton
+        <TextButton
           title="Sign up"
           onPress={signupHandle}
         />
@@ -113,5 +113,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: 15,
     marginRight: 8,
+  },
+  loginButton: {
+    marginLeft: 271,
+    marginTop: 20,
   },
 });

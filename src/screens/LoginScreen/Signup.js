@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
-import SecondaryButton from '../../components/button/SecondaryButton';
+import TextButton from '../../components/button/TextButton';
 import { GLOBAL_STYLES } from '../../styles/Style';
 import Statusbar from '../../components/functional/Statusbar';
 import {
@@ -69,16 +69,13 @@ export default function Signup({ navigation }) {
       <PrimaryButton
         title="Register"
         onPress={registerHandle}
-        style={styles.forgotButton}
+        style={styles.registerButton}
       />
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>
           Already got an account?
         </Text>
-        <SecondaryButton
-          title="Login"
-          onPress={loginHandle}
-        />
+        <TextButton title="Login" onPress={loginHandle} />
       </View>
     </View>
   );
@@ -92,14 +89,14 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     marginTop: 20,
-    marginLeft: 70,
+    marginLeft: 90,
     flexDirection: 'row',
   },
   image: {
     marginBottom: 66,
-    marginLeft: 147,
-    height: 80,
-    width: 80,
+    marginLeft: 163,
+    height: 88,
+    width: 88,
   },
   textInput: {
     width: 350,
@@ -117,5 +114,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: 15,
     marginRight: 8,
+  },
+  registerButton: {
+    marginLeft: 255,
+    marginTop: 20,
   },
 });
