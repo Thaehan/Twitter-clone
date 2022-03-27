@@ -26,7 +26,7 @@ const SCREEN_WIDTH = 375;
 export default function Message() {
   const [message, setMessage] = useState('');
   return (
-    <>
+    <View>
       <View style={styles.header_bar_message}>
         <TouchableOpacity>
           <FontAwesomeIcon
@@ -104,7 +104,7 @@ export default function Message() {
           autoFocus
         />
       </View>
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({

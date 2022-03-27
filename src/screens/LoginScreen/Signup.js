@@ -87,7 +87,7 @@ export default function Signup({ navigation }) {
 const styles = StyleSheet.create({
   title: {
     marginLeft: 30,
-    fontWeight: 500,
+    fontWeight: '500',
     marginBottom: 20,
   },
   loginContainer: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   loginText: {
-    fontWeight: 400,
+    fontWeight: '400',
     marginLeft: 15,
     marginRight: 8,
   },

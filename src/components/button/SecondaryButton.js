@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     padding: 0,
-    fontWeight: 500,
+    fontWeight: '500',
     color: '#1da1f2',
   },
 });

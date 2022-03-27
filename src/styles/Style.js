@@ -19,13 +19,13 @@ const GLOBAL_STYLES = StyleSheet.create({
   username: {
     fontFamily: 'Open Sans',
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: '400',
     color: '#86939A',
   },
   text: {
     fontFamily: 'Open Sans',
     fontSize: 15,
-    fontWeight: 400,
+    fontWeight: '400',
   },
 });
 

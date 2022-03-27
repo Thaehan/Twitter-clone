@@ -13,7 +13,7 @@ export default function ListItemUser(props) {
   return (
     <View style={styles.Item_size}>
       <TouchableOpacity style={styles.avatar_frame}>
-        <Image
+        {/* <Image
           source={require('../../assets/' +
             avatar +
             '.png')}
@@ -24,7 +24,7 @@ export default function ListItemUser(props) {
             height: 50,
             borderRadius: 50 / 2,
           }}
-        />
+        /> */}
       </TouchableOpacity>
 
       <Text style={styles.User_name}>

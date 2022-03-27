@@ -45,7 +45,6 @@ const message = StyleSheet.create({
   bubble_received: {
     alignSelf: 'flex-start',
     textAlign: 'left',
-    alignContent: 'left',
     maxWidth: '60%',
     marginTop: 5,
     fontWeight: '500',

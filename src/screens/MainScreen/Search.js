@@ -37,6 +37,6 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     height: 300,
-    backgroundColor: '#00000',
+    backgroundColor: '#000000',
   },
 });
