@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import { HEADER_HEIGHT } from '../../styles/Style';
 
 //Nhưng Image button là những cái ảnh tròn có thể ấn vào
 //nhận vào style=(Căn chỉnh container) size= onPress= (size x size), source ảnh

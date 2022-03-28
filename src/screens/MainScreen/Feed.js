@@ -1,11 +1,25 @@
-import { View, Text, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 import TweetInFeed from '../../components/tweet/TweetInFeed';
-import { GLOBAL_STYLES } from '../../styles/Style';
+import {
+  CONTENT_SCREEN_HEIGHT,
+  GLOBAL_STYLES,
+  SCREEN_WIDTH,
+} from '../../styles/Style';
 import { tweets } from '../../mock';
+import CircleButton from '../../components/button/CircleButton';
+import { LOGIN } from '../../constants/ScreenName';
+import { StackActions } from '@react-navigation/native';
 
-export default function Feed() {
+const popAction = StackActions.pop(1);
+
+export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState(tweets);
 
   useEffect(() => {
@@ -13,8 +27,14 @@ export default function Feed() {
   }, []);
 
   return (
-    <View style={GLOBAL_STYLES.container}>
-      <ScrollView
+    <View style={styles.container}>
+      <CircleButton
+        icon="gear"
+        color="#ffffff"
+        size={30}
+        style={styles.circleButton}
+      />
+      {/* <ScrollView
         style={GLOBAL_STYLES.container}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -25,7 +45,22 @@ export default function Feed() {
           username={tweetList.username}
           text={tweetList.text}
         />
-      </ScrollView>
+      </ScrollView> */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: CONTENT_SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
+    backgroundColor: 'green',
+  },
+  circleButton: {
+    borderRadius: 50,
+    alignItems: 'center',
+    bottom: 20,
+    right: 20,
+    position: 'absolute',
+  },
+});

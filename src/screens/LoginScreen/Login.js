@@ -4,6 +4,7 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -11,7 +12,6 @@ import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import TextButton from '../../components/button/TextButton';
 import { GLOBAL_STYLES } from '../../styles/Style';
-import Statusbar from '../../components/functional/Statusbar';
 import { TAB, SIGN_UP } from '../../constants/ScreenName';
 
 export default function Login({ navigation }) {
@@ -37,7 +37,12 @@ export default function Login({ navigation }) {
 
   return (
     <View style={GLOBAL_STYLES.container}>
-      <Statusbar />
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        hidden={false}
+        barStyle="dark-content"
+      />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Login to Twitter</Text>
       <TextInput

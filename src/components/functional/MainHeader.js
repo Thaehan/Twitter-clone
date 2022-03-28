@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
 
@@ -14,18 +15,26 @@ import IconButton from '../button/IconButton';
 //Nhận vào nội dung nút ở giữa
 export default function Headerbar(props) {
   return (
-    <View style={styles.container}>
-      <ImageButton
-        source={logo}
-        size={38}
-        style={styles.leftContainer}
+    <View>
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        hidden={false}
+        barStyle="dark-content"
       />
+      <View style={styles.container}>
+        <ImageButton
+          source={logo}
+          size={30}
+          style={styles.leftContainer}
+        />
 
-      <IconButton
-        icon="gear"
-        size={30}
-        style={styles.rightContainer}
-      />
+        <IconButton
+          icon="gear"
+          size={30}
+          style={styles.rightContainer}
+        />
+      </View>
     </View>
   );
 }

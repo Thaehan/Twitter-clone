@@ -14,41 +14,78 @@ import {
   Notification,
   Search,
 } from '../screens';
-import { SCREEN_WIDTH } from '../styles/Style';
+import {
+  CONTENT_SCREEN_HEIGHT,
+  HEADER_HEIGHT,
+  NAVBAR_HEIGHT,
+  SCREEN_WIDTH,
+} from '../styles/Style';
 import MainHeader from '../components/functional/MainHeader';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          height: NAVBAR_HEIGHT,
+          width: SCREEN_WIDTH,
+        },
+      }}
+    >
       <Tab.Screen
         name={FEED}
         component={Feed}
-        options={{ headerTitle: (props) => <MainHeader /> }}
+        options={{
+          headerTitle: (props) => (
+            <MainHeader style={styles.headerContainer} />
+          ),
+          headerStyle: {
+            height: HEADER_HEIGHT,
+          },
+        }}
       />
       <Tab.Screen
         name={SEARCH}
         component={Search}
-        // options={{ headerTitle: (props) => <MainHeader /> }}
+        options={{
+          headerTitle: (props) => (
+            <MainHeader style={styles.headerContainer} />
+          ),
+          headerStyle: {
+            height: HEADER_HEIGHT,
+          },
+        }}
       />
       <Tab.Screen
         name={NOTIFICATION}
         component={Notification}
-        // options={{ headerTitle: (props) => <MainHeader /> }}
+        options={{
+          headerTitle: (props) => (
+            <MainHeader style={styles.headerContainer} />
+          ),
+          headerStyle: {
+            height: HEADER_HEIGHT,
+          },
+        }}
       />
       <Tab.Screen
         name={MESSAGE}
         component={Message}
-        // options={{ headerTitle: (props) => <MainHeader /> }}
+        options={{
+          headerTitle: (props) => (
+            <MainHeader style={styles.headerContainer} />
+          ),
+          headerStyle: {
+            height: HEADER_HEIGHT,
+          },
+        }}
       />
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    height: 44,
-    width: SCREEN_WIDTH,
-  },
+  tabBarStyle: {},
 });
