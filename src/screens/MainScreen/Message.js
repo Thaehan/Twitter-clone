@@ -156,13 +156,41 @@
 //   },
 // });
 
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
+
+import {
+  CONTENT_SCREEN_HEIGHT,
+  GLOBAL_STYLES,
+  SCREEN_WIDTH,
+} from '../../styles/Style';
+import CircleButton from '../../components/button/CircleButton';
 
 export default function Message({ navigation }) {
   return (
-    <View>
+    <View style={[styles.container, GLOBAL_STYLES]}>
       <Text>Message</Text>
+      <CircleButton
+        icon="plus"
+        color="#ffffff"
+        size={30}
+        style={styles.circleButton}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: CONTENT_SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
+    backgroundColor: 'cyan',
+  },
+  circleButton: {
+    borderRadius: 50,
+    alignItems: 'center',
+    bottom: 20,
+    right: 20,
+    position: 'absolute',
+  },
+});

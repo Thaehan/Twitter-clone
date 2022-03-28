@@ -15,9 +15,6 @@ import {
 import { tweets } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
 import { LOGIN } from '../../constants/ScreenName';
-import { StackActions } from '@react-navigation/native';
-
-const popAction = StackActions.pop(1);
 
 export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState(tweets);
@@ -27,15 +24,10 @@ export default function Feed({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <CircleButton
-        icon="gear"
-        color="#ffffff"
-        size={30}
-        style={styles.circleButton}
-      />
-      {/* <ScrollView
-        style={GLOBAL_STYLES.container}
+    <View
+      style={[GLOBAL_STYLES.container, styles.container]}
+    >
+      <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
@@ -45,7 +37,13 @@ export default function Feed({ navigation }) {
           username={tweetList.username}
           text={tweetList.text}
         />
-      </ScrollView> */}
+      </ScrollView>
+      <CircleButton
+        icon="plus"
+        color="#ffffff"
+        size={30}
+        style={styles.circleButton}
+      />
     </View>
   );
 }
@@ -54,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    backgroundColor: 'green',
+    backgroundColor: 'cyan',
   },
   circleButton: {
     borderRadius: 50,

@@ -9,8 +9,6 @@ const CONTENT_SCREEN_HEIGHT = 540;
 
 const GLOBAL_STYLES = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
     fontFamily: 'Open Sans',
     backgroundColor: 'white',
     fontSize: 16,

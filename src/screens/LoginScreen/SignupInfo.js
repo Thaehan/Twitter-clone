@@ -1,11 +1,21 @@
-import { View, Text, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
 import React from 'react';
 
-import { GLOBAL_STYLES } from '../../styles/Style';
+import {
+  GLOBAL_STYLES,
+  SCREEN_HEIGHT,
+} from '../../styles/Style';
 
 export default function SignupInfo({ navigation, route }) {
   return (
-    <View style={GLOBAL_STYLES.container}>
+    <View
+      style={[GLOBAL_STYLES.container, styles.container]}
+    >
       <StatusBar
         animated={true}
         backgroundColor="#ffffff"
@@ -18,3 +28,9 @@ export default function SignupInfo({ navigation, route }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: SCREEN_HEIGHT,
+  },
+});

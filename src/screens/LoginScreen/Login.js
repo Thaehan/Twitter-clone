@@ -11,7 +11,10 @@ import React, { useState } from 'react';
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import TextButton from '../../components/button/TextButton';
-import { GLOBAL_STYLES } from '../../styles/Style';
+import {
+  GLOBAL_STYLES,
+  SCREEN_HEIGHT,
+} from '../../styles/Style';
 import { TAB, SIGN_UP } from '../../constants/ScreenName';
 
 export default function Login({ navigation }) {
@@ -36,7 +39,9 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View style={GLOBAL_STYLES.container}>
+    <View
+      style={[GLOBAL_STYLES.container, styles.container]}
+    >
       <StatusBar
         animated={true}
         backgroundColor="#ffffff"
@@ -86,6 +91,9 @@ export default function Login({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: SCREEN_HEIGHT,
+  },
   title: {
     marginLeft: 30,
     fontWeight: '500',

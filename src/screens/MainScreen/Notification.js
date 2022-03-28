@@ -1,12 +1,19 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
+
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
 import ListItemUser from '../../components/Message/ListItemUser';
 import { GLOBAL_STYLES } from '../../styles/Style';
-import ButtonCreateMessage from '../../components/button/ButtonCreateMessage';
+import {
+  CONTENT_SCREEN_HEIGHT,
+  SCREEN_WIDTH,
+} from '../../styles/Style';
+
 export default function Notification() {
   return (
-    <View style={GLOBAL_STYLES.container}>
+    <View
+      style={[GLOBAL_STYLES.container, styles.container]}
+    >
       {/* <Text>Notification</Text> */}
       <ListItemMessageUser
         user_name="Nowano"
@@ -31,7 +38,21 @@ export default function Notification() {
         user_name="Trung Hieuuuuuuuuuuuu"
         user_email="@Nowanoooooooooooooooo"
       ></ListItemUser>
-      <ButtonCreateMessage></ButtonCreateMessage>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: CONTENT_SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
+    backgroundColor: 'cyan',
+  },
+  circleButton: {
+    borderRadius: 50,
+    alignItems: 'center',
+    bottom: 20,
+    right: 20,
+    position: 'absolute',
+  },
+});

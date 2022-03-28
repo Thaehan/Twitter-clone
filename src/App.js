@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import RootNavigator from './navigation/RootNavigator';
 //Nhận vào props: avatar, avatarPress, onPress, fullname, username, content
