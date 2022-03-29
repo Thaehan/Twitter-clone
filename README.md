@@ -18,9 +18,10 @@ yarn global add expo-cli
 yarn install
 ```
 
-- Install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for visual studio code and run React Native Package Manager:
+- Install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for visual studio code and run React Native Packager:
 
 ![image](https://user-images.githubusercontent.com/62579790/158026872-15c59358-3825-4e19-9efd-2c7c840387d4.png)
+
 ![image](https://user-images.githubusercontent.com/62579790/160571022-91e29744-ca89-4fef-9ec6-ff1f00bc6b62.png)
 - If you want to run the build on Android Emulator or SDK, follow this guide https://reactnative.dev/docs/environment-setup : 
 
