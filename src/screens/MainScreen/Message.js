@@ -171,6 +171,7 @@ export default function Message({ navigation }) {
     <View style={[styles.container, GLOBAL_STYLES]}>
       <Text>Message</Text>
       <CircleButton
+        type="font-awesome-5"
         icon="plus"
         color="#ffffff"
         size={30}

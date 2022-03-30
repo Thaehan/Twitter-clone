@@ -4,9 +4,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-// Nhận vào style cho container để căn chỉnh, icon để hiện, size
+import { Icon } from 'react-native-elements';
+// Nhận vào style cho container để căn chỉnh, icon để hiện, type của icon, size
 export default function CircleButton(props) {
   return (
     <View style={props.style}>
@@ -16,6 +15,7 @@ export default function CircleButton(props) {
       >
         <Icon
           name={props.icon}
+          type={props.type}
           size={props.size}
           color={props.color}
         />

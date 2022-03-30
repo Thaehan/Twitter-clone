@@ -39,6 +39,7 @@ export default function Search() {
         </View>
       </ScrollView>
       <CircleButton
+        type="font-awesome-5"
         icon="plus"
         color="#ffffff"
         size={30}

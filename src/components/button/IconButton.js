@@ -4,9 +4,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-// Nhận vào style cho container để căn chỉnh, icon để hiện, size
+import { Icon } from 'react-native-elements';
+// Nhận vào style cho container để căn chỉnh, type: loại icon, icon để hiện, size, color
 export default function IconButton(props) {
   return (
     <View style={props.style}>
@@ -14,7 +13,12 @@ export default function IconButton(props) {
         style={styles.container}
         onPress={props.onPress}
       >
-        <Icon name={props.icon} size={props.size} />
+        <Icon
+          color={props.color}
+          type={props.type}
+          name={props.icon}
+          size={props.size}
+        />
       </TouchableOpacity>
     </View>
   );

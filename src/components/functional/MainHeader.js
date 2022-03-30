@@ -30,6 +30,7 @@ export default function Headerbar(props) {
         />
 
         <IconButton
+          type="font-awesome"
           icon="gear"
           size={30}
           style={styles.rightContainer}

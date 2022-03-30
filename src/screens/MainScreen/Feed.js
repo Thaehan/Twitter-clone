@@ -14,7 +14,6 @@ import {
 } from '../../styles/Style';
 import { tweets } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
-import { LOGIN } from '../../constants/ScreenName';
 
 export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState(tweets);
@@ -40,6 +39,7 @@ export default function Feed({ navigation }) {
       </ScrollView>
       <CircleButton
         icon="plus"
+        type="font-awesome-5"
         color="#ffffff"
         size={30}
         style={styles.circleButton}
