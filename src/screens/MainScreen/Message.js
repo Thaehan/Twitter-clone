@@ -168,11 +168,13 @@ import CircleButton from '../../components/button/CircleButton';
 
 export default function Message({ navigation }) {
   return (
-    <View style={[styles.container, GLOBAL_STYLES]}>
+    <View
+      style={[GLOBAL_STYLES.container, styles.container]}
+    >
       <Text>Message</Text>
       <CircleButton
-        type="font-awesome-5"
-        icon="plus"
+        type="material-community"
+        icon="message-plus"
         color="#ffffff"
         size={30}
         style={styles.circleButton}
@@ -183,7 +185,8 @@ export default function Message({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: CONTENT_SCREEN_HEIGHT,
+    flex: 2,
+    // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
     backgroundColor: 'cyan',
   },

@@ -9,6 +9,7 @@ import React from 'react';
 import {
   GLOBAL_STYLES,
   SCREEN_HEIGHT,
+  SCREEN_WIDTH,
 } from '../../styles/Style';
 
 export default function SignupInfo({ navigation, route }) {
@@ -32,5 +33,6 @@ export default function SignupInfo({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
   },
 });

@@ -50,7 +50,8 @@ export default function Feed({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: CONTENT_SCREEN_HEIGHT,
+    flex: 2,
+    // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
     backgroundColor: 'cyan',
   },

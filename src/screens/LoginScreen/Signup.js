@@ -14,6 +14,7 @@ import TextButton from '../../components/button/TextButton';
 import {
   GLOBAL_STYLES,
   SCREEN_HEIGHT,
+  SCREEN_WIDTH,
 } from '../../styles/Style';
 import {
   LOGIN,
@@ -94,6 +95,7 @@ export default function Signup({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
   },
   title: {
     marginLeft: 30,

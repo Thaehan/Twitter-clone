@@ -6,7 +6,7 @@ import {
   StyleSheet,
   StatusBar,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
@@ -14,10 +14,13 @@ import TextButton from '../../components/button/TextButton';
 import {
   GLOBAL_STYLES,
   SCREEN_HEIGHT,
+  SCREEN_WIDTH,
 } from '../../styles/Style';
-import { TAB, SIGN_UP } from '../../constants/ScreenName';
+import { SIGN_UP } from '../../constants/ScreenName';
+import { LoginContext } from '../../context/LoginContext';
 
 export default function Login({ navigation }) {
+  const loginContext = useContext(LoginContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,7 +28,7 @@ export default function Login({ navigation }) {
     console.log(username, password);
     setUsername('');
     setPassword('');
-    navigation.navigate(TAB, {});
+    loginContext.loginHandle();
   };
 
   const forgotHandle = () => {
@@ -93,6 +96,7 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
   },
   title: {
     marginLeft: 30,

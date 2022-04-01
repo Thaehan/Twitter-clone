@@ -5,15 +5,18 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { SCREEN_WIDTH } from '../../styles/Style';
 import ImageButton from '../button/ImageButton';
 import { logo } from '../../constants/ImageAssets';
 import IconButton from '../button/IconButton';
+import { LoginContext } from '../../context/LoginContext';
 
 //Nhận vào nội dung nút ở giữa
 export default function Headerbar(props) {
+  const loginContext = useContext(LoginContext);
+
   return (
     <View>
       <StatusBar
@@ -34,6 +37,7 @@ export default function Headerbar(props) {
           icon="gear"
           size={30}
           style={styles.rightContainer}
+          onPress={loginContext.loginHandle}
         />
       </View>
     </View>

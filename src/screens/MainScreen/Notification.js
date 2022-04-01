@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { ScreenContainer } from 'react-native-screens';
 import React from 'react';
 
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
@@ -9,7 +10,7 @@ import {
   SCREEN_WIDTH,
 } from '../../styles/Style';
 
-export default function Notification() {
+export default function Notification({ navigation }) {
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -44,7 +45,8 @@ export default function Notification() {
 
 const styles = StyleSheet.create({
   container: {
-    height: CONTENT_SCREEN_HEIGHT,
+    flex: 2,
+    // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
     backgroundColor: 'cyan',
   },

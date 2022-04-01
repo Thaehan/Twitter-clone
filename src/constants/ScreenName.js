@@ -8,6 +8,10 @@ const SEARCH = 'Search';
 const NOTIFICATION = 'Notification';
 const FEED = 'Feed';
 const TAB = 'Tab';
+const MESSAGESTACK = 'MessageStack';
+const SEARCHSTACK = 'SearchStack';
+const NOTIFICATIONSTACK = 'NotificationStack';
+const FEEDSTACK = 'FeedStack';
 
 export {
   LOGIN,
@@ -18,4 +22,8 @@ export {
   NOTIFICATION,
   FEED,
   TAB,
+  MESSAGESTACK,
+  SEARCHSTACK,
+  NOTIFICATIONSTACK,
+  FEEDSTACK,
 };

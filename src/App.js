@@ -1,17 +1,16 @@
-import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useState } from 'react';
+import { LoginProvider } from './context/LoginContext';
 
 import RootNavigator from './navigation/RootNavigator';
-//Nhận vào props: avatar, avatarPress, onPress, fullname, username, content
 
 export default function App() {
-  return <RootNavigator />;
-  // return (
-  //   <Comment
-  //     avatar={logo}
-  //     fullname={'Dat Do'}
-  //     username={'Thaehan'}
-  //     content={'Bai nay hay qua'}
-  //   />
-  // );
+  return (
+    <LoginProvider>
+      <RootNavigator />
+    </LoginProvider>
+  );
 }

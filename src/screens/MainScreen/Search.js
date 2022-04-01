@@ -4,6 +4,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { ScreenContainer } from 'react-native-screens';
 import React from 'react';
 
 import {
@@ -13,7 +14,7 @@ import {
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 
-export default function Search() {
+export default function Search({ navigation }) {
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -51,8 +52,9 @@ export default function Search() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 2,
+    // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    height: CONTENT_SCREEN_HEIGHT,
     backgroundColor: 'cyan',
   },
   containerItem: {
