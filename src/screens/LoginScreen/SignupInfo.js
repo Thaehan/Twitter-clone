@@ -32,7 +32,8 @@ export default function SignupInfo({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: SCREEN_HEIGHT,
+    flex: 2,
+    // height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
   },
 });
