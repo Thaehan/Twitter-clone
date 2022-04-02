@@ -10,11 +10,13 @@ git@github.com:Thaehan/Twitter-clone.git
 Install the dependencies with npm
 ```sh
 npm install --global expo-cli
+expo install firebase
 npm install
 ```
 or with yarn
 ```sh
 yarn global add expo-cli
+expo install firebase
 yarn install
 ```
 
