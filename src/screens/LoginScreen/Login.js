@@ -59,7 +59,6 @@ export default function Login({ navigation }) {
         style={styles.textInput}
         placeholder="Username"
         placeholderTextColor="#BDBDBD"
-        autoFocus
       />
       <TextInput
         value={password}
