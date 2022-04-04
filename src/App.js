@@ -5,9 +5,8 @@ import {
   StyleSheet,
   Button,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { LoginProvider } from './context/LoginContext';
 import RootNavigator from './navigation/RootNavigator';
 import app, {
   db,
@@ -19,29 +18,54 @@ import app, {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  Provider,
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+import store from './redux/store';
+import { setUser } from './redux/userSlice';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Welcome" component={Welcome} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
+    // <Provider store={store}>
+    //   <NavigationContainer>
+    //     <Stack.Navigator>
+    //       <Stack.Screen name="Login" component={Login} />
+    //       <Stack.Screen
+    //         name="Welcome"
+    //         component={Welcome}
+    //       />
+    //     </Stack.Navigator>
+    //   </NavigationContainer>
+    // </Provider>
   );
 }
 
 function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const login = useSelector((state) => state.user);
 
   const loginHandle = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential.user);
-        navigation.navigate('Welcome', {});
+        const { email, accessToken, uid } =
+          userCredential.user;
+        dispatch(
+          setUser({
+            uid,
+            email,
+            accessToken,
+          })
+        );
+        // navigation.navigate('Welcome', {});
       })
       .catch((error) => {
         console.log(error.message);

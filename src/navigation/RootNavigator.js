@@ -7,33 +7,24 @@ import {
 import React, { useState, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector } from 'react-redux';
 
 import MainTabsNavigator from './MainTabsNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
-import { LoginContext } from '../context/LoginContext';
 
 const RootStack = createNativeStackNavigator();
 
 export default function RootNavigator() {
-  const loginContext = useContext(LoginContext);
+  const user = useSelector((state) => state.user);
 
   return (
     <NavigationContainer>
-      {loginContext.isLoggedIn ? (
-        <MainTabsNavigator />
-      ) : (
+      {user.isLoading ? (
         <AuthStackNavigator />
+      ) : (
+        <MainTabsNavigator />
       )}
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   <Button
-    //     title={
-    //       loginContext.isLoggedIn ? 'Logged in' : "I'm out"
-    //     }
-    //     color="black"
-    //     onPress={loginContext.loginHandle}
-    //   />
-    // </View>
   );
 }
 

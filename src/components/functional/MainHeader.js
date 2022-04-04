@@ -11,11 +11,15 @@ import { SCREEN_WIDTH } from '../../styles/Style';
 import ImageButton from '../button/ImageButton';
 import { logo } from '../../constants/ImageAssets';
 import IconButton from '../button/IconButton';
-import { LoginContext } from '../../context/LoginContext';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../../redux/userSlice';
 
 //Nhận vào nội dung nút ở giữa
 export default function Headerbar(props) {
-  const loginContext = useContext(LoginContext);
+  const dispatch = useDispatch();
+  const logoutHandle = () => {
+    dispatch(removeUser());
+  };
 
   return (
     <View>
@@ -37,7 +41,7 @@ export default function Headerbar(props) {
           icon="gear"
           size={30}
           style={styles.rightContainer}
-          onPress={loginContext.loginHandle}
+          onPress={logoutHandle}
         />
       </View>
     </View>

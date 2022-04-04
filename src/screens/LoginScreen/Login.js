@@ -7,6 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
@@ -17,18 +18,35 @@ import {
   SCREEN_WIDTH,
 } from '../../styles/Style';
 import { SIGN_UP } from '../../constants/ScreenName';
-import { LoginContext } from '../../context/LoginContext';
+import {
+  app,
+  db,
+  auth,
+  signInWithEmailAndPassword,
+} from '../../firebase';
+import { setUser } from '../../redux/userSlice';
 
 export default function Login({ navigation }) {
-  const loginContext = useContext(LoginContext);
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const loginHandle = () => {
-    console.log(username, password);
-    setUsername('');
-    setPassword('');
-    loginContext.loginHandle();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const { email, uid, accessToken } =
+          userCredential.user;
+        dispatch(
+          setUser({
+            email,
+            uid,
+            accessToken,
+          })
+        );
+      })
+      .catch((error) => {
+        alert('Email or password is wrong!');
+      });
   };
 
   const forgotHandle = () => {
@@ -36,7 +54,7 @@ export default function Login({ navigation }) {
   };
 
   const signupHandle = () => {
-    setUsername('');
+    setEmail('');
     setPassword('');
     navigation.navigate(SIGN_UP, {});
   };
@@ -54,10 +72,10 @@ export default function Login({ navigation }) {
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Login to Twitter</Text>
       <TextInput
-        value={username}
-        onChangeText={setUsername}
+        value={email}
+        onChangeText={setEmail}
         style={styles.textInput}
-        placeholder="Username"
+        placeholder="Email"
         placeholderTextColor="#BDBDBD"
       />
       <TextInput
