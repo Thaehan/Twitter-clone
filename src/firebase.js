@@ -6,9 +6,12 @@ import {
 } from 'firebase/auth';
 import {
   getFirestore,
+  doc,
+  setDoc,
   collection,
-  getDocs,
-} from 'firebase/firestore/lite';
+  addDoc,
+  Timestamp,
+} from 'firebase/firestore';
 
 const config = {
   apiKey: 'AIzaSyDZD0dNa5P0RrkliqTVSQALpBOfNfFZOtc',
@@ -29,6 +32,9 @@ export {
   auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  doc,
+  setDoc,
   collection,
-  getDocs,
+  addDoc,
+  Timestamp,
 };

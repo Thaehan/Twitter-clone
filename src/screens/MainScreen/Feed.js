@@ -3,9 +3,18 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  TextInput,
+  Button,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
+import {
+  db,
+  doc,
+  setDoc,
+  collection,
+  addDoc,
+} from '../../firebase';
 import TweetInFeed from '../../components/tweet/TweetInFeed';
 import {
   CONTENT_SCREEN_HEIGHT,
@@ -14,9 +23,25 @@ import {
 } from '../../styles/Style';
 import { tweets } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
+import TweetModel from '../../models/TweetModel';
 
 export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState(tweets);
+  const [creator, setCreator] = useState('');
+  const [text, setText] = useState('');
+
+  const buttonHandle = async () => {
+    const newTweetData = TweetModel(creator, text, '');
+    try {
+      const docRef = await addDoc(
+        collection(db, 'Tweets'),
+        newTweetData
+      );
+      alert('Created new doc ', docRef.id);
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   useEffect(() => {
     setTweetList(tweets);
@@ -33,10 +58,24 @@ export default function Feed({ navigation }) {
         <TweetInFeed
           avatar={tweetList.avatar}
           fullname={tweetList.fullname}
-          username={tweetList.username}
+          creatorname={tweetList.creatorname}
           text={tweetList.text}
         />
       </ScrollView>
+
+      {/* //Test firebase */}
+      <TextInput
+        value={creator}
+        onChangeText={setCreator}
+        style={styles.textInput}
+      />
+      <TextInput
+        value={text}
+        onChangeText={setText}
+        style={styles.textInput}
+      />
+      <Button title="Add doc" onPress={buttonHandle} />
+
       <CircleButton
         icon="plus"
         type="font-awesome-5"
@@ -61,5 +100,10 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     position: 'absolute',
+  },
+  textInput: {
+    backgroundColor: 'white',
+    height: 50,
+    borderWidth: 1,
   },
 });
