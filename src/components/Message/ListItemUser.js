@@ -7,24 +7,27 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const SCREEN_WIDTH = 375;
+import {
+  CONTENT_SCREEN_HEIGHT,
+  GLOBAL_STYLES,
+  SCREEN_WIDTH,
+} from '../../styles/Style';
+import ImageButton from '../button/ImageButton';
 export default function ListItemUser(props) {
-  var avatar = props.avatar;
+  //var avatar = require(`../../assets/${props.avatar}.png`);
   return (
     <View style={styles.Item_size}>
       <TouchableOpacity style={styles.avatar_frame}>
-        {/* <Image
-          source={require('../../assets/' +
-            avatar +
-            '.png')}
+        <ImageButton
+          source={props.avatar}
+          size={55}
           style={{
-            left: 0,
-            top: 0,
-            width: 50,
-            height: 50,
-            borderRadius: 50 / 2,
+            left: 11,
+            top: 16,
+            width: 55,
+            height: 55,
           }}
-        /> */}
+        />
       </TouchableOpacity>
 
       <Text style={styles.User_name}>

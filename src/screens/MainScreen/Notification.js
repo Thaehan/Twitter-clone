@@ -9,7 +9,10 @@ import {
   CONTENT_SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '../../styles/Style';
-
+import {
+  logo,
+  no_avatar,
+} from '../../constants/ImageAssets';
 export default function Notification({ navigation }) {
   return (
     <View
@@ -20,9 +23,9 @@ export default function Notification({ navigation }) {
         user_name="Nowano"
         user_email="_@hie"
         content="Toi co the buscu anh duoc khong? Hay de cho toi bu anh mot cai de giang hoa di nao!"
-        avatar="logo"
+        avatar={no_avatar}
       ></ListItemMessageUser>
-      <ListItemMessageUser
+      {/* <ListItemMessageUser
         user_name="Thaehan"
         user_email="_@datdo"
         content="Duoc thoi"
@@ -38,7 +41,7 @@ export default function Notification({ navigation }) {
         avatar="no-avatar"
         user_name="Trung Hieuuuuuuuuuuuu"
         user_email="@Nowanoooooooooooooooo"
-      ></ListItemUser>
+      ></ListItemUser> */}
     </View>
   );
 }

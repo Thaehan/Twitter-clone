@@ -1,3 +1,3 @@
 import logo from '../assets/logo.png';
-
-export { logo };
+import no_avatar from '../assets/no-avatar.png';
+export { logo, no_avatar };

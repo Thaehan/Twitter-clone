@@ -16,13 +16,36 @@ import {
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 import TextInputMessage from '../../components/Message/TextInputMessage';
+import moment from 'moment';
+
 export default function Message({ navigation }) {
-  const [message, setMessage] = useState('');
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <Text>Message</Text>
+      <View style={styles.conversation}>
+        <Bubble_Send
+          date={moment().format('llll')}
+          content="Anh ban a..."
+        />
+        <Bubble_Send
+          date={moment().format('llll')}
+          content="Toi co the.....Ban dang lam gi vay"
+        />
+        <Bubble_Received
+          date={moment().format('llll')}
+          content="Chao ban too"
+        />
+        <Bubble_Received
+          date={moment().format('llll')}
+          content="Minh dang rush deadline"
+        />
+        <Bubble_Received
+          date={moment().format('llll')}
+          content="Lam cung minh khong? Minh tra tien voi hom nao do bao di an"
+        />
+      </View>
+      <TextInputMessage />
       <CircleButton
         type="material-community"
         icon="message-plus"
@@ -30,14 +53,6 @@ export default function Message({ navigation }) {
         size={30}
         style={styles.circleButton}
       />
-      <View style={styles.conversation}>
-        <Bubble_Send content="tin nhan da gui 1" />
-        <Bubble_Send content="tin nhan da gui 2" />
-        <Bubble_Received content="tin nhan da nhan 1" />
-        <Bubble_Received content="tin nhan da nhan 2" />
-        <Bubble_Received content="tin nhan da nhan dai dai dai dai dai dai vai vai vai vai" />
-      </View>
-      <TextInputMessage />
     </View>
   );
 }
@@ -52,7 +67,7 @@ const styles = StyleSheet.create({
   circleButton: {
     borderRadius: 50,
     alignItems: 'center',
-    bottom: 20,
+    bottom: 60,
     right: 20,
     position: 'absolute',
   },
@@ -76,7 +91,7 @@ const styles = StyleSheet.create({
   conversation: {
     //vung chua cac tin nhan
     width: SCREEN_WIDTH,
-    height: CONTENT_SCREEN_HEIGHT - 100,
+    height: CONTENT_SCREEN_HEIGHT - 60,
     fontFamily: 'Open Sans',
     backgroundColor: 'white',
     fontSize: 16,
