@@ -16,16 +16,23 @@ export default function Comment(props) {
       />
       <View style={styles.leftContainer}>
         <View style={styles.userContainer}>
-          <Text style={GLOBAL_STYLES.fullname}>
+          <Text style={[GLOBAL_STYLES.fullname]}>
             {props.fullname}
           </Text>
-          <Text style={GLOBAL_STYLES.username}>
+          <Text
+            style={[
+              GLOBAL_STYLES.username,
+              styles.username,
+            ]}
+          >
             {props.username}
           </Text>
         </View>
-        <Text style={GLOBAL_STYLES.text}>
-          {props.content}
-        </Text>
+        <View style={styles.contentContainer}>
+          <Text style={GLOBAL_STYLES.text}>
+            {props.content}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -33,6 +40,7 @@ export default function Comment(props) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
     width: 414,
     backgroundColor: '#ffffff',
@@ -43,8 +51,21 @@ const styles = StyleSheet.create({
   },
   leftContainer: {
     width: 324,
+    height: 40,
   },
   userContainer: {
+    flex: 1,
     flexDirection: 'row',
+    marginLeft: 10,
+    marginTop: 5,
+    height: 40,
+  },
+  username: {
+    marginLeft: 7,
+  },
+  contentContainer: {
+    flex: 2,
+    marginLeft: 10,
+    marginTop: 15,
   },
 });
