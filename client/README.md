@@ -1,13 +1,12 @@
-# Twitter-clone
+# Client of Twitter-clone
 A Twitter clone app made for a course project.
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ## Installation
 Clone this repository.
 ```sh
 git@github.com:Thaehan/Twitter-clone.git
 ```
-Install the dependencies with npm
+Install the dependencies inside the client folder with npm
 ```sh
 npm install --global expo-cli
 expo install firebase
@@ -20,7 +19,7 @@ expo install firebase
 yarn install
 ```
 
-- Install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for visual studio code and run React Native Packager:
+- Install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for Visual Studio Code and run React Native Packager:
 
 ![image](https://user-images.githubusercontent.com/62579790/158026872-15c59358-3825-4e19-9efd-2c7c840387d4.png)
 
@@ -38,15 +37,7 @@ This project uses a number of open source projects to work properly:
 - [React] - React
 - [VSCode] - IDE
 
-## Demo
-![Login-Signup](https://user-images.githubusercontent.com/62579790/161212117-6b73d2c6-1d3d-4b7d-93e9-af5f5c4f38a5.gif)
-
-![Signup](https://user-images.githubusercontent.com/62579790/161212101-5c793f13-bdc6-4e83-85a8-2d7d0bfc3b0c.gif)
-
-![Main](https://user-images.githubusercontent.com/62579790/161212112-7f648e6b-b5bf-481c-9483-94f97ab3891c.gif)
 
 
-## The team
-- Đỗ Văn Đạt
-- Nguyễn Trung Hiếu
-- Mai Công Danh
+
+
