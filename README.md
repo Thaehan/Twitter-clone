@@ -8,7 +8,9 @@ Clone this repository.
 git@github.com:Thaehan/Twitter-clone.git
 ```
 Go to each folder and follow the instruction there
+
 [Instruction for running the android client](https://github.com/Thaehan/Twitter-clone/tree/master/client#readme/)
+
 [Instruction for running the backend server](https://github.com/Thaehan/Twitter-clone/tree/master/server#readme/)
 
 
