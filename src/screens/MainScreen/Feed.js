@@ -15,7 +15,7 @@ import {
   collection,
   addDoc,
 } from '../../firebase';
-import TweetInFeed from '../../components/tweet/TweetInFeed';
+import Tweet from '../../components/tweet/Tweet';
 import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
@@ -55,11 +55,14 @@ export default function Feed({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <TweetInFeed
-          avatar={tweetList.avatar}
-          fullname={tweetList.fullname}
-          creatorname={tweetList.creatorname}
-          text={tweetList.text}
+        <Tweet
+          userPosted={tweetList.userPosted}
+          textContent={tweetList.textContent}
+          mediaContent={tweetList.mediaContent}
+          dateCreated={tweetList.dateCreated}
+          referedPostId={tweetList.referedPostId}
+          userMentioned={tweetList.userMentioned}
+
         />
       </ScrollView>
 
