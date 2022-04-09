@@ -9,23 +9,23 @@ const CONTENT_SCREEN_HEIGHT = 540;
 
 const GLOBAL_STYLES = StyleSheet.create({
   container: {
-    fontFamily: 'Open Sans',
+    fontFamily: 'sans-serif',
     backgroundColor: 'white',
     fontSize: 16,
   },
   fullname: {
-    fontFamily: 'Open Sans',
+    fontFamily: 'sans-serif',
     fontSize: 15,
     fontWeight: 'bold',
   },
   username: {
-    fontFamily: 'Open Sans',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     fontWeight: '400',
     color: '#86939A',
   },
   text: {
-    fontFamily: 'Open Sans',
+    fontFamily: 'sans-serif',
     fontSize: 15,
     fontWeight: '400',
   },

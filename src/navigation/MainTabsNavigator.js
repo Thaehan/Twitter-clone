@@ -39,6 +39,7 @@ export default function MainTabsNavigator() {
       screenOptions={{
         tabBarStyle: styles.tabBarStyle,
         headerShown: false,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <MainTabs.Screen
