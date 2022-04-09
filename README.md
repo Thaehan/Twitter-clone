@@ -7,12 +7,27 @@ Clone this repository.
 ```sh
 git@github.com:Thaehan/Twitter-clone.git
 ```
-Go to each folder and follow the instruction there
+Install the dependencies with npm
+```sh
+npm install --global expo-cli
+expo install firebase
+npm install
+```
+or with yarn
+```sh
+yarn global add expo-cli
+expo install firebase
+yarn install
+```
 
-[Instruction for running the android client](https://github.com/Thaehan/Twitter-clone/tree/master/client#readme/)
+- Install [React Native Tools](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native) for visual studio code and run React Native Packager:
 
-[Instruction for running the backend server](https://github.com/Thaehan/Twitter-clone/tree/master/server#readme/)
+![image](https://user-images.githubusercontent.com/62579790/158026872-15c59358-3825-4e19-9efd-2c7c840387d4.png)
 
+![image](https://user-images.githubusercontent.com/62579790/160571022-91e29744-ca89-4fef-9ec6-ff1f00bc6b62.png)
+- If you want to run the build on Android Emulator or SDK, follow this guide https://reactnative.dev/docs/environment-setup : 
+
+![image](https://user-images.githubusercontent.com/62579790/160571780-1654720b-2a98-45c4-805b-0015fbcf038f.png)
 
 
 
@@ -20,11 +35,10 @@ Go to each folder and follow the instruction there
 
 This project uses a number of open source projects to work properly:
 
-- [React Native] - Frontend for mobile development
-- [Mongoose] - For backend stuffs
+- [React] - React
 - [VSCode] - IDE
 
-## Current demo
+## Demo
 ![Login-Signup](https://user-images.githubusercontent.com/62579790/161212117-6b73d2c6-1d3d-4b7d-93e9-af5f5c4f38a5.gif)
 
 ![Signup](https://user-images.githubusercontent.com/62579790/161212101-5c793f13-bdc6-4e83-85a8-2d7d0bfc3b0c.gif)
