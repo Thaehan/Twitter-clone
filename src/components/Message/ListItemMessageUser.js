@@ -7,28 +7,25 @@ import {
   StyleSheet,
 } from 'react-native';
 import moment from 'moment';
-import {
-  CONTENT_SCREEN_HEIGHT,
-  GLOBAL_STYLES,
-  SCREEN_WIDTH,
-} from '../../styles/Style';
-import ImageButton from '../button/ImageButton';
-
+const SCREEN_WIDTH = 375;
 export default function ListItemMessageUser(props) {
+  var avatar = props.avatar;
   var now = moment().format('DD/MM/YYYY');
   return (
     <View style={styles.Item_size}>
       <TouchableOpacity style={styles.avatar_frame}>
-        <ImageButton
-          source={props.avatar}
-          size={55}
+        {/* <Image
+          source={require('../../assets/' +
+            avatar +
+            '.png')}
           style={{
-            left: 11,
-            top: 16,
-            width: 55,
-            height: 55,
+            left: 10,
+            top: 15,
+            width: 50,
+            height: 50,
+            borderRadius: 50 / 2,
           }}
-        />
+        /> */}
       </TouchableOpacity>
       <TouchableOpacity style={styles.content}>
         <Text
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 70,
     top: 0,
-    width: SCREEN_WIDTH - 70,
+    width: 305,
     height: 80,
     backgroundColor: '#ffffff',
   },
@@ -91,7 +88,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 134,
     top: 14,
-    width: SCREEN_WIDTH - 57,
+    width: 318,
     height: 20,
     backgroundColor: '#ffffff',
   },
@@ -106,7 +103,7 @@ const styles = StyleSheet.create({
   },
   DateTime: {
     position: 'absolute',
-    right: 5,
+    left: 300,
     top: 12,
     width: 80,
     height: 22,

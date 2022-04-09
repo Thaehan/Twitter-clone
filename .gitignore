@@ -1,6 +1,3 @@
-android/
-/android/
-/android
 node_modules/
 .expo/
 dist/
@@ -78,4 +75,3 @@ dist/
 # @end expo-cli
 *.lock
 package-lock.json
-

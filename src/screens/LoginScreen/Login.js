@@ -18,6 +18,12 @@ import {
   SCREEN_WIDTH,
 } from '../../styles/Style';
 import { SIGN_UP } from '../../constants/ScreenName';
+import {
+  app,
+  db,
+  auth,
+  signInWithEmailAndPassword,
+} from '../../firebase';
 import { setUser } from '../../redux/userSlice';
 
 export default function Login({ navigation }) {
@@ -26,13 +32,21 @@ export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
   const loginHandle = () => {
-    dispatch(
-      setUser({
-        email: 'thaehan',
-        uid: 'temp',
-        accessToken: 'temp',
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const { email, uid, accessToken } =
+          userCredential.user;
+        dispatch(
+          setUser({
+            email,
+            uid,
+            accessToken,
+          })
+        );
       })
-    );
+      .catch((error) => {
+        alert('Email or password is wrong!');
+      });
   };
 
   const forgotHandle = () => {
