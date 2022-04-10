@@ -15,18 +15,18 @@ const GLOBAL_STYLES = StyleSheet.create({
   },
   fullname: {
     fontFamily: 'sans-serif',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   username: {
     fontFamily: 'sans-serif',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '400',
     color: '#86939A',
   },
   text: {
     fontFamily: 'sans-serif',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '400',
   },
 });

@@ -21,12 +21,12 @@ import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
 } from '../../styles/Style';
-import { tweets } from '../../mock';
+import { tweetsList } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
 import TweetModel from '../../models/TweetModel';
 
 export default function Feed({ navigation }) {
-  const [tweetList, setTweetList] = useState(tweets);
+  const [tweetList, setTweetList] = useState([]);
   const [creator, setCreator] = useState('');
   const [text, setText] = useState('');
 
@@ -44,7 +44,7 @@ export default function Feed({ navigation }) {
   };
 
   useEffect(() => {
-    setTweetList(tweets);
+    setTweetList(tweetsList);
   }, []);
 
   return (
@@ -55,19 +55,24 @@ export default function Feed({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <Tweet
-          userPosted={tweetList.userPosted}
-          textContent={tweetList.textContent}
-          mediaContent={tweetList.mediaContent}
-          dateCreated={tweetList.dateCreated}
-          referedPostId={tweetList.referedPostId}
-          userMentioned={tweetList.userMentioned}
+        {
+          tweetList.map(tweet =>
+            <Tweet
+              key={tweet.tweetId}
+              userPosted={tweet.userPosted}
+              textContent={tweet.textContent}
+              mediaContent={tweet.mediaContent}
+              dateCreated={tweet.dateCreated}
+              referedPostId={tweet.referedPostId}
+              userMentioned={tweet.userMentioned}
+            />
+          )
+        }
 
-        />
       </ScrollView>
 
       {/* //Test firebase */}
-      <TextInput
+      {/* <TextInput
         value={creator}
         onChangeText={setCreator}
         style={styles.textInput}
@@ -77,7 +82,7 @@ export default function Feed({ navigation }) {
         onChangeText={setText}
         style={styles.textInput}
       />
-      <Button title="Add doc" onPress={buttonHandle} />
+      <Button title="Add doc" onPress={buttonHandle} /> */}
 
       <CircleButton
         icon="plus"
