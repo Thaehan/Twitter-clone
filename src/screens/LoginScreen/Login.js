@@ -6,8 +6,9 @@ import {
   StyleSheet,
   StatusBar,
 } from 'react-native';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
@@ -18,12 +19,7 @@ import {
   SCREEN_WIDTH,
 } from '../../styles/Style';
 import { SIGN_UP } from '../../constants/ScreenName';
-import {
-  app,
-  db,
-  auth,
-  signInWithEmailAndPassword,
-} from '../../firebase';
+import { auth } from '../../firebase';
 import { setUser } from '../../redux/userSlice';
 
 export default function Login({ navigation }) {

@@ -7,6 +7,8 @@ import {
   Button,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import { ref } from 'firebase/storage';
 
 import {
   db,
@@ -17,7 +19,6 @@ import {
 } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
 import {
-  CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
   SCREEN_WIDTH,
 } from '../../styles/Style';

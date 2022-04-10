@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Timestamp } from '../firebase';
+import { Timestamp } from 'firebase/firestore';
 
 function TweetModel(creator, text, image) {
   const newTweet = {
