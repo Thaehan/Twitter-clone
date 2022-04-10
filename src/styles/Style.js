@@ -6,6 +6,9 @@ const SCREEN_WIDTH = 414;
 const HEADER_HEIGHT = 55;
 const NAVBAR_HEIGHT = 65;
 const CONTENT_SCREEN_HEIGHT = 540;
+const LIKED_COLOR = "#CE395F";
+const RETWEET_COLOR = "#19cf86";
+const DEFAULT_COLOR = "#687684";
 
 const GLOBAL_STYLES = StyleSheet.create({
   container: {
@@ -15,18 +18,18 @@ const GLOBAL_STYLES = StyleSheet.create({
   },
   fullname: {
     fontFamily: 'sans-serif',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   username: {
     fontFamily: 'sans-serif',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '400',
     color: '#86939A',
   },
   text: {
     fontFamily: 'sans-serif',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '400',
   },
 });
@@ -38,4 +41,7 @@ export {
   CONTENT_SCREEN_HEIGHT,
   NAVBAR_HEIGHT,
   HEADER_HEIGHT,
+  LIKED_COLOR,
+  DEFAULT_COLOR,
+  RETWEET_COLOR
 };
