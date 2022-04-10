@@ -9,31 +9,27 @@ import {
 import React from 'react';
 import tweetMockData from "../../mockData/tweet.json";
 
-import { GLOBAL_STYLES } from '../../styles/Style';
+import { GLOBAL_STYLES, LIKED_COLOR, RETWEET_COLOR, DEFAULT_COLOR } from '../../styles/Style';
 import IconButton from '../button/IconButton';
 import AvatarButton from '../button/AvatarButton';
 //Mock data for find user
-import { thaehan, userDatabase } from "../../mock";
+import { userDatabase } from "../../mock";
 import { useState, useEffect } from 'react';
-const renderItem = (item) => {
-  return <Image source={item.source} />;
-};
 
-const renderIcon = (name, icon, onPress) => {
-  return (
-    <IconButton
-    />)
-}
 const onFeed = true;
+
 export default function Tweet(props) {
   const [userPosted, setUserPosted] = useState({})
   const [likes, setLikes] = useState(0)
   const [comments, setComments] = useState(0)
   const [retweets, setRetweets] = useState(0)
 
+  const [tweetRetweeted, setTweetRetweeted] = useState(false)
+  const [tweetLiked, setTweetLiked] = useState(false)
+
+
   const findUser = (id) => {
     var result = userDatabase.filter(user => {
-      console.log(user.userId + " " + id)
       return user.userId == id
     })
     setUserPosted(result[0]);
@@ -41,9 +37,12 @@ export default function Tweet(props) {
   }
 
   const retweetTweet = () => {
-
+    setTweetRetweeted(!tweetRetweeted)
+    setRetweets(tweetRetweeted ? 0 : 1)
   }
   const likeTweet = () => {
+    setTweetLiked(!tweetLiked)
+    setLikes(tweetLiked ? 0 : 1)
 
   }
   const commentTweet = () => {
@@ -66,11 +65,11 @@ export default function Tweet(props) {
             {userPosted.username}
           </Text>
           <Text style={[GLOBAL_STYLES.username]}>
-            {onFeed ? " . " : "\n"} {userPosted.handle}      {"\n"}
+            {" "} {userPosted.handle} {" . 1d"}      {"\n"}
           </Text>
         </View>
 
-        <Text style={[GLOBAL_STYLES.text, onFeed ? styles.inFeedStyle : styles.detailedStyle]}>
+        <Text style={[GLOBAL_STYLES.text, styles.inFeedStyle]}>
           {props.textContent}
         </Text>
 
@@ -86,56 +85,41 @@ export default function Tweet(props) {
           <View style={styles.buttonWithCount}>
             <IconButton
               icon="comment"
-              onPress={commentTweet()}
+              onPress={() => commentTweet()}
             />
             <Text>
               {comments}
             </Text>
           </View>
-          {/* retweeted */
-            false ?
-              <View style={styles.buttonWithCount}>
-                <IconButton
-                  icon="autorenew"
-                  onPress={retweetTweet()}
-                />
-                <Text>
-                  {retweets}
-                </Text>
-              </View>
-              : <View style={styles.buttonWithCount}>
-                <IconButton
-                  icon="autorenew"
-                  onPress={retweetTweet()}
-                />
-                <Text>
-                  {retweets}
-                </Text>
-              </View>}
+          {/* retweet */
+            <View style={styles.buttonWithCount}>
+              <IconButton
+                icon="autorenew"
+                onPress={() => retweetTweet()}
+                color={tweetRetweeted ? RETWEET_COLOR : DEFAULT_COLOR}
+              />
+              <Text style={tweetRetweeted ? styles.retweetedColor : styles.defaultColor}>
+                {retweets}
+              </Text>
+            </View>
+          }
           {/* liked */
-            false ?
-              <View style={styles.buttonWithCount}>
-                <IconButton
-                  icon="favorite-border"
-                  onPress={likeTweet()}
-                />
-                <Text>
-                  {likes}
-                </Text>
-              </View>
-              : <View style={styles.buttonWithCount}>
-                <IconButton
-                  icon="favorite-border"
-                  onPress={likeTweet()}
-                />
-                <Text>
-                  {likes}
-                </Text>
-              </View>}
+            <View style={styles.buttonWithCount}>
+              <IconButton
+                icon="favorite-border"
+                onPress={() => likeTweet()}
+                color={tweetLiked ? LIKED_COLOR : DEFAULT_COLOR}
+              />
+              <Text style={tweetLiked ? styles.likedColor : styles.defaultColor}>
+                {likes}
+              </Text>
+            </View>
+          }
 
           <IconButton
             icon="share"
             onPress={shareTweet()}
+            color={DEFAULT_COLOR}
           />
         </View>
       </View>
@@ -152,7 +136,9 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    borderBottomColor: '#86939A',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   userInfo: {
     flexDirection: "row",
@@ -166,26 +152,27 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     flex: 1
   },
-  buttonWithCount: {
-    flexDirection: "row",
-    paddingLeft: 5
+  retweetedColor: {
+    color: RETWEET_COLOR
   },
-  inFeedStyle: {
-    paddingLeft: 0,
-  },
-  detailedStyle: {
-    paddingLeft: 0,
+  likedColor: {
+    color: LIKED_COLOR
 
   },
-  avatar: {
-    height: 65,
-    width: 65,
+  defaultColor: {
+    color: DEFAULT_COLOR
+
+  },
+  buttonWithCount: {
+    flexDirection: "row",
+    alignItems: "center",
+
   },
   interactionBar: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
-    width: "80%",
+    justifyContent: "space-between",
+    width: "90%",
     marginTop: 15
   }
 });

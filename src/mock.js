@@ -40,7 +40,7 @@ const tweetsList = [
   {
     "tweetId": "2",
     "userPosted": "2",
-    "textContent": "Any body show me a good nft place?",
+    "textContent": "Any body show me a good nft place? Would like to buy some right now ;). ",
     "mediaContent": "assets/black",
     "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
     "referedPostId": "",
@@ -54,7 +54,17 @@ const tweetsList = [
     "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
     "referedPostId": "",
     "userMentioned": []
-  }
+  },
+  {
+    "tweetId": "4",
+    "userPosted": "4",
+    "textContent": "So which is the best on the market now? 3090? And then just list down from there. As I have understood (although I might be wrong) there are 20- series that are better than the 30 series? And then you have the TI ending? So from top to bottom from 30 and 20 generation how do you rank them?",
+    "mediaContent": "assets/black",
+    "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
+    "referedPostId": "",
+    "userMentioned": []
+  },
+
 ]
 const userDatabase = [
   {
@@ -97,9 +107,44 @@ const userDatabase = [
     following: [],
     liked: [],
   },
+  {
+    userId: "4",
+    username: "Nowano",
+    handle: "noweno",
+    avatar: avatar4,
+    banner: banner3,
+    bio: "Very sike",
+    following: [],
+    liked: [],
+  },
 ]
 
-
+const NotificationList = [
+  {
+    notificationId: "0",
+    fromUser: "0",
+    textContent: "User 0 liked your post",
+    hyperlink: "",
+  },
+  {
+    notificationId: "1",
+    fromUser: "1",
+    textContent: "User 1 comment on your post",
+    hyperlink: "",
+  },
+  {
+    notificationId: "2",
+    fromUser: "2",
+    textContent: "",
+    hyperlink: "",
+  },
+  {
+    notificationId: "3",
+    fromUser: "3",
+    textContent: "",
+    hyperlink: "",
+  }
+]
 
 const thaehan = {
   username: "Nick Ao Do Ven Dat",
@@ -109,4 +154,4 @@ const thaehan = {
   userId: "1"
 }
 
-export { tweets, thaehan, tweetsList, userDatabase };
+export { tweets, thaehan, tweetsList, userDatabase, NotificationList };
