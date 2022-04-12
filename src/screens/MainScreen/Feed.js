@@ -7,8 +7,6 @@ import {
   Button,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import { ref } from 'firebase/storage';
 
 import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
@@ -24,19 +22,6 @@ export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState([]);
   const [creator, setCreator] = useState('');
   const [text, setText] = useState('');
-
-  const buttonHandle = async () => {
-    const newTweetData = TweetModel(creator, text, '');
-    try {
-      const docRef = await addDoc(
-        collection(db, 'Tweets'),
-        newTweetData
-      );
-      alert('Created new doc ', docRef.id);
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   useEffect(() => {
     setTweetList(tweetsList);
@@ -62,19 +47,6 @@ export default function Feed({ navigation }) {
           />
         ))}
       </ScrollView>
-
-      {/* //Test firebase */}
-      {/* <TextInput
-        value={creator}
-        onChangeText={setCreator}
-        style={styles.textInput}
-      />
-      <TextInput
-        value={text}
-        onChangeText={setText}
-        style={styles.textInput}
-      />
-      <Button title="Add doc" onPress={buttonHandle} /> */}
 
       <CircleButton
         icon="plus"

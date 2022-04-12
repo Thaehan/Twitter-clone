@@ -1,14 +1,23 @@
 import moment from 'moment';
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore/lite';
 
-function TweetModel(creator, text, image) {
+function TweetModel(
+  userPosted,
+  textContent = '',
+  mediaContent = '',
+  userMentioned = [],
+  referedPostId = null
+) {
   const newTweet = {
-    creator,
-    text: text,
-    image: image,
-    likes: [],
-    comments: [],
-    timeStamp: Timestamp.fromDate(moment().toDate()),
+    userPosted, //userId
+    textContent,
+    mediaContent,
+    userMentioned, //Array[userId]
+    userRetweeted: [], //Array[userId]
+    referedPostId, //tweetId
+    userLiked: [], //userId
+    comments: [], //commentId
+    dateCreated: Timestamp.fromDate(moment().toDate()),
   };
 
   return newTweet;

@@ -13,13 +13,18 @@ import {
   CONTENT_SCREEN_HEIGHT,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
+import TestImage from '../TestImage';
+import TestDoc from '../TestDoc';
 
 export default function Search({ navigation }) {
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <ScrollView
+      <TestImage />
+      <TestDoc />
+
+      {/* <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
@@ -45,7 +50,7 @@ export default function Search({ navigation }) {
         color="#ffffff"
         size={30}
         style={styles.circleButton}
-      />
+      /> */}
     </View>
   );
 }
