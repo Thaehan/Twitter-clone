@@ -5,7 +5,7 @@ import Message from './MainScreen/Message';
 import Feed from './MainScreen/Feed';
 import Search from './MainScreen/Search';
 import Notification from './MainScreen/Notification';
-
+import Conversation from './Conversation';
 export {
   Login,
   Signup,
@@ -14,4 +14,5 @@ export {
   Feed,
   Search,
   Notification,
+  Conversation,
 };

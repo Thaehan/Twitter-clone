@@ -7,104 +7,117 @@ import {
   StyleSheet,
 } from 'react-native';
 import moment from 'moment';
-const SCREEN_WIDTH = 375;
+import {
+  CONTENT_SCREEN_HEIGHT,
+  GLOBAL_STYLES,
+  SCREEN_WIDTH,
+} from '../../styles/Style';
+import ImageButton from '../button/ImageButton';
+import AvatarButton from '../button/AvatarButton';
+import { userDatabase } from '../../mock';
+import { useState, useEffect } from 'react';
+
 export default function ListItemMessageUser(props) {
-  var avatar = props.avatar;
   var now = moment().format('DD/MM/YYYY');
+  const [User, setUser] = useState({});
+  const findUser = (id) => {
+    var result = userDatabase.filter((user) => {
+      return user.userId == id;
+    });
+    setUser(result[0]);
+  };
+  useEffect(() => {
+    findUser(props.User);
+  }, []);
+
   return (
-    <View style={styles.Item_size}>
-      <TouchableOpacity style={styles.avatar_frame}>
-        {/* <Image
-          source={require('../../assets/' +
-            avatar +
-            '.png')}
+    <TouchableOpacity style={styles.Item_size}>
+      <View style={styles.avatar_frame}>
+        {/* <AvatarButton
+          source={User.avatar}
+          size={55}
           style={{
-            left: 10,
-            top: 15,
-            width: 50,
-            height: 50,
-            borderRadius: 50 / 2,
+            left: 11,
+            top: 16,
+            width: 55,
+            height: 55,
+            backgroundColor: '#ffffff',
           }}
         /> */}
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.content}>
-        <Text
-          style={{
-            position: 'absolute',
-            left: 12,
-            top: 14,
-            height: 20,
-            fontWeight: 'bold',
-          }}
-        >
-          {props.user_name}
+      </View>
+      <View
+        style={{
+          flexDirection: 'column',
+          display: 'flex',
+        }}
+      >
+        <View style={styles.name_and_email}>
+          <Text
+            style={{
+              marginLeft: 5,
+              height: 20,
+              fontWeight: 'bold',
+            }}
+          >
+            {props.user_name}
+          </Text>
+          <Text
+            style={{
+              marginLeft: 5,
+              width: 318,
+              height: 20,
+              color: '#A4AEB3',
+            }}
+          >
+            {props.user_email}
+          </Text>
+          <Text style={styles.DateTime}>{now}</Text>
+        </View>
+        <Text style={styles.TextChatterName}>
+          {props.content}
         </Text>
-        <Text
-          style={{
-            position: 'absolute',
-            left: 70,
-            top: 14,
-            width: 318,
-            height: 20,
-            color: '#A4AEB3',
-          }}
-        >
-          {props.user_email}
-        </Text>
-      </TouchableOpacity>
-      <Text style={styles.TextChatterName}>
-        {props.content}
-      </Text>
-
-      <Text style={styles.DateTime}>{now}</Text>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   Item_size: {
-    position: 'relative',
+    //position: 'relative',
+    flexDirection: 'row',
     width: SCREEN_WIDTH,
     height: 80,
     backgroundColor: '#ffffff',
     fontSize: 16,
   },
   avatar_frame: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
     width: 70,
     height: 80,
     backgroundColor: '#ffffff',
   },
-  content: {
-    position: 'absolute',
-    left: 70,
-    top: 0,
-    width: 305,
-    height: 80,
-    backgroundColor: '#ffffff',
+
+  name_and_email: {
+    flexDirection: 'row',
+    width: SCREEN_WIDTH - 70, // screen_width - avatar_width
+    height: 20,
   },
   TextGreyHandle: {
     position: 'absolute',
     left: 134,
     top: 14,
-    width: 318,
+    width: SCREEN_WIDTH - 57,
     height: 20,
     backgroundColor: '#ffffff',
   },
   TextChatterName: {
-    position: 'absolute',
-    left: 82,
-    top: 34,
+    marginLeft: 5,
     width: 220,
-    height: 42,
-    backgroundColor: '#ffffff',
+    height: 50,
     color: '#B2B1B4',
   },
   DateTime: {
     position: 'absolute',
-    left: 300,
-    top: 12,
+    right: 5,
+    top: 5,
     width: 80,
     height: 22,
     backgroundColor: '#ffffff',

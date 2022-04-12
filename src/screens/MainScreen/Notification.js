@@ -11,36 +11,7 @@ import {
 } from '../../styles/Style';
 
 export default function Notification({ navigation }) {
-  return (
-    <View
-      style={[GLOBAL_STYLES.container, styles.container]}
-    >
-      {/* <Text>Notification</Text> */}
-      <ListItemMessageUser
-        user_name="Nowano"
-        user_email="_@hie"
-        content="Toi co the buscu anh duoc khong? Hay de cho toi bu anh mot cai de giang hoa di nao!"
-        avatar="logo"
-      ></ListItemMessageUser>
-      <ListItemMessageUser
-        user_name="Thaehan"
-        user_email="_@datdo"
-        content="Duoc thoi"
-        avatar="no-avatar"
-      ></ListItemMessageUser>
-      <ListItemMessageUser
-        user_name="Weed"
-        user_email="_@danh"
-        content="*Quay clip...."
-        avatar="like"
-      ></ListItemMessageUser>
-      <ListItemUser
-        avatar="no-avatar"
-        user_name="Trung Hieuuuuuuuuuuuu"
-        user_email="@Nowanoooooooooooooooo"
-      ></ListItemUser>
-    </View>
-  );
+  return <View></View>;
 }
 
 const styles = StyleSheet.create({

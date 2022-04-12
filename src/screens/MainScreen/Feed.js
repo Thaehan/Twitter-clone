@@ -10,13 +10,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref } from 'firebase/storage';
 
-import {
-  db,
-  doc,
-  setDoc,
-  collection,
-  addDoc,
-} from '../../firebase';
+import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
 import {
   GLOBAL_STYLES,
@@ -56,20 +50,17 @@ export default function Feed({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        {
-          tweetList.map(tweet =>
-            <Tweet
-              key={tweet.tweetId}
-              userPosted={tweet.userPosted}
-              textContent={tweet.textContent}
-              mediaContent={tweet.mediaContent}
-              dateCreated={tweet.dateCreated}
-              referedPostId={tweet.referedPostId}
-              userMentioned={tweet.userMentioned}
-            />
-          )
-        }
-
+        {tweetList.map((tweet) => (
+          <Tweet
+            key={tweet.tweetId}
+            userPosted={tweet.userPosted}
+            textContent={tweet.textContent}
+            mediaContent={tweet.mediaContent}
+            dateCreated={tweet.dateCreated}
+            referedPostId={tweet.referedPostId}
+            userMentioned={tweet.userMentioned}
+          />
+        ))}
       </ScrollView>
 
       {/* //Test firebase */}
