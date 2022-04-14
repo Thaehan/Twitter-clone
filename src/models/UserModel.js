@@ -8,7 +8,11 @@ function UserModel(
   dateOfBirth,
   country,
   avatar = '',
-  banner = ''
+  banner = '',
+  following = [],
+  followers = [],
+  liked = [],
+  bio = ''
 ) {
   const newUser = {
     username,
@@ -18,10 +22,10 @@ function UserModel(
     country,
     avatar,
     banner,
-    bio: '',
-    following: [],
-    followers: [],
-    liked: [],
+    bio,
+    following,
+    followers,
+    liked,
     dateCreated: Timestamp.fromDate(moment().toDate()),
   };
 

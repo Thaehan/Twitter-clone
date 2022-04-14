@@ -9,80 +9,66 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import {
-  createUserWithEmailAndPassword,
-  deleteUser,
-} from 'firebase/auth';
+import {} from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
-import UserModel from '../models/UserModel';
+import { ConversationModel } from '../models';
 
-const collectionName = 'users';
-const userCollection = collection(db, collectionName);
+const collectionName = 'conversations';
+const conversationCollection = collection(
+  db,
+  collectionName
+);
 
-const createUser = (
-  email,
-  password,
-  username,
-  fullname,
-  dateOfBirth,
-  country
+const createConversation = (
+  conversationName = '',
+  member = []
 ) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const newUser = UserModel(
-        username,
-        fullname,
-        email,
-        dateOfBirth,
-        country,
-        'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2Fno-avatar.jpg?alt=media&token=b0950486-9917-4293-a8d1-376fa4a6c578' //No-avatar
-      );
+  const newConversation = ConversationModel(
+    (conversationName = conversationName),
+    (member = member)
+  );
 
-      addDoc(userCollection, newUser)
-        .then((data) => {
-          alert('Created new user data!');
-        })
-        .catch((error) => {
-          alert(error);
-        });
+  addDoc(conversationCollection, newConversation)
+    .then((data) => {
+      alert('Created new Conversation data!');
     })
     .catch((error) => {
       alert(error);
     });
 };
 
-const getUserById = async (id) => {
+const getConversationById = async (id) => {
   const docRef = doc(db, collectionName, id);
   try {
     const doc = await getDoc(docRef);
     return doc;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 };
 
-const getMultipleUsers = async (
-  param1 = 'username',
+const getMultipleConversation = async (
+  param1 = 'content',
   operation = '!=',
   param2 = ''
 ) => {
   try {
     const q = query(
-      userCollection,
+      conversationCollection,
       where(param1, operation, param2)
     );
     const docs = (await getDocs(q)).docs;
     return docs;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 };
 
 //params: docId (String), change (Object);
-const updateUser = async (id, change) => {
+const updateConversation = async (id, change) => {
   try {
-    const oldData = await getUserById(id);
+    const oldData = await getConversationById(id);
     const docRef = doc(db, collectionName, id);
     updateDoc(docRef, { ...oldData, ...change });
   } catch (error) {
@@ -90,9 +76,19 @@ const updateUser = async (id, change) => {
   }
 };
 
+const deleteConversationById = async (id) => {
+  try {
+    const docRef = doc(db, collectionName, id);
+    deleteDoc(docRef);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
-  createUser,
-  getUserById,
-  getMultipleUsers,
-  updateUser,
+  createConversation,
+  getConversationById,
+  getMultipleConversation,
+  updateConversation,
+  deleteConversationById,
 };

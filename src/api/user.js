@@ -15,7 +15,7 @@ import {
 } from 'firebase/auth';
 
 import { storage, db, app, auth } from '../firebase';
-import UserModel from '../models/UserModel';
+import { UserModel } from '../models';
 
 const collectionName = 'users';
 const userCollection = collection(db, collectionName);

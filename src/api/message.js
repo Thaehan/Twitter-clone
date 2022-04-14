@@ -9,50 +9,41 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import {
-  createUserWithEmailAndPassword,
-  deleteUser,
-} from 'firebase/auth';
+import {} from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
-import UserModel from '../models/UserModel';
+import { MessageModel } from '../models';
 
-const collectionName = 'users';
-const userCollection = collection(db, collectionName);
+const collectionName = 'messages';
+const messageCollection = collection(db, collectionName);
 
-const createUser = (
-  email,
-  password,
-  username,
-  fullname,
-  dateOfBirth,
-  country
+const createMessage = (
+  content = '',
+  senderId,
+  recieverId,
+  type = 'text',
+  conversationId,
+  isRead = false
 ) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const newUser = UserModel(
-        username,
-        fullname,
-        email,
-        dateOfBirth,
-        country,
-        'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2Fno-avatar.jpg?alt=media&token=b0950486-9917-4293-a8d1-376fa4a6c578' //No-avatar
-      );
+  const newMessage = MessageModel(
+    (content = content),
+    (senderId = senderId),
+    (recieverId = recieverId),
+    (type = type),
+    (conversationId = conversationId),
+    (isRead = isRead)
+  );
 
-      addDoc(userCollection, newUser)
-        .then((data) => {
-          alert('Created new user data!');
-        })
-        .catch((error) => {
-          alert(error);
-        });
+  addDoc(messageCollection, newMessage)
+    .then((data) => {
+      alert('Created new Message data!');
     })
     .catch((error) => {
       alert(error);
     });
 };
 
-const getUserById = async (id) => {
+const getMessageById = async (id) => {
   const docRef = doc(db, collectionName, id);
   try {
     const doc = await getDoc(docRef);
@@ -62,14 +53,14 @@ const getUserById = async (id) => {
   }
 };
 
-const getMultipleUsers = async (
-  param1 = 'username',
+const getMultipleMessage = async (
+  param1 = 'content',
   operation = '!=',
   param2 = ''
 ) => {
   try {
     const q = query(
-      userCollection,
+      messageCollection,
       where(param1, operation, param2)
     );
     const docs = (await getDocs(q)).docs;
@@ -80,9 +71,9 @@ const getMultipleUsers = async (
 };
 
 //params: docId (String), change (Object);
-const updateUser = async (id, change) => {
+const updateMessage = async (id, change) => {
   try {
-    const oldData = await getUserById(id);
+    const oldData = await getMessageById(id);
     const docRef = doc(db, collectionName, id);
     updateDoc(docRef, { ...oldData, ...change });
   } catch (error) {
@@ -90,9 +81,19 @@ const updateUser = async (id, change) => {
   }
 };
 
+const deleteMessageById = async (id) => {
+  try {
+    const docRef = doc(db, collectionName, id);
+    deleteDoc(docRef);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
-  createUser,
-  getUserById,
-  getMultipleUsers,
-  updateUser,
+  createMessage,
+  getMessageById,
+  getMultipleMessage,
+  updateMessage,
+  deleteMessageById,
 };

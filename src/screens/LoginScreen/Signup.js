@@ -22,17 +22,14 @@ import {
 } from '../../constants/ScreenName';
 
 export default function Signup({ navigation }) {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const registerHandle = () => {
-    console.log(username, email, password);
+    console.log(email, password);
     setEmail('');
-    setUsername('');
     setPassword('');
     navigation.navigate(SIGN_UP_INFORMATION, {
-      username,
       email,
       password,
     });
@@ -54,14 +51,6 @@ export default function Signup({ navigation }) {
       />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Sign up an account</Text>
-      <TextInput
-        value={username}
-        onChangeText={setUsername}
-        style={styles.textInput}
-        placeholder="Username"
-        placeholderTextColor="#BDBDBD"
-        autoFocus
-      />
       <TextInput
         value={email}
         onChangeText={setEmail}

@@ -6,7 +6,8 @@ function MessageModel(
   senderId,
   recieverId,
   type = 'text',
-  conversationId
+  conversationId,
+  isRead = false
 ) {
   const newMessage = {
     content,
@@ -14,7 +15,7 @@ function MessageModel(
     senderId,
     recieverId,
     conversationId,
-    isRead: false,
+    isRead,
     sendTime: Timestamp.fromDate(moment().toDate()),
   };
 
