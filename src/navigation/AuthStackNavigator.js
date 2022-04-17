@@ -18,7 +18,6 @@ export default function AuthStackNavigator() {
       <AuthStack.Screen name={LOGIN} component={Login} />
       <AuthStack.Screen name={SIGN_UP} component={Signup} />
       <AuthStack.Screen
-        options={{ headerShown: true }}
         name={SIGN_UP_INFORMATION}
         component={SignupInfo}
       />

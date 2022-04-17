@@ -5,7 +5,7 @@ import Message from './MainScreen/Message';
 import Feed from './MainScreen/Feed';
 import Search from './MainScreen/Search';
 import Notification from './MainScreen/Notification';
-import Conversation from './Conversation';
+import Conversation from './MainScreen/Conversation';
 export {
   Login,
   Signup,

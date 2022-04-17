@@ -14,7 +14,6 @@ import {
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 import TestImage from '../TestImage';
-import TestDoc from '../TestDoc';
 
 export default function Search({ navigation }) {
   return (
@@ -22,7 +21,6 @@ export default function Search({ navigation }) {
       style={[GLOBAL_STYLES.container, styles.container]}
     >
       <TestImage />
-      <TestDoc />
 
       {/* <ScrollView
         showsVerticalScrollIndicator={false}

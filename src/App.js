@@ -4,7 +4,6 @@ import { LogBox } from 'react-native';
 
 import RootNavigator from './navigation/RootNavigator';
 import store from './redux/store';
-import TestDoc from './screens/TestDoc';
 
 export default function App() {
   LogBox.ignoreLogs([
@@ -14,6 +13,5 @@ export default function App() {
     <Provider store={store}>
       <RootNavigator />
     </Provider>
-    // <TestDoc />
   );
 }

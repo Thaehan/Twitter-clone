@@ -20,23 +20,45 @@ import {
   LOGIN,
   SIGN_UP_INFORMATION,
 } from '../../constants/ScreenName';
+import { getMultipleUsers } from '../../api/user';
+import { doc } from 'firebase/firestore/lite';
 
 export default function Signup({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const registerHandle = () => {
-    console.log(email, password);
-    setEmail('');
-    setPassword('');
-    navigation.navigate(SIGN_UP_INFORMATION, {
-      email,
-      password,
-    });
+    getMultipleUsers('email', '==', email)
+      .then((docs) => {
+        if (docs.length == 0) {
+          console.log('==0');
+          if (validateEmail(email) && password.length > 8) {
+            navigation.navigate(SIGN_UP_INFORMATION, {
+              email,
+              password,
+            });
+          } else {
+            alert('Email is invalid or too short password');
+          }
+        } else {
+          alert('Email is already in use!');
+        }
+      })
+      .catch((error) => {
+        alert('Error when checking users');
+      });
   };
 
   const loginHandle = () => {
-    navigation.navigate(LOGIN, {});
+    navigation.navigate(LOGIN, { email, password });
   };
 
   return (
