@@ -20,24 +20,22 @@ const notificationCollection = collection(
   collectionName
 );
 
-const createNotification = (
+const createNotification = async (
   textContent = '',
   hyperLink = '',
   fromUser = ''
 ) => {
-  const newNotification = NotificationModel(
-    (textContent = textContent),
-    (hyperLink = hyperLink),
-    (fromUser = fromUser)
-  );
+  try {
+    const newNotification = NotificationModel(
+      (textContent = textContent),
+      (hyperLink = hyperLink),
+      (fromUser = fromUser)
+    );
 
-  addDoc(notificationCollection, newNotification)
-    .then((data) => {
-      alert('Created new Notification data!');
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    await addDoc(notificationCollection, newNotification);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 const getNotificationById = async (id) => {

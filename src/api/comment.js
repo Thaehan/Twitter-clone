@@ -17,27 +17,25 @@ import { CommentModel } from '../models';
 const collectionName = 'comments';
 const commentCollection = collection(db, collectionName);
 
-const createComment = (
+const createComment = async (
   userComment,
   userLiked = [],
   textContent = '',
   mediaContent = ''
 ) => {
-  const newComment = CommentModel(
-    (userComment = userComment),
-    (textContent = textContent),
-    (userLiked = userLiked),
-    (mediaContent = mediaContent),
-    (textContent = textContent)
-  );
+  try {
+    const newComment = CommentModel(
+      (userComment = userComment),
+      (textContent = textContent),
+      (userLiked = userLiked),
+      (mediaContent = mediaContent),
+      (textContent = textContent)
+    );
 
-  addDoc(commentCollection, newComment)
-    .then((data) => {
-      alert('Created new Comment data!');
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    await addDoc(commentCollection, newComment);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 const getCommentById = async (id) => {

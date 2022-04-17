@@ -20,22 +20,20 @@ const conversationCollection = collection(
   collectionName
 );
 
-const createConversation = (
+const createConversation = async (
   conversationName = '',
   member = []
 ) => {
-  const newConversation = ConversationModel(
-    (conversationName = conversationName),
-    (member = member)
-  );
+  try {
+    const newConversation = ConversationModel(
+      (conversationName = conversationName),
+      (member = member)
+    );
 
-  addDoc(conversationCollection, newConversation)
-    .then((data) => {
-      alert('Created new Conversation data!');
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    await addDoc(conversationCollection, newConversation);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 const getConversationById = async (id) => {

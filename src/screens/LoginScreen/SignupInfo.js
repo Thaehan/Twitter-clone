@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { logo } from '../../constants/ImageAssets';
 import IconButton from '../../components/button/IconButton';
@@ -49,20 +49,31 @@ export default function SignupInfo({ navigation, route }) {
       if (dateOfBirth.getDate() != new Date().getDate()) {
         alert('Date of birth is invalid!');
       } else {
-        //Tạo user =>
-        createUser(
+        //Tạo tài khoản authorization
+        //Tạo data user account =>
+        createUserWithEmailAndPassword(
+          auth,
           email,
-          password,
-          username,
-          fullname,
-          dateOfBirth,
-          country
+          password
         )
           .then(() => {
-            navigation.navigate(LOGIN, {});
+            createUser(
+              email,
+              username,
+              fullname,
+              dateOfBirth,
+              country
+            )
+              .then(() => {
+                navigation.navigate(LOGIN, {});
+                alert('Successfuly created an user!');
+              })
+              .catch((error) => {
+                alert('Error when create user');
+              });
           })
           .catch((error) => {
-            alert('Error when create user');
+            alert(error);
           });
         //Quay lại màn hình đăng nhập
       }

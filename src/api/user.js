@@ -9,10 +9,6 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import {
-  createUserWithEmailAndPassword,
-  deleteUser,
-} from 'firebase/auth';
 
 import { storage, db, app, auth } from '../firebase';
 import { UserModel } from '../models';
@@ -20,36 +16,27 @@ import { UserModel } from '../models';
 const collectionName = 'users';
 const userCollection = collection(db, collectionName);
 
-const createUser = (
+const createUser = async (
   email,
-  password,
   username,
   fullname,
   dateOfBirth,
   country
 ) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const newUser = UserModel(
-        username,
-        fullname,
-        email,
-        dateOfBirth,
-        country,
-        'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2Fno-avatar.jpg?alt=media&token=b0950486-9917-4293-a8d1-376fa4a6c578' //No-avatar
-      );
+  try {
+    const newUser = UserModel(
+      username,
+      fullname,
+      email,
+      dateOfBirth,
+      country,
+      'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2Fno-avatar.jpg?alt=media&token=b0950486-9917-4293-a8d1-376fa4a6c578' //No-avatar
+    );
 
-      addDoc(userCollection, newUser)
-        .then((data) => {
-          alert('Created new user data!');
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    await addDoc(userCollection, newUser);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 const getUserById = async (id) => {

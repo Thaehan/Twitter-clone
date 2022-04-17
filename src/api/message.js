@@ -17,7 +17,7 @@ import { MessageModel } from '../models';
 const collectionName = 'messages';
 const messageCollection = collection(db, collectionName);
 
-const createMessage = (
+const createMessage = async (
   content = '',
   senderId,
   recieverId,
@@ -25,22 +25,20 @@ const createMessage = (
   conversationId,
   isRead = false
 ) => {
-  const newMessage = MessageModel(
-    (content = content),
-    (senderId = senderId),
-    (recieverId = recieverId),
-    (type = type),
-    (conversationId = conversationId),
-    (isRead = isRead)
-  );
+  try {
+    const newMessage = MessageModel(
+      (content = content),
+      (senderId = senderId),
+      (recieverId = recieverId),
+      (type = type),
+      (conversationId = conversationId),
+      (isRead = isRead)
+    );
 
-  addDoc(messageCollection, newMessage)
-    .then((data) => {
-      alert('Created new Message data!');
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    await addDoc(messageCollection, newMessage);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 const getMessageById = async (id) => {

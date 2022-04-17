@@ -17,28 +17,26 @@ import { TweetModel } from '../models';
 const collectionName = 'tweets';
 const tweetCollection = collection(db, collectionName);
 
-const createTweet = (
+const createTweet = async (
   userPosted,
   textContent = '',
   mediaContent = '',
   userMentioned = '',
   referedPostId = ''
 ) => {
-  const newTweet = TweetModel(
-    (userPosted = userPosted),
-    (textContent = textContent),
-    (mediaContent = mediaContent),
-    (userMentioned = userMentioned),
-    (referedPostId = referedPostId)
-  );
+  try {
+    const newTweet = TweetModel(
+      (userPosted = userPosted),
+      (textContent = textContent),
+      (mediaContent = mediaContent),
+      (userMentioned = userMentioned),
+      (referedPostId = referedPostId)
+    );
 
-  addDoc(tweetCollection, newTweet)
-    .then((data) => {
-      alert('Created new tweet data!');
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    await addDoc(tweetCollection, newTweet);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 const getTweetById = async (id) => {
