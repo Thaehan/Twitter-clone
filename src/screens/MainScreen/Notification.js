@@ -8,7 +8,6 @@ import { GLOBAL_STYLES } from '../../styles/Style';
 import {
   CONTENT_SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  NULL_COLOR
 } from '../../styles/Style';
 
 export default function Notification({ navigation }) {
@@ -16,18 +15,17 @@ export default function Notification({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  circleButton: {
-    alignItems: 'center',
-    borderRadius: 50,
-    bottom: 20,
-    position: 'absolute',
-    right: 20,
-  },
   container: {
-    backgroundColor: NULL_COLOR,
-
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
+    backgroundColor: 'cyan',
+  },
+  circleButton: {
+    borderRadius: 50,
+    alignItems: 'center',
+    bottom: 20,
+    right: 20,
+    position: 'absolute',
   },
 });

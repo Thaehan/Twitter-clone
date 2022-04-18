@@ -26,9 +26,8 @@ export default function IconButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: 'center',
-
     alignSelf: 'center',
+    alignContent: 'center',
     borderRadius: 50,
   },
 });

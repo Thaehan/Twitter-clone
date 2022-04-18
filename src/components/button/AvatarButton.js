@@ -21,9 +21,7 @@ export default function ImageButton(props) {
         <Image
           source={props.source}
           style={{
-            height: props.size,
-            width: props.size,
-            borderRadius: 50
+            height: props.size, width: props.size, borderRadius: 50
           }}
         />
       </TouchableOpacity>
@@ -33,7 +31,7 @@ export default function ImageButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: 'center',
     alignSelf: 'center',
+    alignContent: 'center',
   }
 });

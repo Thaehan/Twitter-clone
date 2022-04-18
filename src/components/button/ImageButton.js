@@ -30,9 +30,8 @@ export default function ImageButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: 'center',
-
     alignSelf: 'center',
+    alignContent: 'center',
     borderRadius: 50,
   },
 });

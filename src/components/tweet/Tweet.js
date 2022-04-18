@@ -8,19 +8,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import tweetMockData from "../../mockData/tweet.json";
-import {
-  CONTENT_SCREEN_HEIGHT,
-  GLOBAL_STYLES,
-  SCREEN_WIDTH,
-  MAIN_COLOR,
-  BACKGROUND_COLOR,
-  DARK_GREY_TEXT_COLOR,
-  DEFAULT_COLOR,
-  LIKED_COLOR,
-  RETWEET_COLOR
 
-
-} from '../../styles/Style';
+import { GLOBAL_STYLES, LIKED_COLOR, RETWEET_COLOR, DEFAULT_COLOR } from '../../styles/Style';
 import IconButton from '../button/IconButton';
 import AvatarButton from '../button/AvatarButton';
 //Mock data for find user
@@ -72,10 +61,10 @@ export default function Tweet(props) {
       </View>
       <View style={styles.content}>
         <View style={styles.userInfo}>
-          <Text style={GLOBAL_STYLES.fullname}>
+          <Text style={[GLOBAL_STYLES.fullname]}>
             {userPosted.username}
           </Text>
-          <Text style={GLOBAL_STYLES.username}>
+          <Text style={[GLOBAL_STYLES.username]}>
             {" "} {userPosted.handle} {" . 1d"}      {"\n"}
           </Text>
         </View>
@@ -140,50 +129,50 @@ export default function Tweet(props) {
 }
 
 const styles = StyleSheet.create({
-  buttonWithCount: {
-    alignItems: "center",
-    flexDirection: "row",
-
-  },
   container: {
-    alignItems: "flex-start",
-    backgroundColor: BACKGROUND_COLOR,
-    borderBottomColor: DARK_GREY_TEXT_COLOR,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    flexDirection: "row",
-    justifyContent: "flex-start",
+    backgroundColor: '#ffffff',
+    paddingTop: 5,
     paddingBottom: 10,
     paddingLeft: 5,
-    paddingTop: 5,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    borderBottomColor: '#86939A',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  userInfo: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    textAlign: "right"
   },
   content: {
     flexDirection: "column",
-    flex: 1,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    flex: 1
   },
-  defaultColor: {
-    color: DEFAULT_COLOR
-
-  },
-  interactionBar: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 15,
-    width: "90%"
+  retweetedColor: {
+    color: RETWEET_COLOR
   },
   likedColor: {
     color: LIKED_COLOR
 
   },
-  retweetedColor: {
-    color: RETWEET_COLOR
+  defaultColor: {
+    color: DEFAULT_COLOR
+
   },
-  userInfo: {
-    alignItems: "flex-start",
+  buttonWithCount: {
     flexDirection: "row",
-    justifyContent: "flex-start",
-    textAlign: "right"
+    alignItems: "center",
+
+  },
+  interactionBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "90%",
+    marginTop: 15
   }
 });

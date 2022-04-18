@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import ImageButton from '../button/ImageButton';
-import { GLOBAL_STYLES, BACKGROUND_COLOR } from '../../styles/Style';
+import { GLOBAL_STYLES } from '../../styles/Style';
 
 //Nhận vào props: avatar, avatarPress, onPress, fullname, username, content
 export default function Comment(props) {
@@ -33,9 +33,9 @@ export default function Comment(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: BACKGROUND_COLOR,
     flexDirection: 'row',
     width: 414,
+    backgroundColor: '#ffffff',
   },
   imageButtonContainer: {
     height: 100,

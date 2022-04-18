@@ -4,10 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {
-  MAIN_COLOR,
-  BACKGROUND_COLOR
-} from "../../styles/Style"
+
 // Nhận vào title, onPress, style
 export default function TextButton(props) {
   return (
@@ -23,14 +20,14 @@ export default function TextButton(props) {
 }
 
 const styles = StyleSheet.create({
-  buttonText: {
-    color: MAIN_COLOR,
-    fontWeight: '500',
-    padding: 0,
-  },
   container: {
-    alignContent: 'center',
     alignSelf: 'center',
+    alignContent: 'center',
     borderRadius: 50,
+  },
+  buttonText: {
+    padding: 0,
+    fontWeight: '500',
+    color: '#1da1f2',
   },
 });
