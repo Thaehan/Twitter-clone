@@ -1,3 +1,4 @@
+/* eslint-disable react-native/sort-styles */
 import {
   View,
   Text,
@@ -11,6 +12,7 @@ import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
   CONTENT_SCREEN_HEIGHT,
+  NULL_COLOR
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 import TestImage from '../TestImage';
@@ -55,10 +57,11 @@ export default function Search({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: NULL_COLOR,
+
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    backgroundColor: 'cyan',
   },
   containerItem: {
     height: 300,

@@ -16,7 +16,11 @@ import ImageButton from '../button/ImageButton';
 import AvatarButton from '../button/AvatarButton';
 import { userDatabase } from '../../mock';
 import { useState, useEffect } from 'react';
-
+import {
+  MAIN_COLOR,
+  BACKGROUND_COLOR,
+  DARK_GREY_TEXT_COLOR
+} from "../../styles/Style"
 export default function ListItemMessageUser(props) {
   var now = moment().format('DD/MM/YYYY');
   const [User, setUser] = useState({});
@@ -66,7 +70,7 @@ export default function ListItemMessageUser(props) {
               marginLeft: 5,
               width: 318,
               height: 20,
-              color: '#A4AEB3',
+              color: DARK_GREY_TEXT_COLOR,
             }}
           >
             {props.user_email}
@@ -81,46 +85,52 @@ export default function ListItemMessageUser(props) {
   );
 }
 const styles = StyleSheet.create({
-  Item_size: {
-    //position: 'relative',
-    flexDirection: 'row',
-    width: SCREEN_WIDTH,
-    height: 80,
-    backgroundColor: '#ffffff',
-    fontSize: 16,
-  },
-  avatar_frame: {
-    width: 70,
-    height: 80,
-    backgroundColor: '#ffffff',
-  },
-
-  name_and_email: {
-    flexDirection: 'row',
-    width: SCREEN_WIDTH - 70, // screen_width - avatar_width
-    height: 20,
-  },
-  TextGreyHandle: {
-    position: 'absolute',
-    left: 134,
-    top: 14,
-    width: SCREEN_WIDTH - 57,
-    height: 20,
-    backgroundColor: '#ffffff',
-  },
-  TextChatterName: {
-    marginLeft: 5,
-    width: 220,
-    height: 50,
-    color: '#B2B1B4',
-  },
   DateTime: {
+    backgroundColor: BACKGROUND_COLOR, color: DARK_GREY_TEXT_COLOR,
+    height: 22,
     position: 'absolute',
     right: 5,
     top: 5,
     width: 80,
-    height: 22,
-    backgroundColor: '#ffffff',
-    color: '#B3BAC1',
+  },
+  Item_size: {
+    //position: 'relative',
+    backgroundColor: BACKGROUND_COLOR,
+    flexDirection: 'row',
+    fontSize: 16,
+    height: 80,
+    width: SCREEN_WIDTH,
+  },
+
+  TextChatterName: {
+    color: DARK_GREY_TEXT_COLOR,
+    height: 50,
+
+    marginLeft: 5,
+    width: 220,
+  },
+  TextGreyHandle: {
+    backgroundColor: BACKGROUND_COLOR,
+
+    height: 20,
+
+    left: 134,
+
+    position: 'absolute',
+    top: 14,
+    width: SCREEN_WIDTH - 57,
+  },
+  avatar_frame: {
+    backgroundColor: BACKGROUND_COLOR,
+
+    height: 80,
+
+    width: 70,
+  },
+  name_and_email: {
+    flexDirection: 'row',
+    height: 20,
+
+    width: SCREEN_WIDTH - 70, // screen_width - avatar_width
   },
 });

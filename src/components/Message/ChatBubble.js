@@ -6,7 +6,12 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import IconButton from '../button/IconButton';
-
+import {
+  MAIN_COLOR,
+  BACKGROUND_COLOR,
+  LIGHT_GRAY_TEXT_COLOR,
+  CHAT_BACKGROUND_COLOR
+} from "../../styles/Style"
 const Bubble_Send = (props) => {
   var [messagePressed, setMessagePressed] = useState(false);
 
@@ -28,7 +33,7 @@ const Bubble_Send = (props) => {
           >
             <IconButton
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: BACKGROUND_COLOR,
                 marginRight: 5,
                 marginTop: 15,
               }}
@@ -39,7 +44,7 @@ const Bubble_Send = (props) => {
             ></IconButton>
             <IconButton
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: BACKGROUND_COLOR,
                 marginRight: 15,
                 marginTop: 15,
               }}
@@ -67,7 +72,7 @@ const Bubble_Send = (props) => {
             fontSize: 12,
             height: 15,
             marginTop: 3,
-            color: '#AAB2B9',
+            color: LIGHT_GRAY_TEXT_COLOR,
           }}
         >
           {props.date}
@@ -103,7 +108,7 @@ const Bubble_Received = (props) => {
           >
             <IconButton
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: BACKGROUND_COLOR,
                 marginLeft: 15,
                 marginTop: 15,
               }}
@@ -114,7 +119,7 @@ const Bubble_Received = (props) => {
             ></IconButton>
             <IconButton
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: BACKGROUND_COLOR,
                 marginLeft: 5,
                 marginTop: 15,
               }}
@@ -134,7 +139,7 @@ const Bubble_Received = (props) => {
             fontSize: 12,
             height: 15,
             marginTop: 3,
-            color: '#AAB2B9',
+            color: LIGHT_GRAY_TEXT_COLOR,
           }}
         >
           {props.date}
@@ -145,52 +150,51 @@ const Bubble_Received = (props) => {
 };
 
 const message = StyleSheet.create({
-  bubble_send: {
-    alignSelf: 'flex-end',
-    textAlign: 'right',
-    alignContent: 'center',
-    maxWidth: '60%',
-    marginTop: 5,
-    right: 5,
-    fontWeight: '500',
-    borderRadius: 13,
-    backgroundColor: '#1DA1F2',
-    borderBottomRightRadius: 0,
-  },
   bubble_received: {
     alignSelf: 'flex-start',
-    textAlign: 'left',
-    maxWidth: '60%',
-    marginTop: 5,
-    left: 5,
-
-    fontWeight: '500',
-    borderRadius: 13,
-    backgroundColor: '#EFF3F4',
+    backgroundColor: CHAT_BACKGROUND_COLOR,
     borderBottomLeftRadius: 0,
-  },
-  text_message_send: {
+    borderRadius: 13,
     fontWeight: '500',
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    color: '#ffffff',
+    left: 5,
+    marginTop: 5,
+    maxWidth: '60%',
+    textAlign: 'left',
   },
-  text_message_received: {
+  bubble_send: {
+    alignContent: 'center',
+    alignSelf: 'flex-end',
+    backgroundColor: MAIN_COLOR,
+    borderBottomRightRadius: 0,
+    borderRadius: 13,
     fontWeight: '500',
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    color: '#000000',
+    marginTop: 5,
+    maxWidth: '60%',
+    right: 5,
+    textAlign: 'right',
   },
   date: {
-    position: 'absolute',
+    color: MAIN_COLOR,
     fontSize: 12,
     height: 15,
     marginTop: 3,
-    color: '#FF0000',
+    position: 'absolute',
+  },
+  text_message_received: {
+    color: BACKGROUND_COLOR,
+    fontWeight: '500',
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
+  },
+  text_message_send: {
+    color: BACKGROUND_COLOR,
+    fontWeight: '500',
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
   },
 });
 
