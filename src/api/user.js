@@ -77,38 +77,19 @@ const updateUser = async (id, change) => {
   }
 };
 
+const deleteUserById = async (id) => {
+  try {
+    const docRef = doc(db, collectionName, id);
+    deleteDoc(docRef);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   createUser,
   getUserById,
   getMultipleUsers,
   updateUser,
+  deleteUserById,
 };
-
-//Delte cả userAuth và userData
-// const deleteCurrentUser = () => {
-//   const currentUser = getMultipleUsers(
-//     'email',
-//     '==',
-//     auth.currentUser.email
-//   )
-//     .then((docs) => {
-//       const id = docs[0].id;
-//       const docRef = doc(db, collectionName, id);
-//       deleteUser(auth.currentUser)
-//         .then((res) => {
-//           deleteDoc(docRef)
-//             .then((res) => {
-//               alert('Deleted User');
-//             })
-//             .catch((error) => {
-//               alert(error);
-//             });
-//         })
-//         .catch((error) => {
-//           alert(error);
-//         });
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
