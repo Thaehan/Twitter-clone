@@ -1,5 +1,5 @@
 {
-  "plugins": ["react-native"],
+  "plugins": ["react-hooks", "react-native"],
   "extends": [
     "eslint:recommended",
     "plugin:react-native/all"
@@ -15,10 +15,19 @@
     "requireConfigFile": false
   },
   "rules": {
-    "react-native/no-unused-styles": 2,
+    "react/prop-types": "off",
+    "no-self-assign": "off",
+    "no-undef": "off",
+    "no-unused-vars": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react-native/no-unused-styles": "off",
     "react-native/split-platform-components": 2,
-    "react-native/no-inline-styles": 2,
+    "react-native/no-inline-styles": "off",
     "react-native/no-color-literals": 2,
-    "react-native/no-raw-text": 2
+    "react-native/no-raw-text": 2,
+    "react/jsx-filename-extension": [
+      "off",
+      { "extensions": [".js", ".jsx"] }
+    ]
   }
 }

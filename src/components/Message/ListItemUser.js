@@ -11,6 +11,11 @@ import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
   SCREEN_WIDTH,
+  MAIN_COLOR,
+  BACKGROUND_COLOR,
+  DARK_GREY_TEXT_COLOR
+
+
 } from '../../styles/Style';
 import ImageButton from '../button/ImageButton';
 export default function ListItemUser(props) {
@@ -42,35 +47,35 @@ export default function ListItemUser(props) {
 }
 const styles = StyleSheet.create({
   Item_size: {
+    backgroundColor: BACKGROUND_COLOR,
+    fontSize: 16,
+    height: 70,
     position: 'relative',
     width: SCREEN_WIDTH,
-    height: 70,
-    backgroundColor: '#ffffff',
-    fontSize: 16,
-  },
-  avatar_frame: {
-    position: 'absolute',
-    left: 11,
-    top: 10,
-    width: 50,
-    height: 50,
-    backgroundColor: '#ffffff',
-  },
-  User_name: {
-    position: 'absolute',
-    left: 64,
-    top: 10,
-    width: 305,
-    height: 27,
-    backgroundColor: '#ffffff',
-    fontWeight: 'bold',
   },
   User_email: {
-    position: 'absolute',
-    left: 64,
-    top: 30,
+    backgroundColor: BACKGROUND_COLOR,
+    color: DARK_GREY_TEXT_COLOR,
     height: 27,
-    backgroundColor: '#ffffff',
-    color: '#B2B1B4',
+    left: 64,
+    position: 'absolute',
+    top: 30,
+  },
+  User_name: {
+    backgroundColor: BACKGROUND_COLOR,
+    fontWeight: 'bold',
+    height: 27,
+    left: 64,
+    position: 'absolute',
+    top: 10,
+    width: 305,
+  },
+  avatar_frame: {
+    backgroundColor: BACKGROUND_COLOR,
+    height: 50,
+    left: 11,
+    position: 'absolute',
+    top: 10,
+    width: 50,
   },
 });

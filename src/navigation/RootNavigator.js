@@ -30,6 +30,6 @@ export default function RootNavigator() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
+    //backgroundColor: 'black',
   },
 });

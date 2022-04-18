@@ -109,33 +109,16 @@ const styles = StyleSheet.create({
     // height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
   },
-  title: {
-    marginLeft: 30,
-    fontWeight: '500',
-    marginBottom: 20,
-  },
-  loginContainer: {
-    marginTop: 20,
-    marginLeft: 90,
-    flexDirection: 'row',
-  },
   image: {
+    height: 88,
     marginBottom: 66,
     marginLeft: 163,
-    height: 88,
     width: 88,
   },
-  textInput: {
-    width: 350,
-    height: 50,
-    paddingLeft: 16,
-    marginBottom: 20,
-    fontSize: 16,
-    marginLeft: 30,
-    backgroundColor: '#f6f6f6',
-    borderColor: '#e8e8e8',
-    borderWidth: 1,
-    borderRadius: 8,
+  loginContainer: {
+    flexDirection: 'row',
+    marginLeft: 90,
+    marginTop: 20,
   },
   loginText: {
     fontWeight: '400',
@@ -145,5 +128,23 @@ const styles = StyleSheet.create({
   registerButton: {
     marginLeft: 255,
     marginTop: 20,
+  },
+  // eslint-disable-next-line react-native/no-color-literals
+  textInput: {
+    backgroundColor: '#f6f6f6',
+    borderColor: '#e8e8e8',
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 16,
+    height: 50,
+    marginBottom: 20,
+    marginLeft: 30,
+    paddingLeft: 16,
+    width: 350,
+  },
+  title: {
+    fontWeight: '500',
+    marginBottom: 20,
+    marginLeft: 30,
   },
 });

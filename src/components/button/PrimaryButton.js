@@ -4,7 +4,10 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-
+import {
+  MAIN_COLOR,
+  BACKGROUND_COLOR
+} from "../../styles/Style"
 export default function PrimaryButton(props) {
   return (
     <View style={props.style}>
@@ -20,19 +23,18 @@ export default function PrimaryButton(props) {
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: 'center',
     alignContent: 'center',
-    fontWeight: '500',
+    alignSelf: 'center',
+    backgroundColor: MAIN_COLOR,
     borderRadius: 100,
-    backgroundColor: '#1da1f2',
+    fontWeight: '500',
   },
   buttonText: {
+    color: BACKGROUND_COLOR,
     fontWeight: '500',
-    paddingTop: 6,
     paddingBottom: 8,
     paddingLeft: 15,
     paddingRight: 15,
-
-    color: '#ffffff',
+    paddingTop: 6,
   },
 });

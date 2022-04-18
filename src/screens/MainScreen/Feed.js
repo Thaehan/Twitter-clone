@@ -13,6 +13,7 @@ import Tweet from '../../components/tweet/Tweet';
 import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
+  BACKGROUND_COLOR
 } from '../../styles/Style';
 import { tweetsList } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
@@ -60,22 +61,21 @@ export default function Feed({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  circleButton: {
+    alignItems: 'center',
+    borderRadius: 50,
+    bottom: 20,
+    position: 'absolute',
+    right: 20,
+  },
   container: {
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    backgroundColor: 'cyan',
-  },
-  circleButton: {
-    borderRadius: 50,
-    alignItems: 'center',
-    bottom: 20,
-    right: 20,
-    position: 'absolute',
   },
   textInput: {
-    backgroundColor: 'white',
-    height: 50,
+    backgroundColor: BACKGROUND_COLOR,
     borderWidth: 1,
+    height: 50,
   },
 });

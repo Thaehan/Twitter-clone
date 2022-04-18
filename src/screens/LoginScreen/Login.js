@@ -112,41 +112,42 @@ const styles = StyleSheet.create({
     // height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
   },
-  title: {
-    marginLeft: 30,
-    fontWeight: '500',
-    marginBottom: 30,
-  },
-  signupContainer: {
-    marginTop: 30,
-    marginLeft: 85,
-    flexDirection: 'row',
-  },
   image: {
+    height: 88,
     marginBottom: 66,
     marginLeft: 163,
-    height: 88,
     width: 88,
   },
-  textInput: {
-    width: 350,
-    height: 50,
-    paddingLeft: 16,
-    marginBottom: 20,
-    fontSize: 16,
-    marginLeft: 30,
-    backgroundColor: '#f6f6f6',
-    borderColor: '#f8f8f8',
-    borderWidth: 1,
-    borderRadius: 8,
+  loginButton: {
+    marginLeft: 271,
+    marginTop: 20,
+  },
+  signupContainer: {
+    flexDirection: 'row',
+    marginLeft: 85,
+    marginTop: 30,
   },
   signupText: {
     fontWeight: '400',
     marginLeft: 15,
     marginRight: 8,
   },
-  loginButton: {
-    marginLeft: 271,
-    marginTop: 20,
+  // eslint-disable-next-line react-native/no-color-literals
+  textInput: {
+    backgroundColor: '#f6f6f6',
+    borderColor: '#f8f8f8',
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 16,
+    height: 50,
+    marginBottom: 20,
+    marginLeft: 30,
+    paddingLeft: 16,
+    width: 350,
+  },
+  title: {
+    fontWeight: '500',
+    marginBottom: 30,
+    marginLeft: 30,
   },
 });

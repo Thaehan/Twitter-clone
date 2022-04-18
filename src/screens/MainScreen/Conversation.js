@@ -13,6 +13,9 @@ import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
   SCREEN_WIDTH,
+  MAIN_COLOR,
+  BACKGROUND_COLOR,
+  DARK_GREY_TEXT_COLOR
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 import TextInputMessage from '../../components/Message/TextInputMessage';
@@ -58,42 +61,45 @@ export default function Conversation({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  circleButton: {
+    alignItems: 'center',
+    borderRadius: 50,
+    bottom: 60,
+    position: 'absolute',
+    right: 20,
+  },
   container: {
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    backgroundColor: 'cyan',
+
   },
-  circleButton: {
-    borderRadius: 50,
-    alignItems: 'center',
-    bottom: 60,
-    right: 20,
-    position: 'absolute',
+  //vung chua cac tin nhan    
+
+  conversation: {
+    backgroundColor: BACKGROUND_COLOR,
+
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+
+    height: CONTENT_SCREEN_HEIGHT - 60,
+
+    width: SCREEN_WIDTH,
   },
   header_bar_message: {
+    backgroundColor: BACKGROUND_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    height: 70,
     position: 'relative',
     width: SCREEN_WIDTH,
-    height: 70,
-    fontFamily: 'Open Sans',
-    backgroundColor: 'white',
-    fontSize: 16,
   },
   user_name: {
-    left: 128,
-    top: 40,
-    textAlign: 'center',
     alignItems: 'center',
+    color: BACKGROUND_COLOR,
     fontWeight: 'bold',
-    color: '#000000',
-    backgroundColor: '#ffffff',
-  },
-  conversation: {
-    //vung chua cac tin nhan
-    width: SCREEN_WIDTH,
-    height: CONTENT_SCREEN_HEIGHT - 60,
-    fontFamily: 'Open Sans',
-    backgroundColor: 'white',
-    fontSize: 16,
+    left: 128,
+    textAlign: 'center',
+    top: 40,
   },
 });

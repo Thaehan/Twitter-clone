@@ -156,56 +156,59 @@ export default function SignupInfo({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 15,
+    marginTop: 5,
+  },
   container: {
     flex: 2,
+    paddingTop: 20,
+
     // height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-    paddingTop: 20,
   },
-  textInput: {
-    width: 350,
-    height: 50,
-    paddingLeft: 16,
-    marginBottom: 20,
-    fontSize: 16,
-    marginLeft: 30,
+  // eslint-disable-next-line react-native/no-color-literals
+  dateContainer: {
+    alignItems: 'center',
     backgroundColor: '#f6f6f6',
     borderColor: '#f8f8f8',
-    borderWidth: 1,
     borderRadius: 8,
-  },
-  dateContainer: {
+    borderWidth: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    width: 350,
-    height: 50,
-    paddingLeft: 16,
-    marginBottom: 20,
 
     fontSize: 16,
+    height: 50,
+    marginBottom: 20,
     marginLeft: 30,
-    backgroundColor: '#f6f6f6',
-    borderColor: '#f8f8f8',
-    borderWidth: 1,
-    borderRadius: 8,
-  },
-  dateText: {
-    left: 15,
-    fontSize: 15,
-    position: 'absolute',
+    paddingLeft: 16,
+    width: 350,
   },
   dateIcon: {
+    position: 'absolute',
     right: 20,
+  },
+  dateText: {
+    fontSize: 15,
+    left: 15,
     position: 'absolute',
   },
-  button: {
-    marginTop: 5,
-    marginBottom: 15,
-  },
   image: {
+    height: 88,
     marginBottom: 66,
     marginLeft: 163,
-    height: 88,
     width: 88,
+  },
+  // eslint-disable-next-line react-native/no-color-literals
+  textInput: {
+    backgroundColor: '#f6f6f6',
+    borderColor: '#f8f8f8',
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 16,
+    height: 50,
+    marginBottom: 20,
+    marginLeft: 30,
+    paddingLeft: 16,
+    width: 350,
   },
 });

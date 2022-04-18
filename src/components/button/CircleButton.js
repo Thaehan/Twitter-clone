@@ -26,11 +26,10 @@ export default function CircleButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
-    backgroundColor: '#1da1f2',
     height: 60,
+    justifyContent: 'center',
     width: 60,
   },
 });
