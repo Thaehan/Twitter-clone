@@ -1,8 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TextInput,
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   FEED,
@@ -24,8 +32,10 @@ import {
   NAVBAR_HEIGHT,
   SCREEN_WIDTH,
   HEADER_HEIGHT,
+  MAIN_COLOR,
 } from '../styles/Style.js';
-import MainHeader from '../components/functional/MainHeader';
+import IconButton from '../components/button/IconButton.js';
+import AvatarButton from '../components/button/AvatarButton';
 
 const MainTabs = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
@@ -40,41 +50,119 @@ export default function MainTabsNavigator() {
         tabBarStyle: styles.tabBarStyle,
         headerShown: false,
         tabBarHideOnKeyboard: true,
+        tabBarShowLabel: false,
+        tabBarInactiveTintColor: 'black',
+        tabBarActiveTintColor: MAIN_COLOR,
       }}
     >
       <MainTabs.Screen
         name={FEEDSTACK}
         component={FeedStackScreen}
+        options={{
+          tabBarIcon: ({ color, size = 30 }) => {
+            return (
+              <Ionicons
+                name="home-outline"
+                color={color}
+                size={size}
+              />
+            );
+          },
+        }}
       />
       <MainTabs.Screen
         name={SEARCHSTACK}
         component={SearchStackScreen}
+        options={{
+          tabBarIcon: ({ color, size = 30 }) => {
+            return (
+              <Ionicons
+                name="search-outline"
+                color={color}
+                size={size}
+              />
+            );
+          },
+        }}
       />
       <MainTabs.Screen
         name={NOTIFICATIONSTACK}
         component={NotificationStackScreen}
+        options={{
+          tabBarIcon: ({ color, size = 30 }) => {
+            return (
+              <Ionicons
+                name="notifications-outline"
+                color={color}
+                size={size}
+              />
+            );
+          },
+        }}
       />
       <MainTabs.Screen
         name={MESSAGESTACK}
         component={MessageStackScreen}
+        options={{
+          tabBarIcon: ({ color, size = 30 }) => {
+            return (
+              <Ionicons
+                name="mail-outline"
+                color={color}
+                size={size}
+              />
+            );
+          },
+        }}
       />
     </MainTabs.Navigator>
   );
 }
 
 function FeedStackScreen() {
+  const user = useSelector((state) => state.user);
+
   return (
-    <FeedStack.Navigator>
+    <FeedStack.Navigator
+      screenOptions={{
+        headerStyle: [styles.headerBarStyle],
+      }}
+    >
       <FeedStack.Screen
         name={FEED}
         component={Feed}
         options={{
-          headerTitle: (props) => (
-            <MainHeader style={styles.headerContainer} />
-          ),
-          headerStyle: {
-            height: HEADER_HEIGHT,
+          headerLeft: () => {
+            return (
+              <AvatarButton
+                style={styles.leftHeader}
+                source={user.avatar}
+                userId={user.userId}
+                size={30}
+              />
+            );
           },
+          headerRight: () => {
+            return (
+              <IconButton
+                style={styles.rightHeader}
+                type="font-awesome"
+                icon="gear"
+                color="black"
+                size={30}
+              />
+            );
+          },
+          headerTitle: () => (
+            <IconButton
+              style={styles.centerHeader}
+              type="entypo"
+              icon="twitter"
+              color={MAIN_COLOR}
+              size={30}
+            />
+          ),
+          headerTitleAlign: 'center',
         }}
       />
     </FeedStack.Navigator>
@@ -82,18 +170,20 @@ function FeedStackScreen() {
 }
 
 function SearchStackScreen() {
+  const user = useSelector((state) => state.user);
+  const [searchText, setSearchText] = useState('');
+
   return (
-    <SearchStack.Navigator>
-      <FeedStack.Screen
+    <SearchStack.Navigator
+      screenOptions={{
+        headerStyle: [styles.headerBarStyle],
+      }}
+    >
+      <SearchStack.Screen
         name={SEARCH}
         component={Search}
         options={{
-          headerTitle: (props) => (
-            <MainHeader style={styles.headerContainer} />
-          ),
-          headerStyle: {
-            height: HEADER_HEIGHT,
-          },
+          headerShown: false,
         }}
       />
     </SearchStack.Navigator>
@@ -101,18 +191,41 @@ function SearchStackScreen() {
 }
 
 function NotificationStackScreen() {
+  const user = useSelector((state) => state.user);
+
   return (
-    <NotificationStack.Navigator>
-      <FeedStack.Screen
+    <NotificationStack.Navigator
+      screenOptions={{
+        headerStyle: [styles.headerBarStyle],
+      }}
+    >
+      <NotificationStack.Screen
         name={NOTIFICATION}
         component={Notification}
         options={{
-          headerTitle: (props) => (
-            <MainHeader style={styles.headerContainer} />
-          ),
-          headerStyle: {
-            height: HEADER_HEIGHT,
+          headerLeft: () => {
+            return (
+              <AvatarButton
+                style={styles.leftHeader}
+                source={user.avatar}
+                userId={user.userId}
+                size={30}
+              />
+            );
           },
+          headerRight: () => {
+            return (
+              <IconButton
+                style={styles.rightHeader}
+                type="font-awesome"
+                icon="gear"
+                color="black"
+                size={30}
+              />
+            );
+          },
+          headerTitle: 'Notification',
+          headerTitleAlign: 'center',
         }}
       />
     </NotificationStack.Navigator>
@@ -120,18 +233,41 @@ function NotificationStackScreen() {
 }
 
 function MessageStackScreen() {
+  const user = useSelector((state) => state.user);
+
   return (
-    <MessageStack.Navigator>
-      <FeedStack.Screen
+    <MessageStack.Navigator
+      screenOptions={{
+        headerStyle: [styles.headerBarStyle],
+      }}
+    >
+      <MessageStack.Screen
         name={MESSAGE}
         component={Message}
         options={{
-          headerTitle: (props) => (
-            <MainHeader style={styles.headerContainer} />
-          ),
-          headerStyle: {
-            height: HEADER_HEIGHT,
+          headerLeft: () => {
+            return (
+              <AvatarButton
+                style={styles.leftHeader}
+                source={user.avatar}
+                userId={user.userId}
+                size={30}
+              />
+            );
           },
+          headerRight: () => {
+            return (
+              <IconButton
+                style={styles.rightHeader}
+                type="font-awesome"
+                icon="gear"
+                color="black"
+                size={30}
+              />
+            );
+          },
+          headerTitle: 'Message',
+          headerTitleAlign: 'center',
         }}
       />
     </MessageStack.Navigator>
@@ -139,8 +275,22 @@ function MessageStackScreen() {
 }
 
 const styles = StyleSheet.create({
+  headerBarStyle: {
+    height: HEADER_HEIGHT,
+  },
+  headerContainer: {
+    backgroundColor: 'white',
+    height: HEADER_HEIGHT,
+  },
+  leftHeader: {
+    width: 60,
+  },
+  rightHeader: {
+    width: 60,
+  },
   tabBarStyle: {
     height: NAVBAR_HEIGHT,
+    justifyContent: 'space-around',
     width: SCREEN_WIDTH,
   },
 });

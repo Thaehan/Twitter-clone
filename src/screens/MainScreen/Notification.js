@@ -1,18 +1,22 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
 import React from 'react';
 
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
-import ListItemUser from '../../components/Message/ListItemUser';
 import { GLOBAL_STYLES } from '../../styles/Style';
 import {
   CONTENT_SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  NULL_COLOR
+  NULL_COLOR,
 } from '../../styles/Style';
 
 export default function Notification({ navigation }) {
-  return <View></View>;
+  return <SafeAreaView></SafeAreaView>;
 }
 
 const styles = StyleSheet.create({

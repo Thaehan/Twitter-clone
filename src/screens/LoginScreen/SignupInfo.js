@@ -2,8 +2,8 @@ import {
   View,
   Text,
   TextInput,
-  StatusBar,
   StyleSheet,
+  SafeAreaView,
   Image,
 } from 'react-native';
 import React, { useState } from 'react';
@@ -16,10 +16,14 @@ import IconButton from '../../components/button/IconButton';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import {
   GLOBAL_STYLES,
+  MAIN_COLOR,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '../../styles/Style';
-import { createUser } from '../../api/user';
+import {
+  createUser,
+  getMultipleUsers,
+} from '../../api/user';
 import TextButton from '../../components/button/TextButton';
 import { LOGIN, SIGN_UP } from '../../constants/ScreenName';
 import { auth } from '../../firebase';
@@ -43,41 +47,51 @@ export default function SignupInfo({ navigation, route }) {
   };
 
   const createHandle = () => {
-    if (!username || !fullname || !country) {
-      alert('Please check the informations and fill it!!');
-    } else {
-      if (dateOfBirth.getDate() != new Date().getDate()) {
-        alert('Date of birth is invalid!');
-      } else {
-        //Tạo tài khoản authorization
-        //Tạo data user account =>
-        createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        )
-          .then(() => {
-            createUser(
-              email,
-              username,
-              fullname,
-              dateOfBirth,
-              country
-            )
-              .then(() => {
-                navigation.navigate(LOGIN, {});
-                alert('Successfuly created an user!');
-              })
-              .catch((error) => {
-                alert('Error when create user');
-              });
-          })
-          .catch((error) => {
-            alert(error);
-          });
-        //Quay lại màn hình đăng nhập
-      }
-    }
+    getMultipleUsers('username', '==', username)
+      .then((docs) => {
+        if (docs.length != 0) {
+          alert('Username is already in use!');
+        } else if (!username || !fullname || !country) {
+          alert(
+            'Please check the informations and fill it!!'
+          );
+        } else if (
+          dateOfBirth.getDate() >= new Date().getDate()
+        ) {
+          alert('Date of birth is invalid!');
+        } else {
+          //Tạo tài khoản authorization
+          //Tạo data user account =>
+          // Quay lại trang Login
+          createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          )
+            .then(() => {
+              createUser(
+                email,
+                username,
+                fullname,
+                dateOfBirth,
+                country
+              )
+                .then(() => {
+                  navigation.navigate(LOGIN, {});
+                  alert('Successfuly created an user!');
+                })
+                .catch((error) => {
+                  alert('Error when create user');
+                });
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   const backHandle = () => {
@@ -85,15 +99,9 @@ export default function SignupInfo({ navigation, route }) {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <StatusBar
-        animated={true}
-        backgroundColor="#ffffff"
-        hidden={false}
-        barStyle="dark-content"
-      />
       <Image source={logo} style={styles.image} />
       <TextInput
         value={username}
@@ -147,11 +155,12 @@ export default function SignupInfo({ navigation, route }) {
         onPress={createHandle}
       />
       <TextButton
+        color={MAIN_COLOR}
         style={styles.button}
         title="Go back to previous"
         onPress={backHandle}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

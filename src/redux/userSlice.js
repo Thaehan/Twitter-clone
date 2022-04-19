@@ -1,40 +1,52 @@
-import {
-  createSlice,
-  createAsyncThunk,
-} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
+    userId: '',
     email: '',
-    accessToken: '',
-    uid: '',
+    avatar: '',
+    fullname: '',
+    username: '',
+    banner: '',
     isLoading: true,
   },
   reducers: {
     //Login
     setUser: (state, action) => {
       const user = {
+        userId: action.payload.userId,
         email: action.payload.email,
-        accessToken: action.payload.accessToken,
-        uid: action.payload.uid,
+        avatar: action.payload.avatar,
+        fullname: action.payload.fullname,
+        username: action.payload.username,
+        banner: action.payload.banner,
       };
-      state.uid = user.uid;
-      state.accessToken = user.accessToken;
+      state.userId = user.userId;
       state.email = user.email;
+      state.avatar = user.avatar;
+      state.fullname = user.fullname;
+      state.username = user.username;
+      state.banner = user.banner;
       state.isLoading = false;
     },
     //Logout
     removeUser: (state, action) => {
       const user = {
+        userId: '',
         email: '',
-        accessToken: '',
-        uid: '',
+        avatar: '',
+        fullname: '',
+        username: '',
+        banner: '',
         isLoading: true,
       };
-      state.accessToken = user.accessToken;
-      state.uid = user.uid;
+      state.userId = user.userId;
       state.email = user.email;
+      state.avatar = user.avatar;
+      state.fullname = user.fullname;
+      state.username = user.username;
+      state.banner = user.banner;
       state.isLoading = true;
     },
   },

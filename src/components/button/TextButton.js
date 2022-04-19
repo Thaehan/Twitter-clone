@@ -6,9 +6,9 @@ import {
 } from 'react-native';
 import {
   MAIN_COLOR,
-  BACKGROUND_COLOR
-} from "../../styles/Style"
-// Nhận vào title, onPress, style
+  BACKGROUND_COLOR,
+} from '../../styles/Style';
+// Nhận vào title, onPress, style, color
 export default function TextButton(props) {
   return (
     <View style={props.style}>
@@ -16,7 +16,14 @@ export default function TextButton(props) {
         style={styles.container}
         onPress={props.onPress}
       >
-        <Text style={styles.buttonText}>{props.title}</Text>
+        <Text
+          style={[
+            styles.buttonText,
+            { color: props.color },
+          ]}
+        >
+          {props.title}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -24,7 +31,6 @@ export default function TextButton(props) {
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: MAIN_COLOR,
     fontWeight: '500',
     padding: 0,
   },

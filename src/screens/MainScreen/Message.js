@@ -3,13 +3,16 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
 import React from 'react';
 
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
-import ListItemUser from '../../components/Message/ListItemUser';
-import { GLOBAL_STYLES, BACKGROUND_COLOR } from '../../styles/Style';
+import {
+  GLOBAL_STYLES,
+  BACKGROUND_COLOR,
+} from '../../styles/Style';
 import {
   CONTENT_SCREEN_HEIGHT,
   SCREEN_WIDTH,
@@ -20,7 +23,7 @@ import {
 } from '../../constants/ImageAssets';
 export default function Message({ navigation }) {
   return (
-    <View
+    <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
       <ScrollView
@@ -76,7 +79,7 @@ export default function Message({ navigation }) {
           avatar="like"
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

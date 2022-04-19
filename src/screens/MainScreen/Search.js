@@ -4,67 +4,123 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  SafeAreaView,
+  TextInput,
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
-  CONTENT_SCREEN_HEIGHT,
-  NULL_COLOR
+  HEADER_WIDTH,
+  HEADER_HEIGHT,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 import TestImage from '../TestImage';
+import UserItemButton from '../../components/button/UserItemButton';
+import { getMultipleUsers } from '../../api/user';
+import TextButton from '../../components/button/TextButton';
 
 export default function Search({ navigation }) {
+  const initData = useRef({ data: [], isLoaded: false });
+  const [searchText, setSeacrhText] = useState('');
+  const [userList, setUserList] = useState([]);
+
+  useEffect(() => {
+    if (!initData.current.isLoaded) {
+      getMultipleUsers('username', '!=', '')
+        .then((docs) => {
+          const tempList = [];
+          docs.forEach((doc) => {
+            tempList.push({ ...doc.data(), id: doc.id });
+          });
+          initData.current.data = tempList;
+          initData.current.isLoaded = true;
+          setUserList(initData.current.data);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+
+    const searchResult = initData.current.data.filter(
+      (user) => {
+        const lowerCaseSearch = searchText.toLowerCase();
+        const lowerCaseUsername =
+          user.username.toLowerCase();
+        console.log(lowerCaseSearch, lowerCaseUsername);
+
+        return (
+          lowerCaseUsername.indexOf(lowerCaseSearch) != -1
+        );
+      }
+    );
+    setUserList(searchResult);
+  }, [searchText]);
+
+  const deleteHandle = () => {
+    setSeacrhText('');
+  };
+
+  const userClickHandle = (id) => {
+    console.log(id);
+  };
+
   return (
-    <View
+    <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <TestImage />
-
-      {/* <ScrollView
+      <View style={styles.searchContainer}>
+        <TextInput
+          value={searchText}
+          onChangeText={setSeacrhText}
+          placeholder="Search User"
+          style={styles.searchBar}
+        />
+        <TextButton
+          title="Delete"
+          onPress={deleteHandle}
+          style={styles.deleteButton}
+        />
+      </View>
+      <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={styles.containerItem}>
-          <Text>Non</Text>
-        </View>
-        <View style={styles.containerItem}>
-          <Text>Non</Text>
-        </View>
-        <View style={styles.containerItem}>
-          <Text>Non</Text>
-        </View>
-        <View style={styles.containerItem}>
-          <Text>Non</Text>
-        </View>
-        <View style={styles.containerItem}>
-          <Text>Non</Text>
-        </View>
+        {userList.map((user, index) => (
+          <UserItemButton
+            key={index}
+            style={styles.itemConainter}
+            avatar={user.avatar}
+            fullname={user.fullname}
+            username={user.username}
+            size={45}
+            onPress={() => userClickHandle(user.id)}
+          />
+        ))}
       </ScrollView>
+
       <CircleButton
         type="font-awesome-5"
         icon="plus"
         color="#ffffff"
         size={30}
         style={styles.circleButton}
-      /> */}
-    </View>
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: NULL_COLOR,
-
-    flex: 2,
-    // height: CONTENT_SCREEN_HEIGHT,
+    flex: 1,
     width: SCREEN_WIDTH,
   },
-  containerItem: {
-    height: 300,
+  itemConainter: {
+    marginBottom: 10,
+    height: 50,
+    width: SCREEN_WIDTH,
   },
   circleButton: {
     borderRadius: 50,
@@ -72,5 +128,31 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     position: 'absolute',
+  },
+  searchBar: {
+    width: 310,
+    height: 35,
+    backgroundColor: '#f6f6f6',
+    borderColor: '#f8f8f8',
+    borderRadius: 25,
+    borderWidth: 1,
+    fontSize: 16,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    paddingLeft: 15,
+  },
+  deleteButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 40,
+  },
+  searchContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: SCREEN_WIDTH,
+    height: HEADER_HEIGHT,
+    flexDirection: 'row',
   },
 });

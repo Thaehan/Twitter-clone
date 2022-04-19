@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import { Icon } from 'react-native-elements';
+import { MAIN_COLOR } from '../../styles/Style';
 // Nhận vào style cho container để căn chỉnh, icon để hiện, type của icon, size
 export default function CircleButton(props) {
   return (
@@ -27,6 +28,7 @@ export default function CircleButton(props) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    backgroundColor: MAIN_COLOR,
     borderRadius: 50,
     height: 60,
     justifyContent: 'center',

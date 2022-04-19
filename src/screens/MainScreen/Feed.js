@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   Button,
+  SafeAreaView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
@@ -13,7 +14,8 @@ import Tweet from '../../components/tweet/Tweet';
 import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
-  BACKGROUND_COLOR
+  BACKGROUND_COLOR,
+  MAIN_COLOR,
 } from '../../styles/Style';
 import { tweetsList } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
@@ -29,7 +31,7 @@ export default function Feed({ navigation }) {
   }, []);
 
   return (
-    <View
+    <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
       <ScrollView
@@ -56,7 +58,7 @@ export default function Feed({ navigation }) {
         size={30}
         style={styles.circleButton}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

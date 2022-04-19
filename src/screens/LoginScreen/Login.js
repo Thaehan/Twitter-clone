@@ -4,9 +4,9 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  StatusBar,
+  SafeAreaView,
 } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -15,12 +15,14 @@ import PrimaryButton from '../../components/button/PrimaryButton';
 import TextButton from '../../components/button/TextButton';
 import {
   GLOBAL_STYLES,
+  MAIN_COLOR,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '../../styles/Style';
 import { SIGN_UP } from '../../constants/ScreenName';
 import { auth } from '../../firebase';
 import { setUser } from '../../redux/userSlice';
+import { getMultipleUsers } from '../../api/user';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -30,17 +32,25 @@ export default function Login({ navigation }) {
   const loginHandle = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const { email, uid, accessToken } =
-          userCredential.user;
-        dispatch(
-          setUser({
-            email,
-            uid,
-            accessToken,
+        getMultipleUsers('email', '==', email)
+          .then((docs) => {
+            const userData = docs[0].data();
+            const payLoad = {
+              userId: docs[0].id,
+              email: userData.email,
+              avatar: userData.avatar,
+              fullname: userData.fullname,
+              username: userData.username,
+              banner: userData.banner,
+            };
+            console.log(payLoad);
+            dispatch(setUser(payLoad));
           })
-        );
+          .catch(() => {
+            alert('Can not find user with email ', email);
+          });
       })
-      .catch((error) => {
+      .catch(() => {
         alert('Email or password is wrong!');
       });
   };
@@ -56,15 +66,9 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <StatusBar
-        animated={true}
-        backgroundColor="#ffffff"
-        hidden={false}
-        barStyle="dark-content"
-      />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Login to Twitter</Text>
       <TextInput
@@ -84,6 +88,7 @@ export default function Login({ navigation }) {
       />
       <View style={styles.buttonContainer}>
         <TextButton
+          color={MAIN_COLOR}
           title="Forgot your password?"
           onPress={forgotHandle}
         />
@@ -98,11 +103,12 @@ export default function Login({ navigation }) {
           Do not have an account?
         </Text>
         <TextButton
+          color={MAIN_COLOR}
           title="Sign up"
           onPress={signupHandle}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -132,7 +138,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 8,
   },
-  // eslint-disable-next-line react-native/no-color-literals
   textInput: {
     backgroundColor: '#f6f6f6',
     borderColor: '#f8f8f8',

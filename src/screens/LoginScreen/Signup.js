@@ -3,8 +3,8 @@ import {
   Text,
   Image,
   TextInput,
+  SafeAreaView,
   StyleSheet,
-  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -15,13 +15,13 @@ import {
   GLOBAL_STYLES,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
+  MAIN_COLOR,
 } from '../../styles/Style';
 import {
   LOGIN,
   SIGN_UP_INFORMATION,
 } from '../../constants/ScreenName';
 import { getMultipleUsers } from '../../api/user';
-import { doc } from 'firebase/firestore/lite';
 
 export default function Signup({ navigation }) {
   const [email, setEmail] = useState('');
@@ -62,15 +62,9 @@ export default function Signup({ navigation }) {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <StatusBar
-        animated={true}
-        backgroundColor="#ffffff"
-        hidden={false}
-        barStyle="dark-content"
-      />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Sign up an account</Text>
       <TextInput
@@ -97,9 +91,13 @@ export default function Signup({ navigation }) {
         <Text style={styles.loginText}>
           Already got an account?
         </Text>
-        <TextButton title="Login" onPress={loginHandle} />
+        <TextButton
+          color={MAIN_COLOR}
+          title="Login"
+          onPress={loginHandle}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
