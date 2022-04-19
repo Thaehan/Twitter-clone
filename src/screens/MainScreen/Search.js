@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
 import React, { useEffect, useState, useRef } from 'react';
+import { StackActions } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import {
   GLOBAL_STYLES,
@@ -21,19 +23,27 @@ import TestImage from '../TestImage';
 import UserItemButton from '../../components/button/UserItemButton';
 import { getMultipleUsers } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
+import {
+  CURRENT_PROFILE,
+  OTHER_PROFILE,
+} from '../../constants/ScreenName';
 
 export default function Search({ navigation }) {
+  const currentUser = useSelector((state) => state.user);
   const initData = useRef({ data: [], isLoaded: false });
   const [searchText, setSeacrhText] = useState('');
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
+    //Load all userData to initData to filt
     if (!initData.current.isLoaded) {
       getMultipleUsers('username', '!=', '')
         .then((docs) => {
           const tempList = [];
           docs.forEach((doc) => {
-            tempList.push({ ...doc.data(), id: doc.id });
+            if (doc.id != currentUser.userId) {
+              tempList.push({ ...doc.data(), id: doc.id });
+            }
           });
           initData.current.data = tempList;
           initData.current.isLoaded = true;
@@ -44,6 +54,7 @@ export default function Search({ navigation }) {
         });
     }
 
+    //Filter userList with searchText
     const searchResult = initData.current.data.filter(
       (user) => {
         const lowerCaseSearch = searchText.toLowerCase();
@@ -64,7 +75,11 @@ export default function Search({ navigation }) {
   };
 
   const userClickHandle = (id) => {
-    console.log(id);
+    //Push and navigate to User Profile
+    const pushAction = StackActions.push(OTHER_PROFILE, {
+      id: id,
+    });
+    navigation.dispatch(pushAction);
   };
 
   return (
@@ -88,17 +103,23 @@ export default function Search({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        {userList.map((user, index) => (
-          <UserItemButton
-            key={index}
-            style={styles.itemConainter}
-            avatar={user.avatar}
-            fullname={user.fullname}
-            username={user.username}
-            size={45}
-            onPress={() => userClickHandle(user.id)}
-          />
-        ))}
+        {userList.length != 0 &&
+          userList.map((user, index) => (
+            <UserItemButton
+              key={index}
+              style={styles.itemConainter}
+              avatar={user.avatar}
+              fullname={user.fullname}
+              username={user.username}
+              size={45}
+              onPress={() => userClickHandle(user.id)}
+            />
+          ))}
+        {userList.length == 0 && (
+          <Text style={styles.text}>
+            Can not find user with username: {searchText}
+          </Text>
+        )}
       </ScrollView>
 
       <CircleButton
@@ -116,6 +137,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: SCREEN_WIDTH,
+    alignItems: 'center',
   },
   itemConainter: {
     marginBottom: 10,
@@ -130,15 +152,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   searchBar: {
-    width: 310,
-    height: 35,
+    width: 330,
+    height: 40,
     backgroundColor: '#f6f6f6',
     borderColor: '#f8f8f8',
     borderRadius: 25,
     borderWidth: 1,
     fontSize: 16,
     marginLeft: 15,
-    marginRight: 15,
     marginTop: 10,
     marginBottom: 10,
     paddingLeft: 15,
@@ -146,13 +167,17 @@ const styles = StyleSheet.create({
   deleteButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 40,
+    width: SCREEN_WIDTH - 330,
   },
   searchContainer: {
-    justifyContent: 'center',
     alignItems: 'center',
     width: SCREEN_WIDTH,
     height: HEADER_HEIGHT,
     flexDirection: 'row',
+  },
+  text: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 17,
   },
 });

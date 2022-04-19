@@ -12,6 +12,8 @@ const MESSAGESTACK = 'MessageStack';
 const SEARCHSTACK = 'SearchStack';
 const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
+const OTHER_PROFILE = 'OtherProfile';
+const CURRENT_PROFILE = 'CurrenProfile';
 
 export {
   LOGIN,
@@ -26,4 +28,6 @@ export {
   SEARCHSTACK,
   NOTIFICATIONSTACK,
   FEEDSTACK,
+  OTHER_PROFILE,
+  CURRENT_PROFILE,
 };

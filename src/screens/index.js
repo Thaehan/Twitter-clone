@@ -6,6 +6,8 @@ import Feed from './MainScreen/Feed';
 import Search from './MainScreen/Search';
 import Notification from './MainScreen/Notification';
 import Conversation from './StackedScreen/Conversation';
+import CurrentProfile from './StackedScreen/CurrentProfile';
+import OtherProfile from './StackedScreen/OtherProfile';
 export {
   Login,
   Signup,
@@ -15,4 +17,6 @@ export {
   Search,
   Notification,
   Conversation,
+  CurrentProfile,
+  OtherProfile,
 };

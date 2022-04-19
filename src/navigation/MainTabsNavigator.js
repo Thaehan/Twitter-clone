@@ -21,12 +21,16 @@ import {
   SEARCHSTACK,
   NOTIFICATIONSTACK,
   FEEDSTACK,
+  CURRENT_PROFILE,
+  OTHER_PROFILE,
 } from '../constants/ScreenName.js';
 import {
   Feed,
   Message,
   Notification,
   Search,
+  CurrentProfile,
+  OtherProfile,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -170,7 +174,6 @@ function FeedStackScreen() {
 }
 
 function SearchStackScreen() {
-  const user = useSelector((state) => state.user);
   const [searchText, setSearchText] = useState('');
 
   return (
@@ -185,6 +188,14 @@ function SearchStackScreen() {
         options={{
           headerShown: false,
         }}
+      />
+      <SearchStack.Screen
+        name={CURRENT_PROFILE}
+        component={CurrentProfile}
+      />
+      <SearchStack.Screen
+        name={OTHER_PROFILE}
+        component={OtherProfile}
       />
     </SearchStack.Navigator>
   );
