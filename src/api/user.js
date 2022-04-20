@@ -87,6 +87,7 @@ const deleteUserById = async (id) => {
 };
 
 export {
+  collectionName as userCollectionName,
   createUser,
   getUserById,
   getMultipleUsers,

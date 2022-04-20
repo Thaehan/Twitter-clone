@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -8,7 +7,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-
+import { getFollowedUserTweet, getMultipleTweet, getTweetById } from "../../api/tweet"
 import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
 import {
@@ -17,9 +16,9 @@ import {
   BACKGROUND_COLOR,
   MAIN_COLOR,
 } from '../../styles/Style';
-import { tweetsList } from '../../mock';
 import CircleButton from '../../components/button/CircleButton';
 import TweetModel from '../../models/TweetModel';
+import { useSelector } from 'react-redux';
 
 export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState([]);
@@ -27,14 +26,29 @@ export default function Feed({ navigation }) {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    setTweetList(tweetsList);
+    //const user = useSelector((state) => state.user);
+
+    //var tweets = getFollowedUserTweet()
+    // setTweetList(tweetsList);
+    getMultipleTweet("textContent", "!=", "")
+      .then((docs) => {
+        var tempList = [];
+        docs.forEach((doc) => {
+          tempList.push({ ...doc.data(), tweetId: doc.id });
+        });
+        setTweetList(tempList);
+        console.log(tweetList)
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }, []);
 
   return (
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <ScrollView
+      {<ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
@@ -49,7 +63,7 @@ export default function Feed({ navigation }) {
             userMentioned={tweet.userMentioned}
           />
         ))}
-      </ScrollView>
+      </ScrollView>}
 
       <CircleButton
         icon="plus"

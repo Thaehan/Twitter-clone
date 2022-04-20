@@ -14,7 +14,6 @@ import {
 } from '../../styles/Style';
 import ImageButton from '../button/ImageButton';
 import AvatarButton from '../button/AvatarButton';
-import { userDatabase } from '../../mock';
 import { useState, useEffect } from 'react';
 import {
   MAIN_COLOR,

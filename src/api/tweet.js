@@ -9,20 +9,23 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import {} from 'firebase/storage';
-
+import { } from 'firebase/storage';
+import { getUserById } from './user';
 import { storage, db, app, auth } from '../firebase';
 import { TweetModel } from '../models';
 
 const collectionName = 'tweets';
+
 const tweetCollection = collection(db, collectionName);
+//const userCollection = collection(db, userCollectionName);
 
 const createTweet = async (
   userPosted,
   textContent = '',
   mediaContent = '',
-  userMentioned = '',
-  referedPostId = ''
+  userMentioned = [],
+  referedPostId = '',
+  dateCreated = ''
 ) => {
   try {
     const newTweet = TweetModel(
@@ -30,7 +33,8 @@ const createTweet = async (
       (textContent = textContent),
       (mediaContent = mediaContent),
       (userMentioned = userMentioned),
-      (referedPostId = referedPostId)
+      (referedPostId = referedPostId),
+      (dateCreated = dateCreated)
     );
 
     await addDoc(tweetCollection, newTweet);
@@ -65,7 +69,43 @@ const getMultipleTweet = async (
     console.log(e);
   }
 };
+//Still todo
+const getFollowedUserTweet = async (
+  ofUser,
+  param1 = 'userPosted',
+  operation = '!=',
+) => {
+  try {
+    var docs = []
 
+    getUserById(ofUser).then(async doc => {
+      const { following } = doc.data();
+      for (const userID of following) {
+        const q = query(
+          tweetCollection,
+          where(param1, operation, userID)
+        );
+        const doc = (await getDocs(q)).docs;
+        docs.push(doc)
+      }
+    })
+
+    getUserById(xId).then(doc => {
+      const { following } = doc.data();
+      const q = query(
+        tweetCollection,
+        where(param1, "in", following)
+      );
+
+    })
+
+    //const docs = (await getDocs(q)).docs;
+    console.log(docs)
+    return docs;
+  } catch (e) {
+    console.log(e);
+  }
+};
 //params: docId (String), change (Object);
 const updateTweet = async (id, change) => {
   try {
@@ -92,4 +132,5 @@ export {
   getMultipleTweet,
   updateTweet,
   deleteTweetById,
+  getFollowedUserTweet
 };

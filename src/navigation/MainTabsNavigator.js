@@ -31,6 +31,7 @@ import {
   Search,
   CurrentProfile,
   OtherProfile,
+  TweetDetails
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,

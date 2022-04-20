@@ -8,6 +8,7 @@ import Notification from './MainScreen/Notification';
 import Conversation from './StackedScreen/Conversation';
 import CurrentProfile from './StackedScreen/CurrentProfile';
 import OtherProfile from './StackedScreen/OtherProfile';
+import TweetDetails from './MainScreen/TweetDetails';
 export {
   Login,
   Signup,
@@ -19,4 +20,5 @@ export {
   Conversation,
   CurrentProfile,
   OtherProfile,
+  TweetDetails
 };
