@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
 import React, { useEffect, useState, useRef } from 'react';
-import { StackActions } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import {
@@ -23,10 +22,7 @@ import TestImage from '../TestImage';
 import UserItemButton from '../../components/button/UserItemButton';
 import { getMultipleUsers } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
-import {
-  CURRENT_PROFILE,
-  OTHER_PROFILE,
-} from '../../constants/ScreenName';
+import { OTHER_PROFILE } from '../../constants/ScreenName';
 
 export default function Search({ navigation }) {
   const currentUser = useSelector((state) => state.user);
@@ -58,10 +54,9 @@ export default function Search({ navigation }) {
     const searchResult = initData.current.data.filter(
       (user) => {
         const lowerCaseSearch = searchText.toLowerCase();
-        const lowerCaseUsername =
-          user.username.toLowerCase();
-        console.log(lowerCaseSearch, lowerCaseUsername);
-
+        const lowerCaseUsername = user.username
+          .toString()
+          .toLowerCase();
         return (
           lowerCaseUsername.indexOf(lowerCaseSearch) != -1
         );
@@ -74,12 +69,9 @@ export default function Search({ navigation }) {
     setSeacrhText('');
   };
 
-  const userClickHandle = (id) => {
+  const userClickHandle = (userId) => {
     //Push and navigate to User Profile
-    const pushAction = StackActions.push(OTHER_PROFILE, {
-      id: id,
-    });
-    navigation.dispatch(pushAction);
+    navigation.navigate(OTHER_PROFILE, { userId: userId });
   };
 
   return (
