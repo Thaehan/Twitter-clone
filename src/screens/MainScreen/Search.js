@@ -6,6 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
 import React, { useEffect, useState, useRef } from 'react';
@@ -18,7 +19,6 @@ import {
   HEADER_HEIGHT,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
-import TestImage from '../TestImage';
 import UserItemButton from '../../components/button/UserItemButton';
 import { getMultipleUsers } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
@@ -52,21 +52,21 @@ export default function Search({ navigation }) {
         .catch((error) => {
           alert(error);
         });
+    } else {
+      //Filter userList with searchText
+      const searchResult = initData.current.data.filter(
+        (user) => {
+          const lowerCaseSearch = searchText.toLowerCase();
+          const lowerCaseUsername = user.username
+            .toString()
+            .toLowerCase();
+          return (
+            lowerCaseUsername.indexOf(lowerCaseSearch) != -1
+          );
+        }
+      );
+      setUserList(searchResult);
     }
-
-    //Filter userList with searchText
-    const searchResult = initData.current.data.filter(
-      (user) => {
-        const lowerCaseSearch = searchText.toLowerCase();
-        const lowerCaseUsername = user.username
-          .toString()
-          .toLowerCase();
-        return (
-          lowerCaseUsername.indexOf(lowerCaseSearch) != -1
-        );
-      }
-    );
-    setUserList(searchResult);
   }, [searchText]);
 
   const deleteHandle = () => {
@@ -82,6 +82,12 @@ export default function Search({ navigation }) {
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        hidden={false}
+        barStyle="dark-content"
+      />
       <View style={styles.searchContainer}>
         <TextInput
           value={searchText}

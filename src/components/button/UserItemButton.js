@@ -23,7 +23,7 @@ export default function UserItemButton(props) {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={props.avatar}
+            source={{ uri: props.avatar }}
             style={{
               height: props.size,
               width: props.size,

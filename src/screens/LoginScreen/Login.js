@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -69,6 +70,12 @@ export default function Login({ navigation }) {
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        hidden={false}
+        barStyle="dark-content"
+      />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Login to Twitter</Text>
       <TextInput

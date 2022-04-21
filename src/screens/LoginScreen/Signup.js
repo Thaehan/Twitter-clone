@@ -5,6 +5,7 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -65,6 +66,12 @@ export default function Signup({ navigation }) {
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        hidden={false}
+        barStyle="dark-content"
+      />
       <Image source={logo} style={styles.image} />
       <Text style={styles.title}>Sign up an account</Text>
       <TextInput

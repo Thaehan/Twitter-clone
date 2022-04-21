@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
+  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -27,6 +28,7 @@ import {
 import TextButton from '../../components/button/TextButton';
 import { LOGIN, SIGN_UP } from '../../constants/ScreenName';
 import { auth } from '../../firebase';
+import moment from 'moment';
 
 export default function SignupInfo({ navigation, route }) {
   const [showDatepicker, setShowDatePicker] =
@@ -38,7 +40,6 @@ export default function SignupInfo({ navigation, route }) {
   );
   const [country, setCountry] = useState('');
   const { email, password } = route.params;
-  const dispatch = useDispatch();
 
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -102,6 +103,12 @@ export default function SignupInfo({ navigation, route }) {
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        hidden={false}
+        barStyle="dark-content"
+      />
       <Image source={logo} style={styles.image} />
       <TextInput
         value={username}
@@ -126,12 +133,7 @@ export default function SignupInfo({ navigation, route }) {
           style={styles.dateIcon}
         />
         <Text style={styles.dateText}>
-          {dateOfBirth.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
+          {moment(dateOfBirth).format('DD/MM/YYYY')}
         </Text>
       </View>
       {showDatepicker && (
