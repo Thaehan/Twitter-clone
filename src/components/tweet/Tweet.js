@@ -35,7 +35,9 @@ import { doc } from 'firebase/firestore/lite';
 const onFeed = true;
 
 export default function Tweet(props) {
+  const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
+
   const [userPosted, setUserPosted] = useState({});
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(0);
@@ -72,9 +74,15 @@ export default function Tweet(props) {
   }, []);
 
   const avatarHandle = (userId) => {
-    navigation.navigate(CURRENT_PROFILE, {
-      userId: userId,
-    });
+    if (currentUser.userId == userId) {
+      navigation.navigate(CURRENT_PROFILE, {
+        userId: userId,
+      });
+    } else {
+      navigation.navigate(OTHER_PROFILE, {
+        userId: userId,
+      });
+    }
   };
 
   return onFeed ? (
