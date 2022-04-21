@@ -7,7 +7,7 @@ export default function OtherProfile({
 }) {
   return (
     <View>
-      <Text>OtherProfile {route.params.id}</Text>
+      <Text>OtherProfile {route.params.userId}</Text>
     </View>
   );
 }

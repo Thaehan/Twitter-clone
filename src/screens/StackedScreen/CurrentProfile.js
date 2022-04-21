@@ -7,7 +7,7 @@ export default function CurrentProfile({
 }) {
   return (
     <View>
-      <Text>CurrentProfile {route.params.id}</Text>
+      <Text>CurrentProfile {route.params.userId}</Text>
     </View>
   );
 }

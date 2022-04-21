@@ -31,6 +31,10 @@ export default function Search({ navigation }) {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
+    initData.current = { data: [], isLoaded: false };
+  }, [currentUser.userId]);
+
+  useEffect(() => {
     //Load all userData to initData to filt
     if (!initData.current.isLoaded) {
       getMultipleUsers('username', '!=', '')

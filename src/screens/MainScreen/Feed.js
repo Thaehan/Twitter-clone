@@ -7,7 +7,11 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { getFollowedUserTweet, getMultipleTweet, getTweetById } from "../../api/tweet"
+import {
+  getFollowedUserTweet,
+  getMultipleTweet,
+  getTweetById,
+} from '../../api/tweet';
 import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
 import {
@@ -30,14 +34,14 @@ export default function Feed({ navigation }) {
 
     //var tweets = getFollowedUserTweet()
     // setTweetList(tweetsList);
-    getMultipleTweet("textContent", "!=", "")
+    getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
         var tempList = [];
         docs.forEach((doc) => {
           tempList.push({ ...doc.data(), tweetId: doc.id });
         });
         setTweetList(tempList);
-        console.log(tweetList)
+        console.log(tempList);
       })
       .catch((error) => {
         alert(error);
@@ -48,22 +52,24 @@ export default function Feed({ navigation }) {
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      {<ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      >
-        {tweetList.map((tweet) => (
-          <Tweet
-            key={tweet.tweetId}
-            userPosted={tweet.userPosted}
-            textContent={tweet.textContent}
-            mediaContent={tweet.mediaContent}
-            dateCreated={tweet.dateCreated}
-            referedPostId={tweet.referedPostId}
-            userMentioned={tweet.userMentioned}
-          />
-        ))}
-      </ScrollView>}
+      {
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          {tweetList.map((tweet) => (
+            <Tweet
+              key={tweet.tweetId}
+              userPosted={tweet.userPosted}
+              textContent={tweet.textContent}
+              mediaContent={tweet.mediaContent}
+              dateCreated={tweet.dateCreated}
+              referedPostId={tweet.referedPostId}
+              userMentioned={tweet.userMentioned}
+            />
+          ))}
+        </ScrollView>
+      }
 
       <CircleButton
         icon="plus"

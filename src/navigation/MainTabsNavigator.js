@@ -31,7 +31,7 @@ import {
   Search,
   CurrentProfile,
   OtherProfile,
-  TweetDetails
+  TweetDetails,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -170,6 +170,14 @@ function FeedStackScreen() {
           headerTitleAlign: 'center',
         }}
       />
+      <FeedStack.Screen
+        name={CURRENT_PROFILE}
+        component={CurrentProfile}
+      />
+      <FeedStack.Screen
+        name={OTHER_PROFILE}
+        component={OtherProfile}
+      />
     </FeedStack.Navigator>
   );
 }
@@ -281,6 +289,14 @@ function MessageStackScreen() {
           headerTitle: 'Message',
           headerTitleAlign: 'center',
         }}
+      />
+      <MessageStack.Screen
+        name={CURRENT_PROFILE}
+        component={CurrentProfile}
+      />
+      <MessageStack.Screen
+        name={OTHER_PROFILE}
+        component={OtherProfile}
       />
     </MessageStack.Navigator>
   );
