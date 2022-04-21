@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import {
   CONTENT_SCREEN_HEIGHT,
