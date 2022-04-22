@@ -14,7 +14,7 @@ const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
 const OTHER_PROFILE = 'OtherProfile';
 const CURRENT_PROFILE = 'CurrentProfile';
-const TWEET_DETAIL = 'TweetDetails';
+const TWEET_DETAIL = 'TweetDetail';
 
 export {
   LOGIN,

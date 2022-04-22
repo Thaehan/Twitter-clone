@@ -8,7 +8,6 @@ import {
   TextInput,
   StatusBar,
 } from 'react-native';
-import { ScreenContainer } from 'react-native-screens';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 

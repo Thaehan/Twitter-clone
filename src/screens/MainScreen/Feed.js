@@ -60,6 +60,7 @@ export default function Feed({ navigation }) {
           {tweetList.map((tweet) => (
             <Tweet
               key={tweet.tweetId}
+              tweetId={tweet.tweetId}
               userPosted={tweet.userPosted}
               textContent={tweet.textContent}
               mediaContent={tweet.mediaContent}

@@ -86,109 +86,112 @@ export default function Tweet(props) {
     }
   };
 
+  const tweetHandle = (tweetId) => {
+    navigation.navigate(TWEET_DETAIL, { tweetId: tweetId });
+  };
+
   return onFeed ? (
     <View style={styles.container}>
-      <View style={styles.userInfo}>
-        <View style={props.style}>
-          <TouchableOpacity
+      <View style={styles.avatarContainer}>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => avatarHandle(userPosted.userId)}
+        >
+          <Image
+            source={{ uri: userPosted.avatar }}
             style={{
-              alignContent: 'center',
-              alignSelf: 'center',
+              height: 50,
+              width: 50,
+              borderRadius: 50,
             }}
-            onPress={() => avatarHandle(userPosted.userId)}
-          >
-            <Image
-              source={{ uri: userPosted.avatar }}
-              style={{
-                height: 65,
-                width: 65,
-                borderRadius: 50,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
+          />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => {}}>
-        <View style={styles.content}>
-          <View style={styles.userInfo}>
-            <Text style={GLOBAL_STYLES.fullname}>
-              {userPosted.fullname}
-            </Text>
-            <Text style={GLOBAL_STYLES.username}>
-              {' '}
-              {userPosted.username} {' . 1d'} {'\n'}
-            </Text>
-          </View>
+      <TouchableOpacity
+        style={styles.rightContainer}
+        onPress={() => tweetHandle(props.tweetId)}
+      >
+        <View style={styles.userInfo}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {userPosted.fullname}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {' '}
+            {userPosted.username} {' . 1d'}
+          </Text>
+        </View>
 
-          {props.textContent && (
-            <Text style={GLOBAL_STYLES.text}>
-              {props.textContent}
-            </Text>
-          )}
+        {props.textContent && (
+          <Text style={GLOBAL_STYLES.text}>
+            {props.textContent}
+          </Text>
+        )}
 
-          {/*           {props.mediaContent && (
+        {/*           {props.mediaContent && (
 
             )} */}
-          {/* Interaction bar */}
-          <View style={styles.interactionBar}>
+        {/* Interaction bar */}
+        <View style={styles.interactionBar}>
+          <View style={styles.buttonWithCount}>
+            <IconButton
+              icon="comment"
+              onPress={() => commentTweet()}
+            />
+            <Text>{comments}</Text>
+          </View>
+          {
+            /* retweet */
             <View style={styles.buttonWithCount}>
               <IconButton
-                icon="comment"
-                onPress={() => commentTweet()}
+                icon="autorenew"
+                onPress={() => retweetTweet()}
+                color={
+                  tweetRetweeted
+                    ? RETWEET_COLOR
+                    : DEFAULT_COLOR
+                }
               />
-              <Text>{comments}</Text>
+              <Text
+                style={
+                  tweetRetweeted
+                    ? styles.retweetedColor
+                    : styles.defaultColor
+                }
+              >
+                {retweets}
+              </Text>
             </View>
-            {
-              /* retweet */
-              <View style={styles.buttonWithCount}>
-                <IconButton
-                  icon="autorenew"
-                  onPress={() => retweetTweet()}
-                  color={
-                    tweetRetweeted
-                      ? RETWEET_COLOR
-                      : DEFAULT_COLOR
-                  }
-                />
-                <Text
-                  style={
-                    tweetRetweeted
-                      ? styles.retweetedColor
-                      : styles.defaultColor
-                  }
-                >
-                  {retweets}
-                </Text>
-              </View>
-            }
-            {
-              /* liked */
-              <View style={styles.buttonWithCount}>
-                <IconButton
-                  icon="favorite-border"
-                  onPress={() => likeTweet()}
-                  color={
-                    tweetLiked ? LIKED_COLOR : DEFAULT_COLOR
-                  }
-                />
-                <Text
-                  style={
-                    tweetLiked
-                      ? styles.likedColor
-                      : styles.defaultColor
-                  }
-                >
-                  {likes}
-                </Text>
-              </View>
-            }
+          }
+          {
+            /* liked */
+            <View style={styles.buttonWithCount}>
+              <IconButton
+                icon="favorite-border"
+                onPress={() => likeTweet()}
+                color={
+                  tweetLiked ? LIKED_COLOR : DEFAULT_COLOR
+                }
+              />
+              <Text
+                style={
+                  tweetLiked
+                    ? styles.likedColor
+                    : styles.defaultColor
+                }
+              >
+                {likes}
+              </Text>
+            </View>
+          }
 
-            <IconButton
-              icon="share"
-              onPress={shareTweet()}
-              color={DEFAULT_COLOR}
-            />
-          </View>
+          <IconButton
+            icon="share"
+            onPress={shareTweet()}
+            color={DEFAULT_COLOR}
+          />
         </View>
       </TouchableOpacity>
     </View>
@@ -198,26 +201,21 @@ export default function Tweet(props) {
 }
 
 const styles = StyleSheet.create({
+  avatarContainer: {
+    width: '12%',
+  },
   buttonWithCount: {
     alignItems: 'center',
     flexDirection: 'row',
   },
   container: {
-    alignItems: 'flex-start',
     backgroundColor: BACKGROUND_COLOR,
     borderBottomColor: DARK_GREY_TEXT_COLOR,
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     paddingBottom: 10,
-    paddingLeft: 5,
-    paddingTop: 5,
-  },
-  content: {
-    flexDirection: 'column',
-    flex: 1,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingTop: 10,
   },
   defaultColor: {
     color: DEFAULT_COLOR,
@@ -225,9 +223,8 @@ const styles = StyleSheet.create({
   interactionBar: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 15,
-    width: '90%',
   },
   likedColor: {
     color: LIKED_COLOR,
@@ -235,10 +232,13 @@ const styles = StyleSheet.create({
   retweetedColor: {
     color: RETWEET_COLOR,
   },
+  rightContainer: {
+    paddingLeft: 15,
+    width: '88%',
+  },
   userInfo: {
-    alignItems: 'flex-start',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    paddingBottom: 5,
     textAlign: 'right',
   },
 });

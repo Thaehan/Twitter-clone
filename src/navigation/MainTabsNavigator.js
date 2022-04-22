@@ -23,6 +23,7 @@ import {
   FEEDSTACK,
   CURRENT_PROFILE,
   OTHER_PROFILE,
+  TWEET_DETAIL,
 } from '../constants/ScreenName.js';
 import {
   Feed,
@@ -31,7 +32,7 @@ import {
   Search,
   CurrentProfile,
   OtherProfile,
-  TweetDetails,
+  TweetDetail,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -131,6 +132,7 @@ function FeedStackScreen() {
     <FeedStack.Navigator
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
+        headerShadowVisible: false,
       }}
     >
       <FeedStack.Screen
@@ -178,6 +180,10 @@ function FeedStackScreen() {
         name={OTHER_PROFILE}
         component={OtherProfile}
       />
+      <FeedStack.Screen
+        name={TWEET_DETAIL}
+        component={TweetDetail}
+      />
     </FeedStack.Navigator>
   );
 }
@@ -217,6 +223,7 @@ function NotificationStackScreen() {
     <NotificationStack.Navigator
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
+        headerShadowVisible: false,
       }}
     >
       <NotificationStack.Screen
@@ -259,6 +266,7 @@ function MessageStackScreen() {
     <MessageStack.Navigator
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
+        headerShadowVisible: false,
       }}
     >
       <MessageStack.Screen
