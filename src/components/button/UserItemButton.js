@@ -14,35 +14,41 @@ import {
 import AvatarButton from './AvatarButton';
 
 //Nhận vào style, avatar, username, fullname, onPress
-export default function UserItemButton(props) {
+export default function UserItemButton({
+  style,
+  onPress,
+  avatar,
+  size,
+  fullname,
+  username,
+}) {
   return (
-    <View style={props.style}>
+    <View style={style}>
       <TouchableOpacity
         style={styles.container}
-        onPress={props.onPress}
+        onPress={onPress}
       >
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: props.avatar }}
+            source={{ uri: avatar }}
             style={{
-              height: props.size,
-              width: props.size,
+              height: size,
+              width: size,
               borderRadius: 50,
             }}
           />
         </View>
         <View style={styles.textContainer}>
           <Text style={GLOBAL_STYLES.fullname}>
-            {props.fullname}
+            {fullname}
           </Text>
-
           <Text
             style={[
               GLOBAL_STYLES.username,
               styles.username,
             ]}
           >
-            @{props.username}
+            @{username}
           </Text>
         </View>
       </TouchableOpacity>

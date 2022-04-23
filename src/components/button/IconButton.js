@@ -6,18 +6,25 @@ import {
 import React from 'react';
 import { Icon } from 'react-native-elements';
 // Nhận vào style cho container để căn chỉnh, type: loại icon, icon để hiện, size, color
-export default function IconButton(props) {
+export default function IconButton({
+  style,
+  onPress,
+  color,
+  type,
+  icon,
+  size,
+}) {
   return (
-    <View style={props.style}>
+    <View style={style}>
       <TouchableOpacity
         style={styles.container}
-        onPress={props.onPress}
+        onPress={onPress}
       >
         <Icon
-          color={props.color}
-          type={props.type}
-          name={props.icon}
-          size={props.size}
+          color={color}
+          type={type}
+          name={icon}
+          size={size}
         />
       </TouchableOpacity>
     </View>

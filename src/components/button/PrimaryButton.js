@@ -6,16 +6,20 @@ import {
 } from 'react-native';
 import {
   MAIN_COLOR,
-  BACKGROUND_COLOR
-} from "../../styles/Style"
-export default function PrimaryButton(props) {
+  BACKGROUND_COLOR,
+} from '../../styles/Style';
+export default function PrimaryButton({
+  style,
+  onPress,
+  title,
+}) {
   return (
-    <View style={props.style}>
+    <View style={style}>
       <TouchableOpacity
         style={styles.button}
-        onPress={props.onPress}
+        onPress={onPress}
       >
-        <Text style={styles.buttonText}>{props.title}</Text>
+        <Text style={styles.buttonText}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

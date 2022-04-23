@@ -9,18 +9,23 @@ import { HEADER_HEIGHT } from '../../styles/Style';
 
 //Nhưng Image button là những cái ảnh tròn có thể ấn vào
 //nhận vào style=(Căn chỉnh container) size= onPress= (size x size), source ảnh
-export default function ImageButton(props) {
+export default function ImageButton({
+  style,
+  onPress,
+  source,
+  size,
+}) {
   return (
-    <View style={props.style}>
+    <View style={style}>
       <TouchableOpacity
         style={styles.container}
-        onPress={props.onPress}
+        onPress={onPress}
       >
         <Image
-          source={props.source}
+          source={source}
           style={{
-            height: props.size,
-            width: props.size,
+            height: size,
+            width: size,
           }}
         />
       </TouchableOpacity>

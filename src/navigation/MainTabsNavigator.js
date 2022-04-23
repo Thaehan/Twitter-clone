@@ -5,10 +5,13 @@ import {
   Button,
   TextInput,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -131,6 +134,7 @@ function FeedStackScreen() {
   return (
     <FeedStack.Navigator
       screenOptions={{
+        animation: 'slide_from_right',
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
       }}
@@ -139,13 +143,14 @@ function FeedStackScreen() {
         name={FEED}
         component={Feed}
         options={{
-          headerLeft: () => {
+          headerLeft: ({ navigation, route }) => {
             return (
               <AvatarButton
                 style={styles.leftHeader}
                 source={user.avatar}
                 userId={user.userId}
                 size={30}
+                onPress={() => {}}
               />
             );
           },
@@ -153,7 +158,7 @@ function FeedStackScreen() {
             return (
               <IconButton
                 style={styles.rightHeader}
-                type="font-awesome"
+                type="evilicon"
                 icon="gear"
                 color="black"
                 size={30}
@@ -192,6 +197,7 @@ function SearchStackScreen() {
     <SearchStack.Navigator
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
+        gestureEnabled: true,
       }}
     >
       <SearchStack.Screen
@@ -219,6 +225,7 @@ function NotificationStackScreen() {
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
+        gestureEnabled: true,
       }}
     >
       <NotificationStack.Screen
@@ -262,6 +269,7 @@ function MessageStackScreen() {
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
+        gestureEnabled: true,
       }}
     >
       <MessageStack.Screen

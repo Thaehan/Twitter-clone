@@ -38,7 +38,13 @@ export default function Feed({ navigation }) {
       .then((docs) => {
         var tempList = [];
         docs.forEach((doc) => {
-          tempList.push({ ...doc.data(), tweetId: doc.id });
+          tempList.push({
+            ...doc.data(),
+            tweetId: doc.id,
+            dateCreated: new Date(
+              doc.data().dateCreated.toDate()
+            ),
+          });
         });
         setTweetList(tempList);
         console.log(tempList);
@@ -59,7 +65,6 @@ export default function Feed({ navigation }) {
         >
           {tweetList.map((tweet) => (
             <Tweet
-              onFeed={true}
               key={tweet.tweetId}
               tweetId={tweet.tweetId}
               userPosted={tweet.userPosted}
@@ -68,9 +73,6 @@ export default function Feed({ navigation }) {
               dateCreated={tweet.dateCreated}
               referedPostId={tweet.referedPostId}
               userMentioned={tweet.userMentioned}
-              userRetweeted={tweet.userRetweeted}
-              userLiked={tweet.userLiked}
-              comments={tweet.comments}
             />
           ))}
         </ScrollView>
