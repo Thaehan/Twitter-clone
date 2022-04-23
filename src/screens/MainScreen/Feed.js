@@ -59,7 +59,6 @@ export default function Feed({ navigation }) {
         >
           {tweetList.map((tweet) => (
             <Tweet
-              onFeed={true}
               key={tweet.tweetId}
               tweetId={tweet.tweetId}
               userPosted={tweet.userPosted}
@@ -68,9 +67,6 @@ export default function Feed({ navigation }) {
               dateCreated={tweet.dateCreated}
               referedPostId={tweet.referedPostId}
               userMentioned={tweet.userMentioned}
-              userRetweeted={tweet.userRetweeted}
-              userLiked={tweet.userLiked}
-              comments={tweet.comments}
             />
           ))}
         </ScrollView>

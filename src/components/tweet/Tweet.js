@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+
 import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
@@ -21,17 +22,17 @@ import {
   LIKED_COLOR,
   RETWEET_COLOR,
 } from '../../styles/Style';
-
 import IconButton from '../button/IconButton';
+import AvatarButton from '../button/AvatarButton';
 import { useState, useEffect } from 'react';
 import { getUserById } from '../../api/user';
-import { updateTweet, updateTweetSmall } from '../../api/tweet';
-
 import {
   CURRENT_PROFILE,
   OTHER_PROFILE,
   TWEET_DETAIL,
 } from '../../constants/ScreenName';
+import tempAvatar from '../../assets/avatar4.png';
+import { doc } from 'firebase/firestore/lite';
 const onFeed = true;
 
 export default function Tweet(props) {
@@ -39,58 +40,38 @@ export default function Tweet(props) {
   const navigation = useNavigation();
 
   const [userPosted, setUserPosted] = useState({});
-  const [likeCount, setLikeCount] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
-  const [reTweetCount, setRetweetCount] = useState(0);
-  const [tweetRetweeted, setTweetRetweeted] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState(0);
+  const [retweets, setRetweets] = useState(0);
+  const [tweetRetweeted, setTweetRetweeted] =
+    useState(false);
   const [tweetLiked, setTweetLiked] = useState(false);
 
-
+  const findUser = (id) => {
+    var result = userDatabase.filter((user) => {
+      return user.userId == id;
+    });
+    setUserPosted(thaehan);
+  };
 
   const retweetTweet = () => {
-    //To do: Show retweet
-    //Check if user retweeted
-    tweetRetweeted ?
-      props.userRetweeted.splice(props.userRetweeted.indexOf(currentUser.userId), 1)
-      : props.userRetweeted.push(currentUser.userId)
-    //Update on database
-    updateTweetSmall(props.tweetId, { userRetweeted: props.userRetweeted })
-    //Update on user end
-    setTweetRetweeted(props.userRetweeted.includes(currentUser.userId));
-    setRetweetCount(props.userRetweeted.length)
+    setTweetRetweeted(!tweetRetweeted);
+    setRetweets(tweetRetweeted ? 0 : 1);
   };
 
   const likeTweet = () => {
-    //Like tweet
-    //Check if user liked to add or remove them from the list
-
-    tweetLiked ?
-      props.userLiked.splice(props.userLiked.indexOf(currentUser.userId), 1)
-      : props.userLiked.push(currentUser.userId)
-    //Update on database
-    updateTweetSmall(props.tweetId, { userLiked: props.userLiked })
-    //Update on user end
-    setTweetLiked(props.userLiked.includes(currentUser.userId));
-    setLikeCount(props.userLiked.length)
+    setTweetLiked(!tweetLiked);
+    setLikes(tweetLiked ? 0 : 1);
   };
 
-  const commentTweet = () => { };
+  const commentTweet = () => {};
 
-  const shareTweet = () => { };
+  const shareTweet = () => {};
 
   useEffect(() => {
-    //Getting user posted data
     getUserById(props.userPosted).then((doc) => {
       setUserPosted({ ...doc.data(), userId: doc.id });
     });
-    //Updating count
-    setLikeCount(props.userLiked.length)
-    setRetweetCount(props.userRetweeted.length)
-    setCommentCount(props.comments.length)
-    //Check if user liked
-    setTweetLiked(props.userLiked.includes(currentUser.userId));
-    setTweetRetweeted(props.userRetweeted.includes(currentUser.userId));
-
   }, []);
 
   const avatarHandle = (userId) => {
@@ -159,7 +140,7 @@ export default function Tweet(props) {
               icon="comment"
               onPress={() => commentTweet()}
             />
-            <Text>{commentCount}</Text>
+            <Text>{comments}</Text>
           </View>
           {
             /* retweet */
@@ -180,7 +161,7 @@ export default function Tweet(props) {
                     : styles.defaultColor
                 }
               >
-                {reTweetCount}
+                {retweets}
               </Text>
             </View>
           }
@@ -201,7 +182,7 @@ export default function Tweet(props) {
                     : styles.defaultColor
                 }
               >
-                {likeCount}
+                {likes}
               </Text>
             </View>
           }

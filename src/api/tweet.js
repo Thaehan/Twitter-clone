@@ -116,17 +116,6 @@ const updateTweet = async (id, change) => {
     console.log(error);
   }
 };
-//params: docId (String), change (smallOb);
-const updateTweetSmall = async (id, change) => {
-  try {
-    const docRef = doc(db, collectionName, id);
-    updateDoc(docRef, change);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
 
 const deleteTweetById = async (id) => {
   try {
@@ -142,7 +131,6 @@ export {
   getTweetById,
   getMultipleTweet,
   updateTweet,
-  updateTweetSmall,
   deleteTweetById,
   getFollowedUserTweet
 };
