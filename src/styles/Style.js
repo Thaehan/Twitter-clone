@@ -30,7 +30,7 @@ const GLOBAL_STYLES = StyleSheet.create({
   },
   text: {
     fontFamily: 'sans-serif',
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '400',
   },
   username: {
