@@ -33,26 +33,28 @@ import {
 } from '../../constants/ScreenName';
 import tempAvatar from '../../assets/avatar4.png';
 import { doc } from 'firebase/firestore/lite';
+import moment from 'moment';
 const onFeed = true;
 
-export default function Tweet(props) {
+export default function Tweet({
+  tweetId,
+  userPosted,
+  textContent,
+  mediaContent,
+  dateCreated,
+  referedPostId,
+  userMentioned,
+}) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
 
-  const [userPosted, setUserPosted] = useState({});
+  const [userPostedData, setuserPostedData] = useState({});
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(0);
   const [retweets, setRetweets] = useState(0);
   const [tweetRetweeted, setTweetRetweeted] =
     useState(false);
   const [tweetLiked, setTweetLiked] = useState(false);
-
-  const findUser = (id) => {
-    var result = userDatabase.filter((user) => {
-      return user.userId == id;
-    });
-    setUserPosted(thaehan);
-  };
 
   const retweetTweet = () => {
     setTweetRetweeted(!tweetRetweeted);
@@ -68,9 +70,37 @@ export default function Tweet(props) {
 
   const shareTweet = () => {};
 
+  const getTimeStamp = () => {
+    const day = dateCreated.getDate();
+    const month = dateCreated.getMonth();
+    const year = dateCreated.getFullYear();
+
+    moment.updateLocale('en', {
+      relativeTime: {
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        ss: '%d seconds',
+        m: 'a minute',
+        mm: '%d minutes',
+        h: 'an hour',
+        hh: '%d hours',
+        d: 'a day',
+        dd: '%d days',
+        w: 'a week',
+        ww: '%d weeks',
+        M: 'a month',
+        MM: '%d months',
+        y: 'a year',
+        yy: '%d years',
+      },
+    });
+    return moment([year, month, day]).fromNow();
+  };
+
   useEffect(() => {
-    getUserById(props.userPosted).then((doc) => {
-      setUserPosted({ ...doc.data(), userId: doc.id });
+    getUserById(userPosted).then((doc) => {
+      setuserPostedData({ ...doc.data(), userId: doc.id });
     });
   }, []);
 
@@ -86,22 +116,35 @@ export default function Tweet(props) {
     }
   };
 
-  const tweetHandle = (tweetId) => {
-    navigation.navigate(TWEET_DETAIL, { tweetId: tweetId });
+  const tweetHandle = () => {
+    navigation.navigate(TWEET_DETAIL, {
+      tweetId,
+      userPostedData,
+      textContent,
+      mediaContent,
+      dateCreated,
+      referedPostId,
+      userMentioned,
+    });
   };
 
   return onFeed ? (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => tweetHandle()}
+    >
       <View style={styles.avatarContainer}>
         <TouchableOpacity
           style={{
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onPress={() => avatarHandle(userPosted.userId)}
+          onPress={() =>
+            avatarHandle(userPostedData.userId)
+          }
         >
           <Image
-            source={{ uri: userPosted.avatar }}
+            source={{ uri: userPostedData.avatar }}
             style={{
               height: 50,
               width: 50,
@@ -110,34 +153,46 @@ export default function Tweet(props) {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.rightContainer}
-        onPress={() => tweetHandle(props.tweetId)}
-      >
+      <View style={styles.rightContainer}>
         <View style={styles.userInfo}>
           <Text style={GLOBAL_STYLES.fullname}>
-            {userPosted.fullname}
+            {userPostedData.fullname}
+          </Text>
+          <Text
+            style={[
+              GLOBAL_STYLES.username,
+              styles.username,
+            ]}
+          >
+            {'@' + userPostedData.username + ' • '}
           </Text>
           <Text style={GLOBAL_STYLES.username}>
-            {' '}
-            {userPosted.username} {' . 1d'}
+            {getTimeStamp()}
           </Text>
         </View>
 
-        {props.textContent && (
-          <Text style={GLOBAL_STYLES.text}>
-            {props.textContent}
+        {textContent != '' && (
+          <Text
+            style={[GLOBAL_STYLES.text, styles.textContent]}
+          >
+            {textContent}
           </Text>
         )}
 
-        {/*           {props.mediaContent && (
-
-            )} */}
+        {mediaContent != '' && (
+          <Image
+            source={{ uri: mediaContent }}
+            resizeMode="contain"
+            style={styles.mediaContent}
+          />
+        )}
         {/* Interaction bar */}
         <View style={styles.interactionBar}>
           <View style={styles.buttonWithCount}>
             <IconButton
               icon="comment"
+              type="evilicon"
+              size={28}
               onPress={() => commentTweet()}
             />
             <Text>{comments}</Text>
@@ -146,7 +201,9 @@ export default function Tweet(props) {
             /* retweet */
             <View style={styles.buttonWithCount}>
               <IconButton
-                icon="autorenew"
+                icon="retweet"
+                type="evilicon"
+                size={28}
                 onPress={() => retweetTweet()}
                 color={
                   tweetRetweeted
@@ -169,7 +226,9 @@ export default function Tweet(props) {
             /* liked */
             <View style={styles.buttonWithCount}>
               <IconButton
-                icon="favorite-border"
+                icon="heart"
+                type="evilicon"
+                size={28}
                 onPress={() => likeTweet()}
                 color={
                   tweetLiked ? LIKED_COLOR : DEFAULT_COLOR
@@ -188,13 +247,15 @@ export default function Tweet(props) {
           }
 
           <IconButton
-            icon="share"
+            icon="share-apple"
+            type="evilicon"
+            size={28}
             onPress={shareTweet()}
             color={DEFAULT_COLOR}
           />
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   ) : (
     <View></View>
   );
@@ -213,6 +274,7 @@ const styles = StyleSheet.create({
     borderBottomColor: DARK_GREY_TEXT_COLOR,
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
+    flex: 1,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingTop: 10,
@@ -224,10 +286,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 15,
+    // paddingTop: 15,
+    marginTop: 10,
+    width: '95%',
   },
   likedColor: {
     color: LIKED_COLOR,
+  },
+  mediaContent: {
+    alignSelf: 'auto',
+    borderRadius: 8,
+    height: 310,
+    marginTop: 10,
+    width: '93%',
   },
   retweetedColor: {
     color: RETWEET_COLOR,
@@ -236,9 +307,15 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     width: '88%',
   },
+  textContent: {
+    textAlign: 'justify',
+    width: '91%',
+  },
   userInfo: {
     flexDirection: 'row',
-    paddingBottom: 5,
     textAlign: 'right',
+  },
+  username: {
+    paddingLeft: 5,
   },
 });

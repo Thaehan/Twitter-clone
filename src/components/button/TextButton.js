@@ -9,20 +9,20 @@ import {
   BACKGROUND_COLOR,
 } from '../../styles/Style';
 // Nhận vào title, onPress, style, color
-export default function TextButton(props) {
+export default function TextButton({
+  style,
+  onPress,
+  color,
+  title,
+}) {
   return (
-    <View style={props.style}>
+    <View style={style}>
       <TouchableOpacity
         style={styles.container}
-        onPress={props.onPress}
+        onPress={onPress}
       >
-        <Text
-          style={[
-            styles.buttonText,
-            { color: props.color },
-          ]}
-        >
-          {props.title}
+        <Text style={[styles.buttonText, { color: color }]}>
+          {title}
         </Text>
       </TouchableOpacity>
     </View>

@@ -36,7 +36,7 @@ const GLOBAL_STYLES = StyleSheet.create({
   username: {
     color: TEXT_COLOR,
     fontFamily: 'sans-serif',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '400',
   },
 });

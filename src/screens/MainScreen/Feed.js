@@ -38,7 +38,13 @@ export default function Feed({ navigation }) {
       .then((docs) => {
         var tempList = [];
         docs.forEach((doc) => {
-          tempList.push({ ...doc.data(), tweetId: doc.id });
+          tempList.push({
+            ...doc.data(),
+            tweetId: doc.id,
+            dateCreated: new Date(
+              doc.data().dateCreated.toDate()
+            ),
+          });
         });
         setTweetList(tempList);
         console.log(tempList);
