@@ -25,12 +25,11 @@ import {
 import IconButton from '../button/IconButton';
 import { useState, useEffect } from 'react';
 import { getUserById } from '../../api/user';
-import { updateTweet, updateTweetSmall } from '../../api/tweet';
+import { updateTweet } from '../../api/tweet';
 
 import {
-  CURRENT_PROFILE,
-  OTHER_PROFILE,
   TWEET_DETAIL,
+  PROFILE
 } from '../../constants/ScreenName';
 const onFeed = true;
 
@@ -54,7 +53,7 @@ export default function Tweet(props) {
       props.userRetweeted.splice(props.userRetweeted.indexOf(currentUser.userId), 1)
       : props.userRetweeted.push(currentUser.userId)
     //Update on database
-    updateTweetSmall(props.tweetId, { userRetweeted: props.userRetweeted })
+    updateTweet(props.tweetId, { userRetweeted: props.userRetweeted })
     //Update on user end
     setTweetRetweeted(props.userRetweeted.includes(currentUser.userId));
     setRetweetCount(props.userRetweeted.length)
@@ -68,7 +67,7 @@ export default function Tweet(props) {
       props.userLiked.splice(props.userLiked.indexOf(currentUser.userId), 1)
       : props.userLiked.push(currentUser.userId)
     //Update on database
-    updateTweetSmall(props.tweetId, { userLiked: props.userLiked })
+    updateTweet(props.tweetId, { userLiked: props.userLiked })
     //Update on user end
     setTweetLiked(props.userLiked.includes(currentUser.userId));
     setLikeCount(props.userLiked.length)
@@ -94,15 +93,10 @@ export default function Tweet(props) {
   }, []);
 
   const avatarHandle = (userId) => {
-    if (currentUser.userId == userId) {
-      navigation.navigate(CURRENT_PROFILE, {
-        userId: userId,
-      });
-    } else {
-      navigation.navigate(OTHER_PROFILE, {
-        userId: userId,
-      });
-    }
+    navigation.navigate(PROFILE, {
+      userId: userId,
+    });
+
   };
 
   const tweetHandle = (tweetId) => {

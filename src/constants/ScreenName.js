@@ -12,11 +12,10 @@ const MESSAGESTACK = 'MessageStack';
 const SEARCHSTACK = 'SearchStack';
 const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
-const OTHER_PROFILE = 'OtherProfile';
-const CURRENT_PROFILE = 'CurrentProfile';
 const TWEET_DETAIL = 'TweetDetail';
-
+const PROFILE = 'Profile';
 export {
+  PROFILE,
   LOGIN,
   SIGN_UP,
   SIGN_UP_INFORMATION,
@@ -29,7 +28,5 @@ export {
   SEARCHSTACK,
   NOTIFICATIONSTACK,
   FEEDSTACK,
-  OTHER_PROFILE,
-  CURRENT_PROFILE,
   TWEET_DETAIL,
 };

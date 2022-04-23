@@ -106,18 +106,9 @@ const getFollowedUserTweet = async (
     console.log(e);
   }
 };
-//params: docId (String), change (Object);
+//params: docId (String), change parto change. Ex {}
+//Usage ex update(id,{bio:"newBio"})
 const updateTweet = async (id, change) => {
-  try {
-    const oldData = await getTweetById(id);
-    const docRef = doc(db, collectionName, id);
-    updateDoc(docRef, { ...oldData, ...change });
-  } catch (error) {
-    console.log(error);
-  }
-};
-//params: docId (String), change (smallOb);
-const updateTweetSmall = async (id, change) => {
   try {
     const docRef = doc(db, collectionName, id);
     updateDoc(docRef, change);
@@ -125,6 +116,7 @@ const updateTweetSmall = async (id, change) => {
     console.log(error);
   }
 };
+
 
 
 
@@ -142,7 +134,6 @@ export {
   getTweetById,
   getMultipleTweet,
   updateTweet,
-  updateTweetSmall,
   deleteTweetById,
   getFollowedUserTweet
 };
