@@ -3,12 +3,14 @@ import { Timestamp } from 'firebase/firestore/lite';
 
 //Member Array[Users]
 function CommentModel(
+  tweetId,
   userComment,
   userLiked = [],
   textContent = '',
   mediaContent = ''
 ) {
   const newComment = {
+    tweetId,
     userComment,
     userLiked,
     textContent,

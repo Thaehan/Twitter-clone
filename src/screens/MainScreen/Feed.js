@@ -73,6 +73,7 @@ export default function Feed({ navigation }) {
               dateCreated={tweet.dateCreated}
               referedPostId={tweet.referedPostId}
               userMentioned={tweet.userMentioned}
+              comments={tweet.comments}
             />
           ))}
         </ScrollView>
