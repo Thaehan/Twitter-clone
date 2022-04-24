@@ -9,7 +9,10 @@ import Conversation from './StackedScreen/Conversation';
 import CurrentProfile from './StackedScreen/CurrentProfile';
 import OtherProfile from './StackedScreen/OtherProfile';
 import TweetDetail from './StackedScreen/TweetDetail';
+import Profile from './StackedScreen/Profile';
+
 export {
+  Profile,
   Login,
   Signup,
   SignupInfo,

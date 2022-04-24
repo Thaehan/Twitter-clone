@@ -1,13 +1,13 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function CurrentProfile({
+export default function OtherProfile({
   navigation,
   route,
 }) {
   return (
     <View>
-      <Text>CurrentProfile {route.params.userId}</Text>
+      <Text>OtherProfile {route.params.userId}</Text>
     </View>
   );
 }

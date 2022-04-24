@@ -17,11 +17,11 @@ import {
   HEADER_WIDTH,
   HEADER_HEIGHT,
 } from '../../styles/Style';
+import { PROFILE } from '../../constants/ScreenName';
 import CircleButton from '../../components/button/CircleButton';
 import UserItemButton from '../../components/button/UserItemButton';
 import { getMultipleUsers } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
-import { OTHER_PROFILE } from '../../constants/ScreenName';
 
 export default function Search({ navigation }) {
   const currentUser = useSelector((state) => state.user);
@@ -74,7 +74,7 @@ export default function Search({ navigation }) {
 
   const userClickHandle = (userId) => {
     //Push and navigate to User Profile
-    navigation.navigate(OTHER_PROFILE, { userId: userId });
+    navigation.navigate(PROFILE, { userId: userId });
   };
 
   return (

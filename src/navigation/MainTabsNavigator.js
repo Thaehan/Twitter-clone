@@ -24,9 +24,8 @@ import {
   SEARCHSTACK,
   NOTIFICATIONSTACK,
   FEEDSTACK,
-  CURRENT_PROFILE,
-  OTHER_PROFILE,
   TWEET_DETAIL,
+  PROFILE,
 } from '../constants/ScreenName.js';
 import {
   Feed,
@@ -36,6 +35,7 @@ import {
   CurrentProfile,
   OtherProfile,
   TweetDetail,
+  Profile,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -177,13 +177,10 @@ function FeedStackScreen() {
           headerTitleAlign: 'center',
         }}
       />
-      <FeedStack.Screen
-        name={CURRENT_PROFILE}
-        component={CurrentProfile}
-      />
-      <FeedStack.Screen
-        name={OTHER_PROFILE}
-        component={OtherProfile}
+
+      <SearchStack.Screen
+        name={PROFILE}
+        component={Profile}
       />
       <FeedStack.Screen
         name={TWEET_DETAIL}
@@ -210,14 +207,12 @@ function SearchStackScreen() {
           headerShown: false,
         }}
       />
+
       <SearchStack.Screen
-        name={CURRENT_PROFILE}
-        component={CurrentProfile}
+        name={PROFILE}
+        component={Profile}
       />
-      <SearchStack.Screen
-        name={OTHER_PROFILE}
-        component={OtherProfile}
-      />
+
     </SearchStack.Navigator>
   );
 }
@@ -306,13 +301,10 @@ function MessageStackScreen() {
           headerTitleAlign: 'center',
         }}
       />
-      <MessageStack.Screen
-        name={CURRENT_PROFILE}
-        component={CurrentProfile}
-      />
-      <MessageStack.Screen
-        name={OTHER_PROFILE}
-        component={OtherProfile}
+
+      <SearchStack.Screen
+        name={PROFILE}
+        component={Profile}
       />
     </MessageStack.Navigator>
   );
