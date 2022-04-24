@@ -11,22 +11,25 @@ import {
   BACKGROUND_COLOR,
   GLOBAL_STYLES,
 } from '../../styles/Style';
-import Detail from '../../components/tweet/Detail';
 import Comment from '../../components/tweet/Comment';
 import { getCommentById } from '../../api/comment';
 import { getUserById } from '../../api/user';
+import Tweet from '../../components/tweet/Tweet';
 
 export default function TweetDetail({ navigation, route }) {
   const [commentData, setCommentData] = useState([]);
   const {
     tweetId,
-    userPostedData,
+    userPosted,
     textContent,
     mediaContent,
     dateCreated,
     referedPostId,
     userMentioned,
     comments,
+    userLiked,
+    userRetweeted,
+    isOnFeed = false,
   } = route.params;
 
   useEffect(() => {
@@ -62,6 +65,8 @@ export default function TweetDetail({ navigation, route }) {
           console.log(error);
         });
     });
+
+    return () => {};
   }, [comments]);
 
   return (
@@ -72,15 +77,18 @@ export default function TweetDetail({ navigation, route }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <Detail
+        <Tweet
           tweetId={tweetId}
-          userPostedData={userPostedData}
+          userPosted={userPosted}
           textContent={textContent}
           mediaContent={mediaContent}
           dateCreated={dateCreated}
           referedPostId={referedPostId}
           userMentioned={userMentioned}
+          userLiked={userLiked}
+          userRetweeted={userRetweeted}
           comments={comments}
+          isOnFeed={false}
         />
         {commentData.length != 0 &&
           commentData.map((comment) => (

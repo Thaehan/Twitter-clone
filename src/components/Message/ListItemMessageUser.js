@@ -7,6 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import moment from 'moment';
+
+import { userDatabase } from '../../mock';
 import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
@@ -18,8 +20,8 @@ import { useState, useEffect } from 'react';
 import {
   MAIN_COLOR,
   BACKGROUND_COLOR,
-  DARK_GREY_TEXT_COLOR
-} from "../../styles/Style"
+  DARK_GREY_TEXT_COLOR,
+} from '../../styles/Style';
 export default function ListItemMessageUser(props) {
   var now = moment().format('DD/MM/YYYY');
   const [User, setUser] = useState({});
@@ -85,7 +87,8 @@ export default function ListItemMessageUser(props) {
 }
 const styles = StyleSheet.create({
   DateTime: {
-    backgroundColor: BACKGROUND_COLOR, color: DARK_GREY_TEXT_COLOR,
+    backgroundColor: BACKGROUND_COLOR,
+    color: DARK_GREY_TEXT_COLOR,
     height: 22,
     position: 'absolute',
     right: 5,

@@ -43,6 +43,9 @@ export default function Login({ navigation }) {
               fullname: userData.fullname,
               username: userData.username,
               banner: userData.banner,
+              liked: userData.liked,
+              followers: userData.followers,
+              following: userData.following,
             };
             console.log(payLoad);
             dispatch(setUser(payLoad));

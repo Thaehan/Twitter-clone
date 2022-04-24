@@ -183,10 +183,34 @@ function FeedStackScreen() {
       <SearchStack.Screen
         name={PROFILE}
         component={Profile}
+        options={{
+          headerTitle: 'Profile',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
       />
       <FeedStack.Screen
         name={TWEET_DETAIL}
         component={TweetDetail}
+        options={{
+          headerTitle: 'Tweet',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
       />
     </FeedStack.Navigator>
   );
@@ -214,7 +238,6 @@ function SearchStackScreen() {
         name={PROFILE}
         component={Profile}
       />
-
     </SearchStack.Navigator>
   );
 }
@@ -248,7 +271,7 @@ function NotificationStackScreen() {
             return (
               <IconButton
                 style={styles.rightHeader}
-                type="font-awesome"
+                type="evilicon"
                 icon="gear"
                 color="black"
                 size={30}
@@ -292,7 +315,7 @@ function MessageStackScreen() {
             return (
               <IconButton
                 style={styles.rightHeader}
-                type="font-awesome"
+                type="evilicon"
                 icon="gear"
                 color="black"
                 size={30}

@@ -76,6 +76,7 @@ export default function Feed({ navigation }) {
               comments={tweet.comments}
               userRetweeted={tweet.userRetweeted}
               userLiked={tweet.userLiked}
+              isOnFeed={true}
             />
           ))}
         </ScrollView>

@@ -9,6 +9,9 @@ export const userSlice = createSlice({
     fullname: '',
     username: '',
     banner: '',
+    liked: [],
+    followers: [],
+    following: [],
     isLoading: true,
   },
   reducers: {
@@ -21,6 +24,9 @@ export const userSlice = createSlice({
         fullname: action.payload.fullname,
         username: action.payload.username,
         banner: action.payload.banner,
+        followers: action.payload.followers,
+        following: action.payload.following,
+        liked: action.payload.liked,
       };
       state.userId = user.userId;
       state.email = user.email;
@@ -29,6 +35,9 @@ export const userSlice = createSlice({
       state.username = user.username;
       state.banner = user.banner;
       state.isLoading = false;
+      state.followers = user.followers;
+      state.following = user.following;
+      state.liked = user.liked;
     },
     //Logout
     removeUser: (state, action) => {
@@ -39,6 +48,9 @@ export const userSlice = createSlice({
         fullname: '',
         username: '',
         banner: '',
+        followers: [],
+        following: [],
+        liked: [],
         isLoading: true,
       };
       state.userId = user.userId;
@@ -48,6 +60,9 @@ export const userSlice = createSlice({
       state.username = user.username;
       state.banner = user.banner;
       state.isLoading = true;
+      state.followers = user.followers;
+      state.following = user.following;
+      state.liked = user.liked;
     },
   },
   extraReducers: {},

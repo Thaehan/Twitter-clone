@@ -8,7 +8,6 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
