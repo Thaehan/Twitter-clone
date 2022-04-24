@@ -26,6 +26,7 @@ import IconButton from '../button/IconButton';
 import AvatarButton from '../button/AvatarButton';
 import { useState, useEffect } from 'react';
 import { getUserById } from '../../api/user';
+import { updateTweet } from '../../api/tweet';
 import {
   TWEET_DETAIL,
   PROFILE
@@ -34,6 +35,10 @@ import tempAvatar from '../../assets/avatar4.png';
 import { doc } from 'firebase/firestore/lite';
 import moment from 'moment';
 const onFeed = true;
+
+
+
+
 
 export default function Tweet({
   tweetId,
@@ -44,29 +49,30 @@ export default function Tweet({
   referedPostId,
   userMentioned,
   comments,
+  userLiked,
+  userRetweeted
 }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
 
   const [userPostedData, setuserPostedData] = useState({});
-  const [likes, setLikes] = useState(0);
-  const [commentCount, setcommentCount] = useState(0);
-  const [retweets, setRetweets] = useState(0);
-  const [tweetRetweeted, setTweetRetweeted] =
-    useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  const [retweetCount, setRetweetCount] = useState(0);
+  const [tweetRetweeted, setTweetRetweeted] = useState(false);
   const [tweetLiked, setTweetLiked] = useState(false);
 
   const retweetTweet = () => {
     //To do: Show retweet
-    //Check if user retweeted
+    //Check if user retweeted 
     tweetRetweeted ?
-      props.userRetweeted.splice(props.userRetweeted.indexOf(currentUser.userId), 1)
-      : props.userRetweeted.push(currentUser.userId)
+      userRetweeted.splice(userRetweeted.indexOf(currentUser.userId), 1)
+      : userRetweeted.push(currentUser.userId)
     //Update on database
-    updateTweet(props.tweetId, { userRetweeted: props.userRetweeted })
+    updateTweet(tweetId, { userRetweeted: userRetweeted })
     //Update on user end
-    setTweetRetweeted(props.userRetweeted.includes(currentUser.userId));
-    setRetweetCount(props.userRetweeted.length)
+    setTweetRetweeted(userRetweeted.includes(currentUser.userId));
+    setRetweetCount(userRetweeted.length)
   };
 
   const likeTweet = () => {
@@ -74,18 +80,18 @@ export default function Tweet({
     //Check if user liked to add or remove them from the list
 
     tweetLiked ?
-      props.userLiked.splice(props.userLiked.indexOf(currentUser.userId), 1)
-      : props.userLiked.push(currentUser.userId)
+      userLiked.splice(userLiked.indexOf(currentUser.userId), 1)
+      : userLiked.push(currentUser.userId)
     //Update on database
-    updateTweet(props.tweetId, { userLiked: props.userLiked })
+    updateTweet(tweetId, { userLiked: userLiked })
     //Update on user end
-    setTweetLiked(props.userLiked.includes(currentUser.userId));
-    setLikeCount(props.userLiked.length)
+    setTweetLiked(userLiked.includes(currentUser.userId));
+    setLikeCount(userLiked.length)
   };
 
-  const commentTweet = () => {};
+  const commentTweet = () => { };
 
-  const shareTweet = () => {};
+  const shareTweet = () => { };
 
   const getTimeStamp = () => {
     const day = dateCreated.getDate();
@@ -119,6 +125,18 @@ export default function Tweet({
     getUserById(userPosted).then((doc) => {
       setuserPostedData({ ...doc.data(), userId: doc.id });
     });
+    //Updating count
+    setLikeCount(userLiked.length)
+    setRetweetCount(userRetweeted.length)
+    setCommentCount(comments.length)
+    //Check if user liked
+    setTweetLiked(userLiked.includes(currentUser.userId));
+    setTweetRetweeted(userRetweeted.includes(currentUser.userId));
+
+
+
+
+
   }, []);
 
   const avatarHandle = (userId) => {
@@ -138,6 +156,8 @@ export default function Tweet({
       referedPostId,
       userMentioned,
       comments,
+      userLiked,
+      userRetweeted
     });
   };
 
@@ -231,7 +251,7 @@ export default function Tweet({
                     : styles.defaultColor
                 }
               >
-                {retweets}
+                {retweetCount}
               </Text>
             </View>
           }
@@ -254,7 +274,7 @@ export default function Tweet({
                     : styles.defaultColor
                 }
               >
-                {likes}
+                {likeCount}
               </Text>
             </View>
           }

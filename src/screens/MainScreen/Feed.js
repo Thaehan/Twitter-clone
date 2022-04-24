@@ -74,6 +74,8 @@ export default function Feed({ navigation }) {
               referedPostId={tweet.referedPostId}
               userMentioned={tweet.userMentioned}
               comments={tweet.comments}
+              userRetweeted={tweet.userRetweeted}
+              userLiked={tweet.userLiked}
             />
           ))}
         </ScrollView>
