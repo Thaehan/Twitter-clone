@@ -13,13 +13,14 @@ export default function AvatarButton({
   userId,
   source,
   size,
+  onPress
 }) {
-  const redirectToUserProfileScreen = (id) => {};
+  const redirectToUserProfileScreen = (id) => { };
   return (
     <View style={style}>
       <TouchableOpacity
         style={styles.container}
-        onPress={redirectToUserProfileScreen(userId)}
+        onPress={onPress}
       >
         <Image
           source={{ uri: source }}

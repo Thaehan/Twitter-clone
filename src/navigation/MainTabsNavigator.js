@@ -32,8 +32,6 @@ import {
   Message,
   Notification,
   Search,
-  CurrentProfile,
-  OtherProfile,
   TweetDetail,
   Profile,
 } from '../screens/index.js';
@@ -130,7 +128,7 @@ export default function MainTabsNavigator() {
 
 function FeedStackScreen() {
   const user = useSelector((state) => state.user);
-
+  const navigations = useNavigation();
   return (
     <FeedStack.Navigator
       screenOptions={{
@@ -150,7 +148,11 @@ function FeedStackScreen() {
                 source={user.avatar}
                 userId={user.userId}
                 size={30}
-                onPress={() => {}}
+                onPress={() => {
+                  navigations.navigate(PROFILE, {
+                    userId: user.userId,
+                  });
+                }}
               />
             );
           },

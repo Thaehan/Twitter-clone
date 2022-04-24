@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import ToggleButton from "../../components/button/ToggleButton"
 import { Icon } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-const NULL_IMAGE_LINK = "https://cdn.wallpapersafari.com/20/4/QrzGEi.png"
-const IMAGE_SIZE = 75;
+const NULL_BANNER = "https://cdn.wallpapersafari.com/20/4/QrzGEi.png"
+const NULL_PROFILE = "https://cdn.wallpapersafari.com/20/4/QrzGEi.png"
+
+const AVATAR_SIZE = 75;
 const HORI_PAD = 7;
 
 export default function Profile({
@@ -17,8 +19,8 @@ export default function Profile({
 }) {
   const userModel = {
     userId: "",
-    avatar: "",
-    banner: "",
+    avatar: NULL_PROFILE,
+    banner: NULL_BANNER,
     bio: "",
     fullname: "",
     username: "",
@@ -82,7 +84,7 @@ export default function Profile({
     <View style={styles.container}>
       <Image
         style={styles.banner}
-        source={{ uri: user.banner != "" ? user.banner : NULL_IMAGE_LINK }}
+        source={{ uri: user.banner != "" ? user.banner : NULL_BANNER }}
       />
       <View style={styles.profileInfoContainer}>
         <Image
@@ -96,10 +98,10 @@ export default function Profile({
             falseText={"   Follow   "}
             onPress={() => followUser()}
             isTrue={followed}
-          /> : <></>}
+          /> : <View style={{ height: AVATAR_SIZE / 2 }} />}
 
         <Text style={styles.fullname}>{user.fullname}</Text>
-        <Text style={styles.username}>{user.username}</Text>
+        <Text style={styles.username}>{"@" + user.username}</Text>
         <Text style={GLOBAL_STYLES.text}>{user.bio}</Text>
         <View style={styles.infoWithIcon}>
           <Icon
@@ -168,12 +170,12 @@ const styles = StyleSheet.create({
 
     borderRadius: 150 / 2,
     borderWidth: 3,
-    height: IMAGE_SIZE,
+    height: AVATAR_SIZE,
     left: 0,
     overflow: "hidden",
     position: 'absolute',
-    top: -IMAGE_SIZE / 2,
-    width: IMAGE_SIZE,
+    top: -AVATAR_SIZE / 2,
+    width: AVATAR_SIZE,
   },
   banner: {
     height: 90,
