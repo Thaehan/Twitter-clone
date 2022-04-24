@@ -38,14 +38,32 @@ export default function Profile({
   const [dateCreatedString, setDateCreatedString] = useState("")
 
   const followUser = () => {
-    isFollow() ?
+
+    if (isFollow(currentUser.userId)) {
       user.followers.splice(user.followers.indexOf(currentUser.userId), 1)
-      : user.followers.push(currentUser.userId)
+      //currentUser.following.splice(currentUser.following.indexOf(user.userId), 1)
+    }
+    else {
+      user.followers.push(currentUser.userId)
+      //currentUser.following.push(user.userId)
+    }
+
     updateUser(user.userId, { followers: user.followers })
-    setFollowed(isFollow())
+    getUserById(currentUser.userId).then((doc) => {
+      var following = doc.data().following;
+      if (!isFollow(currentUser.userId)) {
+        following.splice(following.indexOf(user.userId), 1)
+      } else {
+        following.push(user.userId)
+      }
+      updateUser(currentUser.userId, { following: following })
+      console.log(following)
+    })
+      .catch(e => alert(e))
+    setFollowed(isFollow(currentUser.userId))
   }
-  const isFollow = () => {
-    return (user.followers.includes(currentUser.userId))
+  const isFollow = (id) => {
+    return (user.followers.includes(id))
   }
 
   useEffect(() => {
