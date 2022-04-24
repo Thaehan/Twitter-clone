@@ -43,13 +43,14 @@ export default function Tweet({
   dateCreated,
   referedPostId,
   userMentioned,
+  comments,
 }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
 
   const [userPostedData, setuserPostedData] = useState({});
   const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState(0);
+  const [commentCount, setcommentCount] = useState(0);
   const [retweets, setRetweets] = useState(0);
   const [tweetRetweeted, setTweetRetweeted] =
     useState(false);
@@ -136,6 +137,7 @@ export default function Tweet({
       dateCreated,
       referedPostId,
       userMentioned,
+      comments,
     });
   };
 
@@ -206,7 +208,7 @@ export default function Tweet({
               size={28}
               onPress={() => commentTweet()}
             />
-            <Text>{comments}</Text>
+            <Text>{commentCount}</Text>
           </View>
           {
             /* retweet */

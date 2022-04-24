@@ -14,6 +14,7 @@ import {
   MAIN_COLOR,
   BACKGROUND_COLOR,
   DARK_GREY_TEXT_COLOR,
+  LIGHT_GREY_TEXT_COLOR,
   DEFAULT_COLOR,
   LIKED_COLOR,
   RETWEET_COLOR,
@@ -31,9 +32,10 @@ export default function Detail({
   dateCreated,
   referedPostId,
   userMentioned,
+  userLiked,
+  userRetweeted,
 }) {
   const currentUser = useSelector((state) => state.user);
-
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(0);
   const [retweets, setRetweets] = useState(0);
@@ -41,12 +43,12 @@ export default function Detail({
     useState(false);
   const [tweetLiked, setTweetLiked] = useState(false);
 
-  const retweetTweet = () => {
+  const retweetHandle = () => {
     setTweetRetweeted(!tweetRetweeted);
     setRetweets(tweetRetweeted ? 0 : 1);
   };
 
-  const likeTweet = () => {
+  const likeHandle = () => {
     setTweetLiked(!tweetLiked);
     setLikes(tweetLiked ? 0 : 1);
   };
@@ -56,21 +58,28 @@ export default function Detail({
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[GLOBAL_STYLES.container, styles.container]}
+    >
       <TouchableOpacity style={styles.userContainer}>
         <Image
           style={styles.userAvatar}
           source={{ uri: userPostedData.avatar }}
-          resizeMode="contain"
         />
         <View style={styles.userText}>
-          <Text>{userPostedData.fullname}</Text>
-          <Text>{userPostedData.username}</Text>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {userPostedData.fullname}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {'@' + userPostedData.username}
+          </Text>
         </View>
       </TouchableOpacity>
       <View style={styles.contentContainer}>
         {textContent && (
-          <Text style={styles.textContent}>
+          <Text
+            style={[GLOBAL_STYLES.text, styles.textContent]}
+          >
             {textContent}
           </Text>
         )}
@@ -82,20 +91,38 @@ export default function Detail({
           />
         )}
       </View>
-      <Text style={styles.information1}>
-        {moment(dateCreated).format('DD/MM/YYYY')}
+      <Text
+        style={[
+          GLOBAL_STYLES.username,
+          styles.information1,
+        ]}
+      >
+        {moment(dateCreated).format('hh:mm • DD/MM/YYYY')}
       </Text>
       <View style={styles.information2}>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
+        <View style={styles.commentInfo}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {comments}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {' Retweets'}
+          </Text>
+        </View>
+        <View style={styles.retweetInfo}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {likes}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {' Likes'}
+          </Text>
+        </View>
       </View>
       <View style={styles.interactionBar}>
         <View>
           <IconButton
             icon="comment"
             type="evilicon"
-            size={30}
+            size={28}
             onPress={() => {}}
           />
         </View>
@@ -105,7 +132,7 @@ export default function Detail({
             <IconButton
               icon="retweet"
               type="evilicon"
-              size={30}
+              size={28}
               onPress={() => {}}
               color={
                 tweetRetweeted
@@ -113,15 +140,6 @@ export default function Detail({
                   : DEFAULT_COLOR
               }
             />
-            <Text
-              style={
-                tweetRetweeted
-                  ? styles.retweetedColor
-                  : styles.defaultColor
-              }
-            >
-              {retweets}
-            </Text>
           </View>
         }
         {
@@ -130,28 +148,19 @@ export default function Detail({
             <IconButton
               icon="heart"
               type="evilicon"
-              size={30}
+              size={28}
               onPress={() => {}}
               color={
                 tweetLiked ? LIKED_COLOR : DEFAULT_COLOR
               }
             />
-            <Text
-              style={
-                tweetLiked
-                  ? styles.likedColor
-                  : styles.defaultColor
-              }
-            >
-              {likes}
-            </Text>
           </View>
         }
 
         <IconButton
           icon="share-apple"
           type="evilicon"
-          size={30}
+          size={28}
           onPress={() => {}}
           color={DEFAULT_COLOR}
         />
@@ -161,26 +170,55 @@ export default function Detail({
 }
 
 const styles = StyleSheet.create({
+  commentInfo: {
+    flexDirection: 'row',
+  },
   container: {
     backgroundColor: BACKGROUND_COLOR,
-    borderBottomColor: DARK_GREY_TEXT_COLOR,
-    borderBottomWidth: StyleSheet.hairlineWidth,
     paddingBottom: 10,
-    paddingLeft: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingTop: 10,
   },
-  contentContainer: {},
-  information1: {},
-  information2: {},
-  interactionBar: {},
+  contentContainer: {
+    marginTop: 10,
+    width: '100%',
+  },
+  information1: {
+    borderBottomColor: LIGHT_GREY_TEXT_COLOR,
+    borderBottomWidth: 0.5,
+    paddingBottom: 5,
+    paddingTop: 5,
+  },
+  information2: {
+    borderBottomColor: LIGHT_GREY_TEXT_COLOR,
+    borderBottomWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingBottom: 5,
+    paddingTop: 5,
+    width: '100%',
+  },
+  interactionBar: {
+    borderBottomColor: LIGHT_GREY_TEXT_COLOR,
+    borderBottomWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingBottom: 5,
+    paddingTop: 5,
+    width: '100%',
+  },
   likedColor: {
     color: LIKED_COLOR,
   },
   mediaContent: {
-    alignSelf: 'center',
-    borderRadius: 8,
-    height: 350,
-    width: '90%',
+    borderRadius: 6,
+    height: 380,
+    marginTop: 10,
+    width: '100%',
+  },
+  retweetInfo: {
+    flexDirection: 'row',
   },
   retweetedColor: {
     color: RETWEET_COLOR,
@@ -193,6 +231,9 @@ const styles = StyleSheet.create({
   },
   userContainer: {
     flexDirection: 'row',
+    width: '50%',
   },
-  userText: {},
+  userText: {
+    marginLeft: 10,
+  },
 });

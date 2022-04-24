@@ -18,6 +18,7 @@ const collectionName = 'comments';
 const commentCollection = collection(db, collectionName);
 
 const createComment = async (
+  tweetId,
   userComment,
   userLiked = [],
   textContent = '',
@@ -25,6 +26,7 @@ const createComment = async (
 ) => {
   try {
     const newComment = CommentModel(
+      (tweetId = tweetId),
       (userComment = userComment),
       (textContent = textContent),
       (userLiked = userLiked),
