@@ -62,7 +62,7 @@ export default function Tweet({
   const [tweetRetweeted, setTweetRetweeted] = useState(false);
   const [tweetLiked, setTweetLiked] = useState(false);
 
-  const retweetTweet = () => {
+  const retweetHandle = () => {
     //To do: Show retweet
     //Check if user retweeted 
     tweetRetweeted ?
@@ -75,7 +75,7 @@ export default function Tweet({
     setRetweetCount(userRetweeted.length)
   };
 
-  const likeTweet = () => {
+  const likeHandle = () => {
     //Like tweet
     //Check if user liked to add or remove them from the list
 
@@ -89,9 +89,9 @@ export default function Tweet({
     setLikeCount(userLiked.length)
   };
 
-  const commentTweet = () => { };
+  const commentHandle = () => { };
 
-  const shareTweet = () => { };
+  const shareHandle = () => { };
 
   const getTimeStamp = () => {
     const day = dateCreated.getDate();
@@ -226,7 +226,7 @@ export default function Tweet({
               icon="comment"
               type="evilicon"
               size={28}
-              onPress={() => commentTweet()}
+              onPress={() => commentHandle()}
             />
             <Text>{commentCount}</Text>
           </View>
@@ -237,7 +237,7 @@ export default function Tweet({
                 icon="retweet"
                 type="evilicon"
                 size={28}
-                onPress={() => retweetTweet()}
+                onPress={() => retweetHandle()}
                 color={
                   tweetRetweeted
                     ? RETWEET_COLOR
@@ -262,7 +262,7 @@ export default function Tweet({
                 icon="heart"
                 type="evilicon"
                 size={28}
-                onPress={() => likeTweet()}
+                onPress={() => likeHandle()}
                 color={
                   tweetLiked ? LIKED_COLOR : DEFAULT_COLOR
                 }
@@ -283,7 +283,7 @@ export default function Tweet({
             icon="share-apple"
             type="evilicon"
             size={28}
-            onPress={shareTweet()}
+            onPress={shareHandle()}
             color={DEFAULT_COLOR}
           />
         </View>
