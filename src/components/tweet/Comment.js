@@ -79,15 +79,6 @@ export default function Comment({
             size={28}
             onPress={() => {}}
           />
-
-          <IconButton
-            icon="retweet"
-            type="evilicon"
-            size={28}
-            onPress={() => {}}
-            color={''}
-          />
-
           <IconButton
             icon="heart"
             type="evilicon"
@@ -109,12 +100,22 @@ export default function Comment({
 }
 
 const styles = StyleSheet.create({
+  avatar: {
+    borderRadius: 50,
+    height: 50,
+    width: 50,
+  },
   container: {
     flexDirection: 'row',
+    width: '100%',
   },
-  interactionBar: {},
-  leftContainer: {},
-  rightContainer: {},
+  interactionBar: {
+    flexDirection: 'row',
+  },
+  leftContainer: {
+    width: '15%',
+  },
+  rightContainer: { width: '85%' },
   textContent: {},
   userInfo: {},
 });

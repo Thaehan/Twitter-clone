@@ -18,6 +18,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "expo": "~44.0.0",
     "expo-image-picker": "~12.0.1",
+    "expo-sharing": "~10.1.0",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "expo-updates": "^0.11.6",
@@ -37,7 +38,8 @@
     "react-native-svg": "12.1.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-    "react-redux": "^7.2.8"
+    "react-redux": "^7.2.8",
+    "rn-placeholder": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
