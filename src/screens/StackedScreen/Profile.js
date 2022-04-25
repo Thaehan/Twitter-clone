@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { getUserById, updateUser } from '../../api/user';
 import React from 'react';
 import { Tabs } from 'react-native-collapsible-tab-view'
-import { GLOBAL_STYLES, BACKGROUND_COLOR, GREY_TEXT_COLOR, LIGHT_GREY_TEXT_COLOR, DEFAULT_COLOR, BLACK_TEXT_COLOR } from '../../styles/Style';
+import { HORI_PAD, GLOBAL_STYLES, BACKGROUND_COLOR, GREY_TEXT_COLOR, LIGHT_GREY_TEXT_COLOR, DEFAULT_COLOR, BLACK_TEXT_COLOR } from '../../styles/Style';
 import { useEffect, useState } from 'react';
 import ToggleButton from "../../components/button/ToggleButton"
 import { Icon } from 'react-native-elements';
@@ -11,7 +11,6 @@ const NULL_BANNER = "https://cdn.wallpapersafari.com/20/4/QrzGEi.png"
 const NULL_PROFILE = "https://cdn.wallpapersafari.com/20/4/QrzGEi.png"
 
 const AVATAR_SIZE = 75;
-const HORI_PAD = 7;
 
 export default function Profile({
   navigation,

@@ -25,7 +25,6 @@ const createTweet = async (
   mediaContent = '',
   userMentioned = [],
   referedPostId = '',
-  dateCreated = ''
 ) => {
   try {
     const newTweet = TweetModel(
@@ -33,8 +32,7 @@ const createTweet = async (
       (textContent = textContent),
       (mediaContent = mediaContent),
       (userMentioned = userMentioned),
-      (referedPostId = referedPostId),
-      (dateCreated = dateCreated)
+      (referedPostId = referedPostId)
     );
 
     await addDoc(tweetCollection, newTweet);

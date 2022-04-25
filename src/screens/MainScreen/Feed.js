@@ -14,6 +14,7 @@ import {
 } from '../../api/tweet';
 import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
+import { TWEET_POST } from '../../constants/ScreenName';
 import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
@@ -23,17 +24,14 @@ import {
 import CircleButton from '../../components/button/CircleButton';
 import TweetModel from '../../models/TweetModel';
 import { useSelector } from 'react-redux';
-
+import { useNavigation } from '@react-navigation/native';
 export default function Feed({ navigation }) {
+
   const [tweetList, setTweetList] = useState([]);
   const [creator, setCreator] = useState('');
   const [text, setText] = useState('');
-
-  useEffect(() => {
-    //const user = useSelector((state) => state.user);
-
-    //var tweets = getFollowedUserTweet()
-    // setTweetList(tweetsList);
+  const navigate = useNavigation();
+  const refreshFeed = () => {
     getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
         var tempList = [];
@@ -46,12 +44,22 @@ export default function Feed({ navigation }) {
             ),
           });
         });
+        tempList.sort((a, b) => {
+          return new Date(b.dateCreated) - new Date(a.dateCreated);
+        })
         setTweetList(tempList);
-        console.log(tempList);
+
       })
       .catch((error) => {
         alert(error);
       });
+  }
+  useEffect(() => {
+    //const user = useSelector((state) => state.user);
+
+    //var tweets = getFollowedUserTweet()
+    // setTweetList(tweetsList);
+    refreshFeed();
   }, []);
 
   return (
@@ -88,7 +96,11 @@ export default function Feed({ navigation }) {
         color="#ffffff"
         size={30}
         style={styles.circleButton}
+        onPress={() => {
+          navigation.navigate(TWEET_POST, { navigation })
+        }}
       />
+
     </SafeAreaView>
   );
 }

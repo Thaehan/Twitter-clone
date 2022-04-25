@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: BACKGROUND_COLOR,
-    fontWeight: '500',
+    fontWeight: 'bold',
     paddingBottom: 8,
     paddingLeft: 15,
     paddingRight: 15,

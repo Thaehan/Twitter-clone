@@ -6,6 +6,9 @@ const SCREEN_WIDTH = 414;
 const HEADER_HEIGHT = 55;
 const NAVBAR_HEIGHT = 55;
 const CONTENT_SCREEN_HEIGHT = 540;
+//Just the ammount of padding 
+const HORI_PAD = 7;
+
 const LIKED_COLOR = '#CE395F';
 const RETWEET_COLOR = '#19cf86';
 const DEFAULT_COLOR = '#687684';
@@ -43,6 +46,7 @@ const GLOBAL_STYLES = StyleSheet.create({
 });
 
 export {
+  HORI_PAD,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   GLOBAL_STYLES,

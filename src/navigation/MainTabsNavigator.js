@@ -26,6 +26,7 @@ import {
   FEEDSTACK,
   TWEET_DETAIL,
   PROFILE,
+  TWEET_POST,
 } from '../constants/ScreenName.js';
 import {
   Feed,
@@ -34,6 +35,7 @@ import {
   Search,
   TweetDetail,
   Profile,
+  TweetPost
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -43,6 +45,7 @@ import {
 } from '../styles/Style.js';
 import IconButton from '../components/button/IconButton.js';
 import AvatarButton from '../components/button/AvatarButton';
+import PrimaryButton from '../components/button/PrimaryButton.js';
 
 const MainTabs = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
@@ -210,6 +213,22 @@ function FeedStackScreen() {
               />
             );
           },
+        }}
+      />
+      <FeedStack.Screen
+        name={TWEET_POST}
+        component={TweetPost}
+        options={{
+          headerTitle: " ",
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="close-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          }
         }}
       />
     </FeedStack.Navigator>

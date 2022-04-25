@@ -13,6 +13,7 @@ const SEARCHSTACK = 'SearchStack';
 const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
 const TWEET_DETAIL = 'TweetDetail';
+const TWEET_POST = 'TweetPost'
 const PROFILE = 'Profile';
 export {
   PROFILE,
@@ -29,4 +30,5 @@ export {
   NOTIFICATIONSTACK,
   FEEDSTACK,
   TWEET_DETAIL,
+  TWEET_POST
 };
