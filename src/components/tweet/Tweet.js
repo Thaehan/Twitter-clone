@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { doc } from 'firebase/firestore/lite';
 import moment from 'moment';
 
@@ -27,8 +27,8 @@ import {
 } from '../../styles/Style';
 import IconButton from '../button/IconButton';
 import AvatarButton from '../button/AvatarButton';
-import { getUserById } from '../../api/user';
-import { updateTweet } from '../../api/tweet';
+import { getUserById, updateUser } from '../../api/user';
+import { getTweetById, updateTweet } from '../../api/tweet';
 import {
   TWEET_DETAIL,
   PROFILE,
@@ -51,6 +51,7 @@ export default function Tweet({
 }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [userPostedData, setuserPostedData] = useState({});
   const [likeCount, setLikeCount] = useState(0);
@@ -60,7 +61,42 @@ export default function Tweet({
 
   const retweetHandle = () => {};
 
-  const likeHandle = () => {};
+  const likeHandle = () => {
+    //Cập nhât global state
+    const newLiked = [...currentUser.liked];
+    const newUserLiked = [...userLiked];
+    if (isLiked) {
+      newLiked.splice(
+        currentUser.liked.indexOf(tweetId),
+        1
+      );
+      newUserLiked.splice(
+        newUserLiked.indexOf(currentUser.userId),
+        1
+      );
+    } else {
+      newLiked.push(tweetId);
+      newUserLiked.push(currentUser.userId);
+    }
+    updateTweet(tweetId, { userLiked: newUserLiked })
+      .then(() => {
+        updateUser(currentUser.userId, { liked: newLiked })
+          .then(() => {
+            dispatch(
+              setUser({
+                ...currentUser,
+                liked: newLiked,
+              })
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const commentHandle = () => {};
 
@@ -94,25 +130,6 @@ export default function Tweet({
     return moment([year, month, day]).fromNow();
   };
 
-  useEffect(() => {
-    //Lấy thông tin người đăng tweet bằng userPosted
-    getUserById(userPosted)
-      .then((doc) => {
-        //Lấy thông tin người post
-        setuserPostedData({
-          ...doc.data(),
-          userId: doc.id,
-        });
-        //Lấy thông tin số like, retweet, comment
-        setLikeCount(userLiked.length);
-        setRetweetCount(userRetweeted.length);
-        setCommentCount(comments.length);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   const avatarHandle = (userId) => {
     navigation.navigate(PROFILE, {
       userId: userId,
@@ -134,6 +151,44 @@ export default function Tweet({
       isOnFeed,
     });
   };
+
+  useEffect(() => {
+    getUserById(userPosted)
+      .then((doc) => {
+        //Lấy thông tin người post
+        setuserPostedData({
+          ...doc.data(),
+          userId: doc.id,
+        });
+        //Lấy thông tin đã like hay chưa
+        if (currentUser.liked.indexOf(tweetId) == -1) {
+          setIsLiked(false);
+        } else {
+          setIsLiked(true);
+        }
+        //Lấy thông tin số like, retweet
+        setLikeCount(userLiked.length);
+        setRetweetCount(userRetweeted.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    setIsLiked(!isLiked);
+    // set lại state sau khi thay đổi global State
+  }, [currentUser.liked]);
+
+  useEffect(() => {
+    getTweetById(tweetId)
+      .then((doc) => {
+        setLikeCount(doc.data().userLiked.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [isLiked]);
 
   return isOnFeed ? (
     <TouchableOpacity
@@ -432,8 +487,8 @@ const styles1 = StyleSheet.create({
   container: {
     backgroundColor: BACKGROUND_COLOR,
     paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
     paddingTop: 10,
   },
   contentContainer: {
