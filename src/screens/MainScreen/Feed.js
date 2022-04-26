@@ -77,6 +77,8 @@ export default function Feed({ navigation }) {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
+              colors={[MAIN_COLOR]}
+              title={"Refresh"}
             />
           }
         >
