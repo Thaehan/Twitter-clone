@@ -5,8 +5,9 @@ import {
   TextInput,
   Button,
   SafeAreaView,
+  RefreshControl
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   getFollowedUserTweet,
   getMultipleTweet,
@@ -30,8 +31,13 @@ export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState([]);
   const [creator, setCreator] = useState('');
   const [text, setText] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigation();
-  const refreshFeed = () => {
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refreshFeed().then(() => setRefreshing(false))
+  }, [])
+  const refreshFeed = async () => {
     getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
         var tempList = [];
@@ -70,6 +76,12 @@ export default function Feed({ navigation }) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         >
           {tweetList.map((tweet) => (
             <Tweet
