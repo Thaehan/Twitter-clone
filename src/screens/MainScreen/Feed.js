@@ -10,10 +10,8 @@ import {
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   getFollowedUserTweet,
-  getMultipleTweet,
-  getTweetById,
+  getMultipleTweet
 } from '../../api/tweet';
-import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
 import { TWEET_POST } from '../../constants/ScreenName';
 import {
@@ -23,7 +21,6 @@ import {
   MAIN_COLOR,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
-import TweetModel from '../../models/TweetModel';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 export default function Feed({ navigation }) {

@@ -77,7 +77,9 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
-
+project.ext.react = [
+  enableHermes: true  // <- here | clean and rebuild if changing
+]
 project.ext.react = [
     enableHermes: (findProperty('expo.jsEngine') ?: "jsc") == "hermes",
     cliPath: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/cli.js",
