@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { getUserById, updateUser } from '../../api/user';
 import React from 'react';
-import { Tabs } from 'react-native-collapsible-tab-view'
 import { HORI_PAD, GLOBAL_STYLES, BACKGROUND_COLOR, GREY_TEXT_COLOR, LIGHT_GREY_TEXT_COLOR, DEFAULT_COLOR, BLACK_TEXT_COLOR } from '../../styles/Style';
 import { useEffect, useState } from 'react';
 import ToggleButton from "../../components/button/ToggleButton"
@@ -129,33 +128,7 @@ export default function Profile({
 
       </View>
       <View style={styles.tweetTabInfo}>
-        {/*         <Tabs.Container
 
-        >
-          <Tabs.Tab name="Tweets">
-            <Tabs.ScrollView>
-
-            </Tabs.ScrollView>
-          </Tabs.Tab>
-          <Tabs.Tab name="Tweets \u0026 replies">
-            <Tabs.ScrollView>
-
-            </Tabs.ScrollView>
-          </Tabs.Tab>
-
-          <Tabs.Tab name="Media">
-            <Tabs.ScrollView>
-
-            </Tabs.ScrollView>
-          </Tabs.Tab>
-
-          <Tabs.Tab name="Likes">
-            <Tabs.ScrollView>
-
-            </Tabs.ScrollView>
-          </Tabs.Tab>
-        </Tabs.Container>
- */}
       </View>
     </View>
 

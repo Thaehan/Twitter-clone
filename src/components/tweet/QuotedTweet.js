@@ -100,10 +100,7 @@ export default function Tweet(props) {
           </Text>
         )}
 
-        {/*           {props.mediaContent && (
 
-            )} */}
-        {/* Interaction bar */}
 
       </TouchableOpacity>
     </View>

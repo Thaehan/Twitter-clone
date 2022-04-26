@@ -1,7 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-project.ext.react = [
-  enableHermes: true  // <- here | clean and rebuild if changing
-]
+
 buildscript {
     ext {
         buildToolsVersion = "29.0.3"

@@ -9,63 +9,7 @@ import banner1 from './assets/banner1.png'
 import banner2 from './assets/banner2.png'
 import banner3 from './assets/banner3.png'
 
-const tweets = {
-  "tweetId": "850006245121695744",
-  "userPosted": "1",
-  "textContent": "1/ Today we\u2019re sharing our vision for the future of the Twitter API platform! @Nowano #Loach!\nhttps://t.co/XweGngmxlP",
-  "mediaContent": "assets/black",
-  "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
-  "referedPostId": "",
-  "userMentioned": ["5"]
-};
-const tweetsList = [
-  {
-    "tweetId": "0",
-    "userPosted": "0",
-    "textContent": "Good morning!! How everyone doing today?",
-    "mediaContent": "assets/black",
-    "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
-    "referedPostId": "",
-    "userMentioned": ["2"]
-  },
-  {
-    "tweetId": "1",
-    "userPosted": "1",
-    "textContent": "Layout direction specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge start and end refer to. By default, React Native lays out with LTR layout direction. In this mode start refers to left and end refers to",
-    "mediaContent": "assets/black",
-    "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
-    "referedPostId": "",
-    "userMentioned": []
-  },
-  {
-    "tweetId": "2",
-    "userPosted": "2",
-    "textContent": "Any body show me a good nft place? Would like to buy some right now ;). ",
-    "mediaContent": "assets/black",
-    "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
-    "referedPostId": "",
-    "userMentioned": []
-  },
-  {
-    "tweetId": "3",
-    "userPosted": "3",
-    "textContent": ":D",
-    "mediaContent": "assets/black",
-    "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
-    "referedPostId": "",
-    "userMentioned": []
-  },
-  {
-    "tweetId": "4",
-    "userPosted": "4",
-    "textContent": "So which is the best on the market now? 3090? And then just list down from there. As I have understood (although I might be wrong) there are 20- series that are better than the 30 series? And then you have the TI ending? So from top to bottom from 30 and 20 generation how do you rank them?",
-    "mediaContent": "assets/black",
-    "dateCreated": "Thu Apr 06 15:24:15 +0000 2017",
-    "referedPostId": "",
-    "userMentioned": []
-  },
 
-]
 const userDatabase = [
   {
     userId: "0",
@@ -154,4 +98,4 @@ const thaehan = {
   userId: "1"
 }
 
-export { tweets, thaehan, tweetsList, userDatabase, NotificationList };
+export { thaehan, userDatabase, NotificationList };
