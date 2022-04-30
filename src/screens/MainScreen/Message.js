@@ -81,14 +81,14 @@ export default function Message({ navigation }) {
                 ]
               }
               email={conversation.email}
-              onPress={conversationClickHandle(
-                conversation.id
-              )}
+              onPress={() =>
+                conversationClickHandle(conversation.id)
+              }
             />
           ))}
         {conversationList.length == 0 && (
           <Text style={styles.text}>
-            Can not find any conversation
+            No conversation. Let's make some!
           </Text>
         )}
       </ScrollView>
