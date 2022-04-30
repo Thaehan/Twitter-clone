@@ -15,8 +15,9 @@ const FEEDSTACK = 'FeedStack';
 const OTHER_PROFILE = 'OtherProfile';
 const CURRENT_PROFILE = 'CurrentProfile';
 const TWEET_DETAIL = 'TweetDetail';
-
+const CONVERSATION = 'Conversation';
 export {
+  CONVERSATION,
   LOGIN,
   SIGN_UP,
   SIGN_UP_INFORMATION,

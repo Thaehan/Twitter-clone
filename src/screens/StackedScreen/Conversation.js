@@ -15,13 +15,16 @@ import {
   SCREEN_WIDTH,
   MAIN_COLOR,
   BACKGROUND_COLOR,
-  DARK_GREY_TEXT_COLOR
+  DARK_GREY_TEXT_COLOR,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 import TextInputMessage from '../../components/Message/TextInputMessage';
 import moment from 'moment';
 
-export default function Conversation({ navigation }) {
+export default function Conversation({
+  navigation,
+  route,
+}) {
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -72,9 +75,8 @@ const styles = StyleSheet.create({
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
-
   },
-  //vung chua cac tin nhan    
+  //vung chua cac tin nhan
 
   conversation: {
     backgroundColor: BACKGROUND_COLOR,

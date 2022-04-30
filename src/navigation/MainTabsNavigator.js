@@ -5,7 +5,10 @@ import {
   Button,
   TextInput,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useState } from 'react';
@@ -13,6 +16,7 @@ import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
+  CONVERSATION,
   FEED,
   MESSAGE,
   NOTIFICATION,
@@ -29,6 +33,7 @@ import {
   Feed,
   Message,
   Notification,
+  Conversation,
   Search,
   CurrentProfile,
   OtherProfile,
@@ -261,7 +266,7 @@ function NotificationStackScreen() {
 
 function MessageStackScreen() {
   const user = useSelector((state) => state.user);
-
+  const navigations = useNavigation();
   return (
     <MessageStack.Navigator
       screenOptions={{
@@ -296,6 +301,22 @@ function MessageStackScreen() {
           },
           headerTitle: 'Message',
           headerTitleAlign: 'center',
+        }}
+      />
+      <MessageStack.Screen
+        name={CONVERSATION}
+        component={Conversation}
+        options={{
+          headerTitle: 'Message',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
         }}
       />
       <MessageStack.Screen

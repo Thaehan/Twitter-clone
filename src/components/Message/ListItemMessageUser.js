@@ -18,35 +18,29 @@ import { useState, useEffect } from 'react';
 import {
   MAIN_COLOR,
   BACKGROUND_COLOR,
-  DARK_GREY_TEXT_COLOR
-} from "../../styles/Style"
+  DARK_GREY_TEXT_COLOR,
+} from '../../styles/Style';
+
+//nhận vào conversationName,avatar,content,onPress
 export default function ListItemMessageUser(props) {
   var now = moment().format('DD/MM/YYYY');
-  const [User, setUser] = useState({});
-  const findUser = (id) => {
-    var result = userDatabase.filter((user) => {
-      return user.userId == id;
-    });
-    setUser(result[0]);
-  };
-  useEffect(() => {
-    findUser(props.User);
-  }, []);
-
   return (
-    <TouchableOpacity style={styles.Item_size}>
+    <TouchableOpacity
+      style={styles.Item_size}
+      onPress={props.onPress}
+    >
       <View style={styles.avatar_frame}>
-        {/* <AvatarButton
-          source={User.avatar}
-          size={55}
+        <Image
+          source={{ uri: props.avatar }}
           style={{
             left: 11,
-            top: 16,
+            top: 0,
             width: 55,
             height: 55,
             backgroundColor: '#ffffff',
+            borderRadius: 55 / 2,
           }}
-        /> */}
+        />
       </View>
       <View
         style={{
@@ -62,7 +56,7 @@ export default function ListItemMessageUser(props) {
               fontWeight: 'bold',
             }}
           >
-            {props.user_name}
+            {props.conversationName}
           </Text>
           <Text
             style={{
@@ -85,7 +79,8 @@ export default function ListItemMessageUser(props) {
 }
 const styles = StyleSheet.create({
   DateTime: {
-    backgroundColor: BACKGROUND_COLOR, color: DARK_GREY_TEXT_COLOR,
+    backgroundColor: BACKGROUND_COLOR,
+    color: DARK_GREY_TEXT_COLOR,
     height: 22,
     position: 'absolute',
     right: 5,

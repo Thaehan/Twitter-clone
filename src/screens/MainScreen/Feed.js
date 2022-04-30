@@ -41,7 +41,7 @@ export default function Feed({ navigation }) {
           tempList.push({ ...doc.data(), tweetId: doc.id });
         });
         setTweetList(tempList);
-        console.log(tempList);
+        console.log('TWEET LIST:' + tempList);
       })
       .catch((error) => {
         alert(error);
