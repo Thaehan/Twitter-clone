@@ -30,23 +30,21 @@ export default function Notification({ navigation }) {
   useEffect(() => {
     getMultipleNotification('textContent', '!=', '')
       .then((docs) => {
-        const tempList = [];
-        docs.forErach((doc) => {
-          if (doc.id != currentUser.userId) {
-            tempList.push({
-              ...doc.data(),
-              fromUser: doc.id,
-            });
-
-            setNotificationList(tempList);
+        var tempList = [];
+        docs.forEach((doc) => {
+          if (doc.fromUser != currentUser.userId) {
+            tempList.push({ ...doc.data(), id: doc.id });
           }
         });
+        setNotificationList(tempList);
       })
       .catch((error) => {
         alert(error);
       });
   });
-
+  const notificationClickhandle = (conversationId) => {
+    //chuyen huong sang thong bao ???
+  };
   return (
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -55,24 +53,14 @@ export default function Notification({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <Notifi
-          userName="Weed"
-          content=" Are you using WordPress and migrating to the JAMstack? I wrote up a case study about how Smashing Magazine moved to JAMstack and saw great performance improvements and better security.
-
-          smashingdrusteer.com/2020/01/migrat..."
-        />
-        <Notifi
-          userName="Weed"
-          content=" Are you using WordPress and migrating to the JAMstack? I wrote up a case study about how Smashing Magazine moved to JAMstack and saw great performance improvements and better security.
-
-          smashingdrusteer.com/2020/01/migrat..."
-        />
-        <Notifi
-          userName="Weed"
-          content=" Are you using WordPress and migrating to the JAMstack? I wrote up a case study about how Smashing Magazine moved to JAMstack and saw great performance improvements and better security.
-
-          smashingdrusteer.com/2020/01/migrat..."
-        />
+        {notificationList.length != 0 &&
+          notificationList.map((notification) => (
+            <Notifi
+              key={notification.id}
+              userName={notification.fromUser}
+              content={notification.textContent}
+            />
+          ))}
       </ScrollView>
     </SafeAreaView>
   );

@@ -3,8 +3,10 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getMultipleMessage } from '../../api/message';
 import {
   Bubble_Send,
   Bubble_Received,
@@ -20,37 +22,63 @@ import {
 import CircleButton from '../../components/button/CircleButton';
 import TextInputMessage from '../../components/Message/TextInputMessage';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 export default function Conversation({
   navigation,
   route,
 }) {
+  const [messageList, setMessageList] = useState([]);
+  const currentUser = useSelector((state) => state.user);
+  useEffect(() => {
+    getMultipleMessage('content', '!=', '')
+      .then((docs) => {
+        var tempList = [];
+        docs.forEach((doc) => {
+          if (
+            (doc.conversationId =
+              route.params.conversationId)
+          )
+            tempList.push({ ...doc.data(), id: doc.id });
+        });
+        setMessageList(tempList);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  });
+
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
     >
-      <View style={styles.conversation}>
-        <Bubble_Send
-          date={moment().format('llll')}
-          content="Anh ban a..."
-        />
-        <Bubble_Send
-          date={moment().format('llll')}
-          content="Toi co the.....Ban dang lam gi vay"
-        />
-        <Bubble_Received
-          date={moment().format('llll')}
-          content="Chao ban too"
-        />
-        <Bubble_Received
-          date={moment().format('llll')}
-          content="Minh dang rush deadline"
-        />
-        <Bubble_Received
-          date={moment().format('llll')}
-          content="Lam cung minh khong? Minh tra tien voi hom nao do bao di an"
-        />
-      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        style={styles.conversation}
+      >
+        {messageList.length != 0 &&
+          messageList.map((message) => (
+            <View>
+              {message.senderId != currentUser.userId && (
+                <Bubble_Received
+                  key={message.id}
+                  date={message.sendTime}
+                  content={message.content}
+                />
+              )}
+              {message.senderId == currentUser.userId && (
+                <Bubble_Send
+                  key={message.id}
+                  date={message.sendTime}
+                  content={message.content}
+                />
+              )}
+            </View>
+          ))}
+      </ScrollView>
+
       <TextInputMessage />
       <CircleButton
         type="material-community"

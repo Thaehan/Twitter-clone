@@ -9,7 +9,7 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import { } from 'firebase/storage';
+import {} from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
 import { MessageModel } from '../models';

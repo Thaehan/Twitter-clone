@@ -1,5 +1,6 @@
 import {
   View,
+  Image,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -25,8 +26,8 @@ export default function Notifi(props) {
         color="#724DBD"
         style={notification.star}
       />
-      <AvatarButton
-        source={props.avatar}
+      <Image
+        source={{ uri: props.avatar }}
         style={notification.avatar}
       />
       <Text style={notification.noti_of_system}>
@@ -62,6 +63,7 @@ const notification = StyleSheet.create({
     height: 33,
     left: 50,
     top: 10,
+    borderRadius: 37 / 2,
   },
 
   noti_of_system: {
