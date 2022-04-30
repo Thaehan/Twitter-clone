@@ -66,12 +66,12 @@ const getMultipleUsers = async (
   }
 };
 
-//params: docId (String), change (Object);
+//params: docId (String), change parto change. Ex {}
+//Usage ex update(id,{bio:"newBio"})
 const updateUser = async (id, change) => {
   try {
-    const oldData = await getUserById(id);
     const docRef = doc(db, collectionName, id);
-    updateDoc(docRef, { ...oldData, ...change });
+    updateDoc(docRef, change);
   } catch (error) {
     console.log(error);
   }

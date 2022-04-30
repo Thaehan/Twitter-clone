@@ -11,7 +11,7 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -25,9 +25,8 @@ import {
   SEARCHSTACK,
   NOTIFICATIONSTACK,
   FEEDSTACK,
-  CURRENT_PROFILE,
-  OTHER_PROFILE,
   TWEET_DETAIL,
+  PROFILE,
 } from '../constants/ScreenName.js';
 import {
   Feed,
@@ -35,9 +34,8 @@ import {
   Notification,
   Conversation,
   Search,
-  CurrentProfile,
-  OtherProfile,
   TweetDetail,
+  Profile,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -132,10 +130,11 @@ export default function MainTabsNavigator() {
 
 function FeedStackScreen() {
   const user = useSelector((state) => state.user);
-
+  const navigations = useNavigation();
   return (
     <FeedStack.Navigator
       screenOptions={{
+        animation: 'slide_from_right',
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
       }}
@@ -144,13 +143,18 @@ function FeedStackScreen() {
         name={FEED}
         component={Feed}
         options={{
-          headerLeft: () => {
+          headerLeft: ({ navigation, route }) => {
             return (
               <AvatarButton
                 style={styles.leftHeader}
                 source={user.avatar}
                 userId={user.userId}
                 size={30}
+                onPress={() => {
+                  navigations.navigate(PROFILE, {
+                    userId: user.userId,
+                  });
+                }}
               />
             );
           },
@@ -158,7 +162,7 @@ function FeedStackScreen() {
             return (
               <IconButton
                 style={styles.rightHeader}
-                type="font-awesome"
+                type="evilicon"
                 icon="gear"
                 color="black"
                 size={30}
@@ -177,17 +181,38 @@ function FeedStackScreen() {
           headerTitleAlign: 'center',
         }}
       />
-      <FeedStack.Screen
-        name={CURRENT_PROFILE}
-        component={CurrentProfile}
-      />
-      <FeedStack.Screen
-        name={OTHER_PROFILE}
-        component={OtherProfile}
+
+      <SearchStack.Screen
+        name={PROFILE}
+        component={Profile}
+        options={{
+          headerTitle: 'Profile',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
       />
       <FeedStack.Screen
         name={TWEET_DETAIL}
         component={TweetDetail}
+        options={{
+          headerTitle: 'Tweet',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
       />
     </FeedStack.Navigator>
   );
@@ -200,6 +225,7 @@ function SearchStackScreen() {
     <SearchStack.Navigator
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
+        gestureEnabled: true,
       }}
     >
       <SearchStack.Screen
@@ -209,13 +235,10 @@ function SearchStackScreen() {
           headerShown: false,
         }}
       />
+
       <SearchStack.Screen
-        name={CURRENT_PROFILE}
-        component={CurrentProfile}
-      />
-      <SearchStack.Screen
-        name={OTHER_PROFILE}
-        component={OtherProfile}
+        name={PROFILE}
+        component={Profile}
       />
     </SearchStack.Navigator>
   );
@@ -229,6 +252,7 @@ function NotificationStackScreen() {
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
+        gestureEnabled: true,
       }}
     >
       <NotificationStack.Screen
@@ -249,7 +273,7 @@ function NotificationStackScreen() {
             return (
               <IconButton
                 style={styles.rightHeader}
-                type="font-awesome"
+                type="evilicon"
                 icon="gear"
                 color="black"
                 size={30}
@@ -272,6 +296,7 @@ function MessageStackScreen() {
       screenOptions={{
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
+        gestureEnabled: true,
       }}
     >
       <MessageStack.Screen
@@ -292,7 +317,7 @@ function MessageStackScreen() {
             return (
               <IconButton
                 style={styles.rightHeader}
-                type="font-awesome"
+                type="evilicon"
                 icon="gear"
                 color="black"
                 size={30}
@@ -319,13 +344,9 @@ function MessageStackScreen() {
           },
         }}
       />
-      <MessageStack.Screen
-        name={CURRENT_PROFILE}
-        component={CurrentProfile}
-      />
-      <MessageStack.Screen
-        name={OTHER_PROFILE}
-        component={OtherProfile}
+      <SearchStack.Screen
+        name={PROFILE}
+        component={Profile}
       />
     </MessageStack.Navigator>
   );

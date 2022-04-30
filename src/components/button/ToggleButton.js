@@ -5,24 +5,29 @@ import {
   StyleSheet,
 } from 'react-native';
 import {
-  MAIN_COLOR,
+  BLACK_TEXT_COLOR,
   BACKGROUND_COLOR,
 } from '../../styles/Style';
-export default function PrimaryButton({
+export default function ToggleButton({
   style,
   onPress,
-  title,
-  color = MAIN_COLOR
+  trueText,
+  falseText,
+  isTrue = false
 }) {
   return (
     <View style={style}>
       <TouchableOpacity
-        style={[styles.button, {
-          backgroundColor: color,
+        style={[styles.button,
+        {
+          backgroundColor: isTrue ? BACKGROUND_COLOR : BLACK_TEXT_COLOR
         }]}
         onPress={onPress}
       >
-        <Text style={styles.buttonText}>{title}</Text>
+        <Text style={[styles.buttonText, {
+          color: (!isTrue) ? BACKGROUND_COLOR : BLACK_TEXT_COLOR
+
+        }]}>{isTrue ? trueText : falseText}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -31,12 +36,12 @@ export default function PrimaryButton({
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
+    borderColor: BLACK_TEXT_COLOR,
     borderRadius: 100,
-    fontWeight: '500',
+    borderWidth: 1,
   },
   buttonText: {
-    color: BACKGROUND_COLOR,
-    fontWeight: '500',
+    fontWeight: 'bold',
     paddingBottom: 8,
     paddingLeft: 15,
     paddingRight: 15,

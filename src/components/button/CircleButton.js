@@ -7,18 +7,25 @@ import React from 'react';
 import { Icon } from 'react-native-elements';
 import { MAIN_COLOR } from '../../styles/Style';
 // Nhận vào style cho container để căn chỉnh, icon để hiện, type của icon, size
-export default function CircleButton(props) {
+export default function CircleButton({
+  style,
+  onPress,
+  icon,
+  type,
+  size,
+  color,
+}) {
   return (
-    <View style={props.style}>
+    <View style={style}>
       <TouchableOpacity
         style={styles.container}
-        onPress={props.onPress}
+        onPress={onPress}
       >
         <Icon
-          name={props.icon}
-          type={props.type}
-          size={props.size}
-          color={props.color}
+          name={icon}
+          type={type}
+          size={size}
+          color={color}
         />
       </TouchableOpacity>
     </View>

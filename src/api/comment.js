@@ -9,7 +9,7 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import {} from 'firebase/storage';
+import { } from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
 import { CommentModel } from '../models';
@@ -18,6 +18,7 @@ const collectionName = 'comments';
 const commentCollection = collection(db, collectionName);
 
 const createComment = async (
+  tweetId,
   userComment,
   userLiked = [],
   textContent = '',
@@ -25,6 +26,7 @@ const createComment = async (
 ) => {
   try {
     const newComment = CommentModel(
+      (tweetId = tweetId),
       (userComment = userComment),
       (textContent = textContent),
       (userLiked = userLiked),
@@ -65,7 +67,8 @@ const getMultipleComment = async (
   }
 };
 
-//params: docId (String), change (Object);
+//params: docId (String), change parto change. Ex {}
+//Usage ex update(id,{bio:"newBio"})
 const updateComment = async (id, change) => {
   try {
     const oldData = await getCommentById(id);

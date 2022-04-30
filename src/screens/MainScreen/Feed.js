@@ -26,19 +26,25 @@ import { useSelector } from 'react-redux';
 
 export default function Feed({ navigation }) {
   const [tweetList, setTweetList] = useState([]);
-  const [creator, setCreator] = useState('');
-  const [text, setText] = useState('');
 
   useEffect(() => {
-    //const user = useSelector((state) => state.user);
-
-    //var tweets = getFollowedUserTweet()
-    // setTweetList(tweetsList);
     getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
-        var tempList = [];
+        const tempList = [];
+        const tempDataList = [];
         docs.forEach((doc) => {
-          tempList.push({ ...doc.data(), tweetId: doc.id });
+          tempDataList.push({
+            ...doc.data(),
+            tweetId: doc.id,
+          });
+        });
+        tempDataList.sort((a, b) => {
+          return (
+            a.dateCreated.toDate() < b.dateCreated.toDate()
+          );
+        });
+        tempDataList.forEach((data) => {
+          tempList.push(data.tweetId);
         });
         setTweetList(tempList);
         console.log('TWEET LIST:' + tempList);
@@ -59,14 +65,9 @@ export default function Feed({ navigation }) {
         >
           {tweetList.map((tweet) => (
             <Tweet
-              key={tweet.tweetId}
-              tweetId={tweet.tweetId}
-              userPosted={tweet.userPosted}
-              textContent={tweet.textContent}
-              mediaContent={tweet.mediaContent}
-              dateCreated={tweet.dateCreated}
-              referedPostId={tweet.referedPostId}
-              userMentioned={tweet.userMentioned}
+              key={tweet}
+              tweetId={tweet}
+              isOnFeed={true}
             />
           ))}
         </ScrollView>

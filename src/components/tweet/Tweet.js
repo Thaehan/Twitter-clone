@@ -2,14 +2,21 @@ import {
   View,
   Text,
   Image,
-  FlatList,
   StyleSheet,
-  Linking,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { doc } from 'firebase/firestore/lite';
+import moment from 'moment';
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  ShineOverlay,
+} from 'rn-placeholder';
 
 import {
   CONTENT_SCREEN_HEIGHT,
@@ -21,87 +28,261 @@ import {
   DEFAULT_COLOR,
   LIKED_COLOR,
   RETWEET_COLOR,
+  LIGHT_GREY_TEXT_COLOR,
 } from '../../styles/Style';
 import IconButton from '../button/IconButton';
 import AvatarButton from '../button/AvatarButton';
-import { useState, useEffect } from 'react';
-import { getUserById } from '../../api/user';
+import { getUserById, updateUser } from '../../api/user';
+import { getTweetById, updateTweet } from '../../api/tweet';
 import {
-  CURRENT_PROFILE,
-  OTHER_PROFILE,
   TWEET_DETAIL,
+  PROFILE,
 } from '../../constants/ScreenName';
 import tempAvatar from '../../assets/avatar4.png';
-import { doc } from 'firebase/firestore/lite';
-const onFeed = true;
+import { setUser } from '../../redux/userSlice';
 
-export default function Tweet(props) {
+export default function Tweet({ tweetId, isOnFeed }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [userPosted, setUserPosted] = useState({});
-  const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState(0);
-  const [retweets, setRetweets] = useState(0);
-  const [tweetRetweeted, setTweetRetweeted] =
-    useState(false);
-  const [tweetLiked, setTweetLiked] = useState(false);
+  const [tweetData, setTweetData] = useState({});
+  const [userPostedData, setuserPostedData] = useState({});
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  const [retweetCount, setRetweetCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
-  const findUser = (id) => {
-    var result = userDatabase.filter((user) => {
-      return user.userId == id;
+  const retweetHandle = () => {};
+
+  const likeHandle = () => {
+    //Ấn vào nút like => thay đổi global state =>  => update database => update local state
+    // getTweetById(tweetId)
+    //   .then((doc) => {
+    //     const newLiked = [...currentUser.liked];
+    //     const newUserLiked = [...doc.data().userLiked];
+    //     if (isLiked) {
+    //       newLiked.splice(
+    //         currentUser.liked.indexOf(tweetId),
+    //         1
+    //       );
+    //       newUserLiked.splice(
+    //         newUserLiked.indexOf(currentUser.userId),
+    //         1
+    //       );
+    //     } else {
+    //       if (newLiked.indexOf(tweetId == -1)) {
+    //         newLiked.push(tweetId);
+    //       }
+    //       if (
+    //         newUserLiked.indexOf(currentUser.userId) == -1
+    //       ) {
+    //         newUserLiked.push(currentUser.userId);
+    //       }
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // updateTweet(tweetId, { userLiked: newUserLiked })
+    //   .then(() => {
+    //     updateUser(currentUser.userId, { liked: newLiked })
+    //       .then(() => {
+    //         dispatch(
+    //           setUser({
+    //             ...currentUser,
+    //             liked: newLiked,
+    //           })
+    //         );
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
+
+  const commentHandle = () => {};
+
+  const shareHandle = () => {};
+
+  const getTimeStamp = () => {
+    const day = tweetData.dateCreated.getDate();
+    const month = tweetData.dateCreated.getMonth();
+    const year = tweetData.dateCreated.getFullYear();
+
+    moment.updateLocale('en', {
+      relativeTime: {
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        ss: '%d seconds',
+        m: 'a minute',
+        mm: '%d minutes',
+        h: 'an hour',
+        hh: '%d hours',
+        d: 'a day',
+        dd: '%d days',
+        w: 'a week',
+        ww: '%d weeks',
+        M: 'a month',
+        MM: '%d months',
+        y: 'a year',
+        yy: '%d years',
+      },
     });
-    setUserPosted(thaehan);
+    return moment([year, month, day]).fromNow();
   };
-
-  const retweetTweet = () => {
-    setTweetRetweeted(!tweetRetweeted);
-    setRetweets(tweetRetweeted ? 0 : 1);
-  };
-
-  const likeTweet = () => {
-    setTweetLiked(!tweetLiked);
-    setLikes(tweetLiked ? 0 : 1);
-  };
-
-  const commentTweet = () => {};
-
-  const shareTweet = () => {};
-
-  useEffect(() => {
-    getUserById(props.userPosted).then((doc) => {
-      setUserPosted({ ...doc.data(), userId: doc.id });
-    });
-  }, []);
 
   const avatarHandle = (userId) => {
-    if (currentUser.userId == userId) {
-      navigation.navigate(CURRENT_PROFILE, {
-        userId: userId,
-      });
-    } else {
-      navigation.navigate(OTHER_PROFILE, {
-        userId: userId,
-      });
-    }
+    navigation.navigate(PROFILE, {
+      userId: userId,
+    });
   };
 
-  const tweetHandle = (tweetId) => {
-    navigation.navigate(TWEET_DETAIL, { tweetId: tweetId });
+  const tweetHandle = () => {
+    navigation.navigate(TWEET_DETAIL, {
+      tweetId,
+      isOnFeed,
+    });
   };
 
-  return onFeed ? (
-    <View style={styles.container}>
+  //lấy dữ liệu tweet và người dùng
+  useEffect(() => {
+    getTweetById(tweetId)
+      .then((tweet) => {
+        setTweetData({
+          ...tweet.data(),
+          dateCreated: new Date(
+            tweet.data().dateCreated.toDate()
+          ),
+        });
+        getUserById(tweet.data().userPosted)
+          .then((user) => {
+            setuserPostedData({
+              ...user.data(),
+              userId: user.id,
+            });
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {}, []);
+
+  // useEffect(() => {
+  //   getUserById(tweetData.userPosted)
+  //     .then((doc) => {
+  //       //Lấy thông tin người post
+  //       setuserPostedData({
+  //         ...doc.data(),
+  //         userId: doc.id,
+  //       });
+  //       //Lấy thông tin đã like hay chưa
+  //       if (currentUser.liked.indexOf(tweetId) == -1) {
+  //         setIsLiked(false);
+  //       } else {
+  //         setIsLiked(true);
+  //       }
+  //       //Lấy thông tin số like, retweet
+  //       setLikeCount(tweetData.userLiked.length);
+  //       setRetweetCount(tweetData.userRetweeted.length);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   setIsLiked(!isLiked);
+  //   // set lại state sau khi thay đổi global State
+  // }, [currentUser.liked]);
+
+  // useEffect(() => {
+  //   getTweetById(tweetId)
+  //     .then((doc) => {
+  //       setLikeCount(doc.data().userLiked.length);
+  //       console.log(doc.data().userLiked);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [isLiked]);
+
+  return isLoading ? (
+    <View style={styles.loadingScreen}>
+      <Placeholder
+        Left={PlaceholderMedia}
+        Animation={ShineOverlay}
+        style={{ borderRadius: 100 }}
+      >
+        <PlaceholderLine
+          height={30}
+          width={45}
+          style={{ padding: 15 }}
+        />
+        <PlaceholderLine
+        // style={{ paddingLeft: 10, paddingRight: 10 }}
+        // height={30}
+        />
+        <PlaceholderLine
+        // style={{ paddingLeft: 10, paddingRight: 10 }}
+        // height={30}
+        />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <View
+          style={{
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginTop: 10,
+          }}
+        >
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+        </View>
+      </Placeholder>
+    </View>
+  ) : isOnFeed ? (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => tweetHandle()}
+    >
       <View style={styles.avatarContainer}>
         <TouchableOpacity
           style={{
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onPress={() => avatarHandle(userPosted.userId)}
+          onPress={() =>
+            avatarHandle(userPostedData.userId)
+          }
         >
           <Image
-            source={{ uri: userPosted.avatar }}
+            source={{ uri: userPostedData.avatar }}
             style={{
               height: 50,
               width: 50,
@@ -110,93 +291,214 @@ export default function Tweet(props) {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.rightContainer}
-        onPress={() => tweetHandle(props.tweetId)}
-      >
+      <View style={styles.rightContainer}>
         <View style={styles.userInfo}>
           <Text style={GLOBAL_STYLES.fullname}>
-            {userPosted.fullname}
+            {userPostedData.fullname}
+          </Text>
+          <Text
+            style={[
+              GLOBAL_STYLES.username,
+              styles.username,
+            ]}
+          >
+            {'@' + userPostedData.username + ' • '}
           </Text>
           <Text style={GLOBAL_STYLES.username}>
-            {' '}
-            {userPosted.username} {' . 1d'}
+            {getTimeStamp()}
           </Text>
         </View>
 
-        {props.textContent && (
-          <Text style={GLOBAL_STYLES.text}>
-            {props.textContent}
+        {tweetData.textContent != '' && (
+          <Text
+            style={[GLOBAL_STYLES.text, styles.textContent]}
+          >
+            {tweetData.textContent}
           </Text>
         )}
 
-        {/*           {props.mediaContent && (
-
-            )} */}
+        {tweetData.mediaContent != '' && (
+          <Image
+            source={{ uri: tweetData.mediaContent }}
+            resizeMode="contain"
+            style={styles.mediaContent}
+          />
+        )}
         {/* Interaction bar */}
         <View style={styles.interactionBar}>
           <View style={styles.buttonWithCount}>
             <IconButton
               icon="comment"
-              onPress={() => commentTweet()}
+              type="evilicon"
+              size={28}
+              onPress={() => commentHandle()}
             />
-            <Text>{comments}</Text>
+            <Text>{commentCount}</Text>
           </View>
           {
             /* retweet */
             <View style={styles.buttonWithCount}>
               <IconButton
-                icon="autorenew"
-                onPress={() => retweetTweet()}
-                color={
-                  tweetRetweeted
-                    ? RETWEET_COLOR
-                    : DEFAULT_COLOR
-                }
+                icon="retweet"
+                type="evilicon"
+                size={28}
+                onPress={() => retweetHandle()}
               />
-              <Text
-                style={
-                  tweetRetweeted
-                    ? styles.retweetedColor
-                    : styles.defaultColor
-                }
-              >
-                {retweets}
-              </Text>
+              <Text>{retweetCount}</Text>
             </View>
           }
           {
             /* liked */
             <View style={styles.buttonWithCount}>
               <IconButton
-                icon="favorite-border"
-                onPress={() => likeTweet()}
+                icon="heart"
+                type="evilicon"
+                size={28}
+                onPress={() => likeHandle()}
                 color={
-                  tweetLiked ? LIKED_COLOR : DEFAULT_COLOR
+                  isLiked ? LIKED_COLOR : DEFAULT_COLOR
                 }
               />
               <Text
                 style={
-                  tweetLiked
+                  isLiked
                     ? styles.likedColor
                     : styles.defaultColor
                 }
               >
-                {likes}
+                {likeCount}
               </Text>
             </View>
           }
 
           <IconButton
-            icon="share"
-            onPress={shareTweet()}
+            icon="share-apple"
+            type="evilicon"
+            size={28}
+            onPress={shareHandle()}
             color={DEFAULT_COLOR}
           />
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   ) : (
-    <View></View>
+    <View
+      style={[GLOBAL_STYLES.container, styles1.container]}
+    >
+      <TouchableOpacity
+        style={styles1.userContainer}
+        onPress={() => avatarHandle(userPostedData.userId)}
+      >
+        <Image
+          style={styles1.userAvatar}
+          source={{ uri: userPostedData.avatar }}
+        />
+        <View style={styles1.userText}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {userPostedData.fullname}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {'@' + userPostedData.username}
+          </Text>
+        </View>
+      </TouchableOpacity>
+      <View style={styles1.contentContainer}>
+        {tweetData.textContent && (
+          <Text
+            style={[
+              GLOBAL_STYLES.text,
+              styles1.textContent,
+            ]}
+          >
+            {tweetData.textContent}
+          </Text>
+        )}
+        {tweetData.mediaContent != '' && (
+          <Image
+            style={styles1.mediaContent}
+            source={{ uri: tweetData.mediaContent }}
+            resizeMode="contain"
+          />
+        )}
+      </View>
+      <Text
+        style={[
+          GLOBAL_STYLES.username,
+          styles1.information1,
+        ]}
+      >
+        {moment(tweetData.dateCreated).format(
+          'hh:mm • DD/MM/YYYY'
+        )}
+      </Text>
+      <View style={styles1.information2}>
+        <View style={styles1.countInfo}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {commentCount}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {' Comments'}
+          </Text>
+        </View>
+        <View style={styles1.countInfo}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {retweetCount}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {' Retweets'}
+          </Text>
+        </View>
+        <View style={styles1.countInfo}>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {likeCount}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {' Likes'}
+          </Text>
+        </View>
+      </View>
+      <View style={styles1.interactionBar}>
+        <View>
+          <IconButton
+            icon="comment"
+            type="evilicon"
+            size={30}
+            onPress={() => commentHandle()}
+          />
+        </View>
+        {
+          /* retweet */
+          <View>
+            <IconButton
+              icon="retweet"
+              type="evilicon"
+              size={30}
+              onPress={() => retweetHandle()}
+            />
+          </View>
+        }
+        {
+          /* liked */
+          <View style={styles1.buttonWithCount}>
+            <IconButton
+              icon="heart"
+              type="evilicon"
+              size={30}
+              onPress={() => likeHandle()}
+              color={isLiked ? LIKED_COLOR : DEFAULT_COLOR}
+            />
+          </View>
+        }
+
+        <IconButton
+          icon="share-apple"
+          type="evilicon"
+          size={30}
+          onPress={() => shareHandle()}
+          color={DEFAULT_COLOR}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -213,6 +515,7 @@ const styles = StyleSheet.create({
     borderBottomColor: DARK_GREY_TEXT_COLOR,
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
+    flex: 1,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingTop: 10,
@@ -224,10 +527,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 15,
+    // paddingTop: 15,
+    marginTop: 10,
+    width: '95%',
   },
   likedColor: {
     color: LIKED_COLOR,
+  },
+  loadingScreen: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: '95%',
+  },
+  mediaContent: {
+    alignSelf: 'auto',
+    borderRadius: 8,
+    height: 310,
+    marginTop: 10,
+    width: '93%',
   },
   retweetedColor: {
     color: RETWEET_COLOR,
@@ -236,9 +553,83 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     width: '88%',
   },
+  textContent: {
+    textAlign: 'justify',
+    width: '91%',
+  },
   userInfo: {
     flexDirection: 'row',
-    paddingBottom: 5,
     textAlign: 'right',
+  },
+  username: {
+    paddingLeft: 5,
+  },
+});
+
+const styles1 = StyleSheet.create({
+  container: {
+    backgroundColor: BACKGROUND_COLOR,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+  },
+  contentContainer: {
+    marginTop: 10,
+    width: '100%',
+  },
+  countInfo: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  information1: {
+    borderBottomColor: LIGHT_GREY_TEXT_COLOR,
+    borderBottomWidth: 0.5,
+    paddingBottom: 5,
+    paddingTop: 10,
+    width: '100%',
+  },
+  information2: {
+    borderBottomColor: LIGHT_GREY_TEXT_COLOR,
+    borderBottomWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingBottom: 5,
+    paddingTop: 5,
+    width: '100%',
+  },
+  interactionBar: {
+    borderBottomColor: LIGHT_GREY_TEXT_COLOR,
+    borderBottomWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingBottom: 5,
+    paddingTop: 5,
+    width: '100%',
+  },
+  likedColor: {
+    color: LIKED_COLOR,
+  },
+  mediaContent: {
+    borderRadius: 6,
+    height: 380,
+    marginTop: 10,
+    width: '100%',
+  },
+  retweetedColor: {
+    color: RETWEET_COLOR,
+  },
+  textContent: {},
+  userAvatar: {
+    borderRadius: 50,
+    height: 50,
+    width: 50,
+  },
+  userContainer: {
+    flexDirection: 'row',
+    width: '50%',
+  },
+  userText: {
+    marginLeft: 10,
   },
 });

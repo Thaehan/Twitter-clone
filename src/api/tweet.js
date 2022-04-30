@@ -106,16 +106,19 @@ const getFollowedUserTweet = async (
     console.log(e);
   }
 };
-//params: docId (String), change (Object);
+//params: docId (String), change parto change. Ex {}
+//Usage ex update(id,{bio:"newBio"})
 const updateTweet = async (id, change) => {
   try {
-    const oldData = await getTweetById(id);
     const docRef = doc(db, collectionName, id);
-    updateDoc(docRef, { ...oldData, ...change });
+    updateDoc(docRef, change);
   } catch (error) {
     console.log(error);
   }
 };
+
+
+
 
 const deleteTweetById = async (id) => {
   try {

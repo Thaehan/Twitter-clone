@@ -1,50 +1,121 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import React from 'react';
+import moment from 'moment';
+
+import IconButton from '../button/IconButton';
 import ImageButton from '../button/ImageButton';
-import { GLOBAL_STYLES, BACKGROUND_COLOR } from '../../styles/Style';
+import {
+  GLOBAL_STYLES,
+  BACKGROUND_COLOR,
+  DEFAULT_COLOR,
+} from '../../styles/Style';
 
 //Nhận vào props: avatar, avatarPress, onPress, fullname, username, content
-export default function Comment(props) {
+export default function Comment({
+  avatar,
+  username,
+  fullname,
+  commentId,
+  textContent,
+  dateCreated,
+}) {
+  const getTimeStamp = (dateCreated) => {
+    const day = dateCreated.getDate();
+    const month = dateCreated.getMonth();
+    const year = dateCreated.getFullYear();
+
+    moment.updateLocale('en', {
+      relativeTime: {
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        ss: '%d seconds',
+        m: 'a minute',
+        mm: '%d minutes',
+        h: 'an hour',
+        hh: '%d hours',
+        d: 'a day',
+        dd: '%d days',
+        w: 'a week',
+        ww: '%d weeks',
+        M: 'a month',
+        MM: '%d months',
+        y: 'a year',
+        yy: '%d years',
+      },
+    });
+    return moment([year, month, day]).fromNow();
+  };
+
   return (
-    <View style={styles.container}>
-      <ImageButton
-        style={styles.imageButtonContainer}
-        source={props.avatar}
-        size={61}
-        onPress={props.onPress}
-        avatarPress={props.avatarPress}
-      />
-      <View style={styles.leftContainer}>
-        <View style={styles.userContainer}>
-          <Text style={GLOBAL_STYLES.fullname}>
-            {props.fullname}
-          </Text>
-          <Text style={GLOBAL_STYLES.username}>
-            {props.username}
-          </Text>
+    <View
+      styles={[GLOBAL_STYLES.container, styles.container]}
+    >
+      <TouchableOpacity style={styles.leftContainer}>
+        <Image
+          style={styles.avatar}
+          source={{ uri: avatar }}
+        />
+      </TouchableOpacity>
+      <View style={styles.rightContainer}>
+        <View style={styles.userInfo}>
+          <Text>{fullname}</Text>
+          <Text>{username}</Text>
+          <Text>{getTimeStamp(dateCreated)}</Text>
         </View>
-        <Text style={GLOBAL_STYLES.text}>
-          {props.content}
+        <Text style={styles.textContent}>
+          {textContent}
         </Text>
+        <View style={styles.interactionBar}>
+          <IconButton
+            icon="comment"
+            type="evilicon"
+            size={28}
+            onPress={() => {}}
+          />
+          <IconButton
+            icon="heart"
+            type="evilicon"
+            size={28}
+            onPress={() => {}}
+            color={''}
+          />
+          <IconButton
+            icon="share-apple"
+            type="evilicon"
+            size={28}
+            onPress={() => {}}
+            color={DEFAULT_COLOR}
+          />
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: BACKGROUND_COLOR,
-    flexDirection: 'row',
-    width: 414,
+  avatar: {
+    borderRadius: 50,
+    height: 50,
+    width: 50,
   },
-  imageButtonContainer: {
-    height: 100,
-    width: 90,
+  container: {
+    flexDirection: 'row',
+    width: '100%',
+  },
+  interactionBar: {
+    flexDirection: 'row',
   },
   leftContainer: {
-    width: 324,
+    width: '15%',
   },
-  userContainer: {
-    flexDirection: 'row',
-  },
+  rightContainer: { width: '85%' },
+  textContent: {},
+  userInfo: {},
 });

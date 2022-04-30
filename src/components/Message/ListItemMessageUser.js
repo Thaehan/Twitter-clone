@@ -7,6 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import moment from 'moment';
+
+import { userDatabase } from '../../mock';
 import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
