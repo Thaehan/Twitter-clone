@@ -133,24 +133,10 @@ export default function Profile({
           style={styles.banner}
           source={{ uri: user.banner != "" ? user.banner : NULL_BANNER }}
         />
-        {currentUser.userId != user.userId && user.userId != "" ?
-          <ToggleButton
-            style={styles.followButton}
-            trueText={"Following"}
-            falseText={"   Follow   "}
-            onPress={() => followUser()}
-            isTrue={followed}
-          /> : <View style={{ height: AVATAR_SIZE / 2 }} />}
-
-        <Text style={styles.fullname}>{user.fullname}</Text>
-        <Text style={styles.username}>{"@" + user.username}</Text>
-        <Text style={GLOBAL_STYLES.text}>{user.bio}</Text>
-        <View style={styles.infoWithIcon}>
-          <Icon
-            color={DEFAULT_COLOR}
-            type={"evilicon"}
-            name={"location"}
-            size={28}
+        <View style={styles.profileInfoContainer}>
+          <Image
+            style={styles.avatar}
+            source={{ uri: user.avatar }}
           />
           {currentUser.userId != user.userId ?
             <ToggleButton

@@ -70,10 +70,12 @@ export default function TweetPost({ navigation, postFunction }) {
         }
     };
 
-    const uploadMediaHandle = () => {
+    const uploadMediaHandle = async () => {
+
         upLoadImage(mediaContent)
             .then((imageUrl) => {
-                console.log(imageUrl);
+                //onsole.log(imageUrl);
+                setMediaContent(imageUrl)
             })
             .catch((error) => {
                 console.log(error);
@@ -81,16 +83,30 @@ export default function TweetPost({ navigation, postFunction }) {
     };
     const tweetPostingHandle = () => {
 
-        if (textContent == "" && mediaContent != null) {
+        if (textContent == "" && mediaContent == null) {
             alert("You can't post empty tweet")
 
         } else if (textContent.length > CHAR_LIMIT) {
             alert("You had reached maximum text length")
 
         } else {
-            createTweet(user.userId, textContent, mediaContent, [], "");
-            if (mediaContent != null)
-                uploadMediaHandle();
+
+            if (mediaContent != "")
+                upLoadImage(mediaContent)
+                    .then((imageUrl) => {
+                        //onsole.log(imageUrl);
+                        //setMediaContent(imageUrl)
+                        //console.log(imageUrl)
+                        createTweet(user.userId, textContent, imageUrl, [], "");
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            else {
+                createTweet(user.userId, textContent, mediaContent, [], "");
+
+            }
+
             navigation.goBack();
         }
     }
@@ -134,10 +150,10 @@ export default function TweetPost({ navigation, postFunction }) {
                             style={[styles.textInput, { height: textBoxHeight }]}
                             onChangeText={newText => {
                                 setTextContent(newText);
-                                setTextBoxHeight(Math.max(70, newText.length));
+                                //setTextBoxHeight(Math.max(70, newText.length));
                             }}
                             placeholder="Type something here..."
-                            multiline={true}
+                            multiline
                             keyboardType="default"
                         />
                         {mediaContent && (<View>
@@ -159,7 +175,12 @@ export default function TweetPost({ navigation, postFunction }) {
                 </View>
 
             </ScrollView>
+
+
+
+
             <View style={styles.lowwerPart}>
+
                 <TouchableOpacity
                     style={styles.choiceButton}
                     onPress={() => cameraHandle()}
@@ -188,16 +209,29 @@ export default function TweetPost({ navigation, postFunction }) {
                         size={35}
                     />
                 </TouchableOpacity>
-                <Text style={
-                    {
-                        justifyContent: "center",
+                <View
+                    style={
+                        {
+                            alignContent: "center",
+                            height: 60,
+                            justifyContent: "center",
+                            position: 'absolute',
+                            right: HORI_PAD
+                        }}
+                >
 
-                        color: (textContent.length <= CHAR_LIMIT ? MAIN_COLOR : "red"),
-                        alignSelf: "flex-end",
-                        paddingLeft: HORI_PAD,
-                        fontSize: 30
-                    }
-                }>{textContent.length + "/" + CHAR_LIMIT}</Text>
+                    <Text style={
+                        {
+                            justifyContent: "center",
+                            color: (textContent.length <= CHAR_LIMIT ? MAIN_COLOR : "red"),
+                            alignSelf: "flex-end",
+                            paddingLeft: HORI_PAD,
+                            fontSize: 25
+                        }
+                    }>{textContent.length + "/" + CHAR_LIMIT}</Text>
+
+                </View>
+
             </View>
         </View>
     );
@@ -234,8 +268,8 @@ const styles = StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR,
         flex: 1,
 
-    }
-    ,
+    },
+
     lowwerPart: {
         alignContent: "flex-start",
         flexDirection: "row"
