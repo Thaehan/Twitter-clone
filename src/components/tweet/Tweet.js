@@ -2,9 +2,7 @@ import {
   View,
   Text,
   Image,
-  FlatList,
   StyleSheet,
-  Linking,
   TouchableOpacity,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
@@ -12,6 +10,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { doc } from 'firebase/firestore/lite';
 import moment from 'moment';
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  ShineOverlay,
+} from 'rn-placeholder';
 
 import {
   CONTENT_SCREEN_HEIGHT,
@@ -36,23 +41,13 @@ import {
 import tempAvatar from '../../assets/avatar4.png';
 import { setUser } from '../../redux/userSlice';
 
-export default function Tweet({
-  tweetId,
-  userPosted,
-  textContent,
-  mediaContent,
-  dateCreated,
-  referedPostId,
-  userMentioned,
-  comments,
-  userLiked,
-  userRetweeted,
-  isOnFeed,
-}) {
+export default function Tweet({ tweetId, isOnFeed }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
+  const [tweetData, setTweetData] = useState({});
   const [userPostedData, setuserPostedData] = useState({});
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
@@ -62,40 +57,52 @@ export default function Tweet({
   const retweetHandle = () => {};
 
   const likeHandle = () => {
-    //Cập nhât global state
-    const newLiked = [...currentUser.liked];
-    const newUserLiked = [...userLiked];
-    if (isLiked) {
-      newLiked.splice(
-        currentUser.liked.indexOf(tweetId),
-        1
-      );
-      newUserLiked.splice(
-        newUserLiked.indexOf(currentUser.userId),
-        1
-      );
-    } else {
-      newLiked.push(tweetId);
-      newUserLiked.push(currentUser.userId);
-    }
-    updateTweet(tweetId, { userLiked: newUserLiked })
-      .then(() => {
-        updateUser(currentUser.userId, { liked: newLiked })
-          .then(() => {
-            dispatch(
-              setUser({
-                ...currentUser,
-                liked: newLiked,
-              })
-            );
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //Ấn vào nút like => thay đổi global state =>  => update database => update local state
+    // getTweetById(tweetId)
+    //   .then((doc) => {
+    //     const newLiked = [...currentUser.liked];
+    //     const newUserLiked = [...doc.data().userLiked];
+    //     if (isLiked) {
+    //       newLiked.splice(
+    //         currentUser.liked.indexOf(tweetId),
+    //         1
+    //       );
+    //       newUserLiked.splice(
+    //         newUserLiked.indexOf(currentUser.userId),
+    //         1
+    //       );
+    //     } else {
+    //       if (newLiked.indexOf(tweetId == -1)) {
+    //         newLiked.push(tweetId);
+    //       }
+    //       if (
+    //         newUserLiked.indexOf(currentUser.userId) == -1
+    //       ) {
+    //         newUserLiked.push(currentUser.userId);
+    //       }
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // updateTweet(tweetId, { userLiked: newUserLiked })
+    //   .then(() => {
+    //     updateUser(currentUser.userId, { liked: newLiked })
+    //       .then(() => {
+    //         dispatch(
+    //           setUser({
+    //             ...currentUser,
+    //             liked: newLiked,
+    //           })
+    //         );
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   const commentHandle = () => {};
@@ -103,9 +110,9 @@ export default function Tweet({
   const shareHandle = () => {};
 
   const getTimeStamp = () => {
-    const day = dateCreated.getDate();
-    const month = dateCreated.getMonth();
-    const year = dateCreated.getFullYear();
+    const day = tweetData.dateCreated.getDate();
+    const month = tweetData.dateCreated.getMonth();
+    const year = tweetData.dateCreated.getFullYear();
 
     moment.updateLocale('en', {
       relativeTime: {
@@ -139,58 +146,127 @@ export default function Tweet({
   const tweetHandle = () => {
     navigation.navigate(TWEET_DETAIL, {
       tweetId,
-      userPosted,
-      textContent,
-      mediaContent,
-      dateCreated,
-      referedPostId,
-      userMentioned,
-      comments,
-      userLiked,
-      userRetweeted,
       isOnFeed,
     });
   };
 
+  //lấy dữ liệu tweet và người dùng
   useEffect(() => {
-    getUserById(userPosted)
-      .then((doc) => {
-        //Lấy thông tin người post
-        setuserPostedData({
-          ...doc.data(),
-          userId: doc.id,
+    getTweetById(tweetId)
+      .then((tweet) => {
+        setTweetData({
+          ...tweet.data(),
+          dateCreated: new Date(
+            tweet.data().dateCreated.toDate()
+          ),
         });
-        //Lấy thông tin đã like hay chưa
-        if (currentUser.liked.indexOf(tweetId) == -1) {
-          setIsLiked(false);
-        } else {
-          setIsLiked(true);
-        }
-        //Lấy thông tin số like, retweet
-        setLikeCount(userLiked.length);
-        setRetweetCount(userRetweeted.length);
+        getUserById(tweet.data().userPosted)
+          .then((user) => {
+            setuserPostedData({
+              ...user.data(),
+              userId: user.id,
+            });
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  useEffect(() => {
-    setIsLiked(!isLiked);
-    // set lại state sau khi thay đổi global State
-  }, [currentUser.liked]);
+  useEffect(() => {}, []);
 
-  useEffect(() => {
-    getTweetById(tweetId)
-      .then((doc) => {
-        setLikeCount(doc.data().userLiked.length);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isLiked]);
+  // useEffect(() => {
+  //   getUserById(tweetData.userPosted)
+  //     .then((doc) => {
+  //       //Lấy thông tin người post
+  //       setuserPostedData({
+  //         ...doc.data(),
+  //         userId: doc.id,
+  //       });
+  //       //Lấy thông tin đã like hay chưa
+  //       if (currentUser.liked.indexOf(tweetId) == -1) {
+  //         setIsLiked(false);
+  //       } else {
+  //         setIsLiked(true);
+  //       }
+  //       //Lấy thông tin số like, retweet
+  //       setLikeCount(tweetData.userLiked.length);
+  //       setRetweetCount(tweetData.userRetweeted.length);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
-  return isOnFeed ? (
+  // useEffect(() => {
+  //   setIsLiked(!isLiked);
+  //   // set lại state sau khi thay đổi global State
+  // }, [currentUser.liked]);
+
+  // useEffect(() => {
+  //   getTweetById(tweetId)
+  //     .then((doc) => {
+  //       setLikeCount(doc.data().userLiked.length);
+  //       console.log(doc.data().userLiked);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [isLiked]);
+
+  return isLoading ? (
+    <View style={styles.loadingScreen}>
+      <Placeholder
+        Left={PlaceholderMedia}
+        Animation={ShineOverlay}
+        style={{ borderRadius: 100 }}
+      >
+        <PlaceholderLine
+          height={30}
+          width={45}
+          style={{ padding: 15 }}
+        />
+        <PlaceholderLine
+        // style={{ paddingLeft: 10, paddingRight: 10 }}
+        // height={30}
+        />
+        <PlaceholderLine
+        // style={{ paddingLeft: 10, paddingRight: 10 }}
+        // height={30}
+        />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <View
+          style={{
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginTop: 10,
+          }}
+        >
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+        </View>
+      </Placeholder>
+    </View>
+  ) : isOnFeed ? (
     <TouchableOpacity
       style={styles.container}
       onPress={() => tweetHandle()}
@@ -233,17 +309,17 @@ export default function Tweet({
           </Text>
         </View>
 
-        {textContent != '' && (
+        {tweetData.textContent != '' && (
           <Text
             style={[GLOBAL_STYLES.text, styles.textContent]}
           >
-            {textContent}
+            {tweetData.textContent}
           </Text>
         )}
 
-        {mediaContent != '' && (
+        {tweetData.mediaContent != '' && (
           <Image
-            source={{ uri: mediaContent }}
+            source={{ uri: tweetData.mediaContent }}
             resizeMode="contain"
             style={styles.mediaContent}
           />
@@ -327,20 +403,20 @@ export default function Tweet({
         </View>
       </TouchableOpacity>
       <View style={styles1.contentContainer}>
-        {textContent && (
+        {tweetData.textContent && (
           <Text
             style={[
               GLOBAL_STYLES.text,
               styles1.textContent,
             ]}
           >
-            {textContent}
+            {tweetData.textContent}
           </Text>
         )}
-        {mediaContent != '' && (
+        {tweetData.mediaContent != '' && (
           <Image
             style={styles1.mediaContent}
-            source={{ uri: mediaContent }}
+            source={{ uri: tweetData.mediaContent }}
             resizeMode="contain"
           />
         )}
@@ -351,7 +427,9 @@ export default function Tweet({
           styles1.information1,
         ]}
       >
-        {moment(dateCreated).format('hh:mm • DD/MM/YYYY')}
+        {moment(tweetData.dateCreated).format(
+          'hh:mm • DD/MM/YYYY'
+        )}
       </Text>
       <View style={styles1.information2}>
         <View style={styles1.countInfo}>
@@ -456,6 +534,11 @@ const styles = StyleSheet.create({
   likedColor: {
     color: LIKED_COLOR,
   },
+  loadingScreen: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: '95%',
+  },
   mediaContent: {
     alignSelf: 'auto',
     borderRadius: 8,
@@ -487,8 +570,8 @@ const styles1 = StyleSheet.create({
   container: {
     backgroundColor: BACKGROUND_COLOR,
     paddingBottom: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
     paddingTop: 10,
   },
   contentContainer: {

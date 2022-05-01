@@ -14,8 +14,11 @@ const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
 const TWEET_DETAIL = 'TweetDetail';
 const TWEET_POST = 'TweetPost'
+const CONVERSATION = 'Conversation';
 const PROFILE = 'Profile';
+
 export {
+  CONVERSATION,
   PROFILE,
   LOGIN,
   SIGN_UP,

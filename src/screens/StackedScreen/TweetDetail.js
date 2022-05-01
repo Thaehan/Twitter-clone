@@ -15,22 +15,18 @@ import Comment from '../../components/tweet/Comment';
 import { getCommentById } from '../../api/comment';
 import { getUserById } from '../../api/user';
 import Tweet from '../../components/tweet/Tweet';
+import { getTweetById } from '../../api/tweet';
 
 export default function TweetDetail({ navigation, route }) {
+  const [comments, setComments] = useState([]);
   const [commentData, setCommentData] = useState([]);
-  const {
-    tweetId,
-    userPosted,
-    textContent,
-    mediaContent,
-    dateCreated,
-    referedPostId,
-    userMentioned,
-    comments,
-    userLiked,
-    userRetweeted,
-    isOnFeed = false,
-  } = route.params;
+  const { tweetId, isOnFeed = false } = route.params;
+
+  useEffect(() => {
+    getTweetById(tweetId).then((doc) => {
+      setComments(doc.data().comments);
+    });
+  }, []);
 
   useEffect(() => {
     comments.forEach((commentId) => {
@@ -77,19 +73,7 @@ export default function TweetDetail({ navigation, route }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <Tweet
-          tweetId={tweetId}
-          userPosted={userPosted}
-          textContent={textContent}
-          mediaContent={mediaContent}
-          dateCreated={dateCreated}
-          referedPostId={referedPostId}
-          userMentioned={userMentioned}
-          userLiked={userLiked}
-          userRetweeted={userRetweeted}
-          comments={comments}
-          isOnFeed={false}
-        />
+        <Tweet tweetId={tweetId} isOnFeed={false} />
         {commentData.length != 0 &&
           commentData.map((comment) => (
             <Comment

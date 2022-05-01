@@ -37,14 +37,12 @@ export default function Feed({ navigation }) {
   const refreshFeed = async () => {
     getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
-        var tempList = [];
+        const tempList = [];
+        const tempDataList = [];
         docs.forEach((doc) => {
-          tempList.push({
+          tempDataList.push({
             ...doc.data(),
             tweetId: doc.id,
-            dateCreated: new Date(
-              doc.data().dateCreated.toDate()
-            ),
           });
         });
         tempList.sort((a, b) => {
@@ -84,17 +82,8 @@ export default function Feed({ navigation }) {
         >
           {tweetList.map((tweet) => (
             <Tweet
-              key={tweet.tweetId}
-              tweetId={tweet.tweetId}
-              userPosted={tweet.userPosted}
-              textContent={tweet.textContent}
-              mediaContent={tweet.mediaContent}
-              dateCreated={tweet.dateCreated}
-              referedPostId={tweet.referedPostId}
-              userMentioned={tweet.userMentioned}
-              comments={tweet.comments}
-              userRetweeted={tweet.userRetweeted}
-              userLiked={tweet.userLiked}
+              key={tweet}
+              tweetId={tweet}
               isOnFeed={true}
             />
           ))}

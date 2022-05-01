@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
+  CONVERSATION,
   FEED,
   MESSAGE,
   NOTIFICATION,
@@ -32,6 +33,7 @@ import {
   Feed,
   Message,
   Notification,
+  Conversation,
   Search,
   TweetDetail,
   Profile,
@@ -307,7 +309,7 @@ function NotificationStackScreen() {
 
 function MessageStackScreen() {
   const user = useSelector((state) => state.user);
-
+  const navigations = useNavigation();
   return (
     <MessageStack.Navigator
       screenOptions={{
@@ -345,7 +347,22 @@ function MessageStackScreen() {
           headerTitleAlign: 'center',
         }}
       />
-
+      <MessageStack.Screen
+        name={CONVERSATION}
+        component={Conversation}
+        options={{
+          headerTitle: 'Message',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
+      />
       <SearchStack.Screen
         name={PROFILE}
         component={Profile}
