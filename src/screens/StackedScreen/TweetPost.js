@@ -106,8 +106,7 @@ export default function TweetPost({ route, navigation }) {
                 createTweet(user.userId, textContent, mediaContent, [], referedTweetId);
 
             }
-            if (postFunction != null)
-                postFunction()
+
             navigation.goBack();
         }
     }

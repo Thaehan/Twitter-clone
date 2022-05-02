@@ -107,7 +107,6 @@ export default function Feed({ navigation }) {
         onPress={() => {
           navigation.navigate(TWEET_POST, {
             navigation,
-            postFunction: refreshFeed(),
             //referedTweetId: "YBlYFQL2xrZmMFZIz36U"
           })
         }}
