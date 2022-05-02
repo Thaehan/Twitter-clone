@@ -4,6 +4,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Modal
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -37,9 +38,11 @@ import { getTweetById, updateTweet } from '../../api/tweet';
 import {
   TWEET_DETAIL,
   PROFILE,
+  TWEET_POST
 } from '../../constants/ScreenName';
 import tempAvatar from '../../assets/avatar4.png';
 import { setUser } from '../../redux/userSlice';
+import QuotedTweet from './QuotedTweet'
 
 export default function Tweet({ tweetId, isOnFeed }) {
   const currentUser = useSelector((state) => state.user);
@@ -54,7 +57,13 @@ export default function Tweet({ tweetId, isOnFeed }) {
   const [retweetCount, setRetweetCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
-  const retweetHandle = () => {};
+  const retweetHandle = () => {
+
+    navigation.navigate(TWEET_POST, {
+      navigation,
+      referedTweetId: tweetId
+    })
+  };
 
   const likeHandle = () => {
     //Ấn vào nút like => thay đổi global state =>  => update database => update local state
@@ -105,9 +114,9 @@ export default function Tweet({ tweetId, isOnFeed }) {
     //   });
   };
 
-  const commentHandle = () => {};
+  const commentHandle = () => { };
 
-  const shareHandle = () => {};
+  const shareHandle = () => { };
 
   const getTimeStamp = () => {
     const day = tweetData.dateCreated.getDate();
@@ -144,7 +153,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
   };
 
   const tweetHandle = () => {
-    navigation.navigate(TWEET_DETAIL, {
+    navigation.push(TWEET_DETAIL, {
       tweetId,
       isOnFeed,
     });
@@ -177,7 +186,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
       });
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   // useEffect(() => {
   //   getUserById(tweetData.userPosted)
@@ -324,6 +333,13 @@ export default function Tweet({ tweetId, isOnFeed }) {
             style={styles.mediaContent}
           />
         )}
+        {
+          tweetData.referedPostId != '' && (
+            <QuotedTweet
+              tweetId={tweetData.referedPostId}>
+            </QuotedTweet>
+          )
+        }
         {/* Interaction bar */}
         <View style={styles.interactionBar}>
           <View style={styles.buttonWithCount}>
@@ -420,6 +436,18 @@ export default function Tweet({ tweetId, isOnFeed }) {
             resizeMode="contain"
           />
         )}
+
+        {
+          tweetData.referedPostId != '' && (
+            <>
+              <Text>{'\n'}</Text>
+              <QuotedTweet
+
+                tweetId={tweetData.referedPostId}>
+              </QuotedTweet>
+
+            </>)
+        }
       </View>
       <Text
         style={[
@@ -431,6 +459,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
           'hh:mm • DD/MM/YYYY'
         )}
       </Text>
+
       <View style={styles1.information2}>
         <View style={styles1.countInfo}>
           <Text style={GLOBAL_STYLES.fullname}>
@@ -457,6 +486,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
           </Text>
         </View>
       </View>
+
       <View style={styles1.interactionBar}>
         <View>
           <IconButton

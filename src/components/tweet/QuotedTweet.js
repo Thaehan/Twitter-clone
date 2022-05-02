@@ -2,14 +2,23 @@ import {
   View,
   Text,
   Image,
-  FlatList,
   StyleSheet,
-  Linking,
   TouchableOpacity,
+  Modal
 } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { doc } from 'firebase/firestore/lite';
+import moment from 'moment';
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  ShineOverlay,
+} from 'rn-placeholder';
+
 import {
   CONTENT_SCREEN_HEIGHT,
   GLOBAL_STYLES,
@@ -20,98 +29,211 @@ import {
   DEFAULT_COLOR,
   LIKED_COLOR,
   RETWEET_COLOR,
+  LIGHT_GREY_TEXT_COLOR,
+  BLACK_TEXT_COLOR,
 } from '../../styles/Style';
-
 import IconButton from '../button/IconButton';
-import { useState, useEffect } from 'react';
-import { getUserById } from '../../api/user';
-import { updateTweet } from '../../api/tweet';
-
+import AvatarButton from '../button/AvatarButton';
+import { getUserById, updateUser } from '../../api/user';
+import { getTweetById, updateTweet } from '../../api/tweet';
 import {
   TWEET_DETAIL,
+  PROFILE,
 } from '../../constants/ScreenName';
-const onFeed = true;
+import tempAvatar from '../../assets/avatar4.png';
+import { setUser } from '../../redux/userSlice';
 
-export default function Tweet(props) {
+export default function QuotedTweet({ tweetId }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
+  const [tweetData, setTweetData] = useState({});
+  const [userPostedData, setuserPostedData] = useState({});
 
+  const getTimeStamp = () => {
+    const day = tweetData.dateCreated.getDate();
+    const month = tweetData.dateCreated.getMonth();
+    const year = tweetData.dateCreated.getFullYear();
 
-
-
-
-
-  const shareTweet = () => { };
-
-  useEffect(() => {
-    //Getting user posted data
-    getUserById(props.userPosted).then((doc) => {
-      setUserPosted({ ...doc.data(), userId: doc.id });
+    moment.updateLocale('en', {
+      relativeTime: {
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        ss: '%d seconds',
+        m: 'a minute',
+        mm: '%d minutes',
+        h: 'an hour',
+        hh: '%d hours',
+        d: 'a day',
+        dd: '%d days',
+        w: 'a week',
+        ww: '%d weeks',
+        M: 'a month',
+        MM: '%d months',
+        y: 'a year',
+        yy: '%d years',
+      },
     });
-
-  }, []);
+    return moment([year, month, day]).fromNow();
+  };
 
   const avatarHandle = (userId) => {
-
+    navigation.navigate(PROFILE, {
+      userId: userId,
+    });
+  };
+  var isOnFeed = false
+  const tweetHandle = () => {
+    navigation.navigate(TWEET_DETAIL, {
+      tweetId,
+      isOnFeed
+    });
   };
 
-  const tweetHandle = (tweetId) => {
-    navigation.navigate(TWEET_DETAIL, { tweetId: tweetId });
-  };
+  //lấy dữ liệu tweet và người dùng
+  useEffect(() => {
+    console.log(tweetId)
+    getTweetById(tweetId)
+      .then((tweet) => {
+        setTweetData({
+          ...tweet.data(),
+          dateCreated: new Date(
+            tweet.data().dateCreated.toDate()
+          ),
+        });
+        getUserById(tweet.data().userPosted)
+          .then((user) => {
+            setuserPostedData({
+              ...user.data(),
+              userId: user.id,
+            });
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  return onFeed ? (
-    <View style={styles.container}>
+  useEffect(() => { }, []);
+
+  return isLoading ? (
+    <View style={styles.loadingScreen}>
+      <Placeholder
+        Left={PlaceholderMedia}
+        Animation={ShineOverlay}
+        style={{ borderRadius: 100 }}
+      >
+        <PlaceholderLine
+          height={30}
+          width={45}
+          style={{ padding: 15 }}
+        />
+        <PlaceholderLine
+
+        />
+        <PlaceholderLine
+
+        />
+        <PlaceholderLine />
+        <PlaceholderLine />
+        <View
+          style={{
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginTop: 10,
+          }}
+        >
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+          <PlaceholderMedia
+            style={{ height: 20, width: 25 }}
+          />
+        </View>
+      </Placeholder>
+    </View>
+  ) : (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => tweetHandle()}
+    >
       <View style={styles.avatarContainer}>
         <TouchableOpacity
           style={{
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onPress={() => avatarHandle(userPosted.userId)}
+          onPress={() => {
+            //avatarHandle(userPostedData.userId)
+          }
+          }
         >
           <Image
-            source={{ uri: userPosted.avatar }}
-            style={{
-              height: 50,
-              width: 50,
-              borderRadius: 50,
-            }}
+            source={{ uri: userPostedData.avatar }}
+            style={styles.userAvatar}
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.rightContainer}
-        onPress={() => tweetHandle(props.tweetId)}
-      >
+      <View style={styles.rightContainer}>
         <View style={styles.userInfo}>
           <Text style={GLOBAL_STYLES.fullname}>
-            {userPosted.fullname}
+            {userPostedData.fullname}
+          </Text>
+          <Text
+            style={[
+              GLOBAL_STYLES.username,
+              styles.username,
+            ]}
+          >
+            {'@' + userPostedData.username + ' • '}
           </Text>
           <Text style={GLOBAL_STYLES.username}>
-            {' '}
-            {userPosted.username} {' . 1d'}
+            {getTimeStamp()}
           </Text>
         </View>
 
-        {props.textContent && (
-          <Text style={GLOBAL_STYLES.text}>
-            {props.textContent}
+        {tweetData.textContent != '' && (
+          <Text
+            style={[GLOBAL_STYLES.text, styles.textContent]}
+          >
+            {tweetData.textContent}
           </Text>
+        )}
+        {tweetData.mediaContent != '' && (
+
+
+          <Image
+            source={{ uri: tweetData.mediaContent }}
+            resizeMode="contain"
+            style={styles.mediaContent}
+          />
         )}
 
 
 
-      </TouchableOpacity>
-    </View>
-  ) : (
-    <View></View>
-  );
+      </View>
+    </TouchableOpacity>
+  )
 }
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    width: '12%',
+    paddingTop: 3,
+    width: '8%',
   },
   buttonWithCount: {
     alignItems: 'center',
@@ -119,35 +241,53 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: BACKGROUND_COLOR,
-    borderBottomColor: DARK_GREY_TEXT_COLOR,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: LIGHT_GREY_TEXT_COLOR,
+    borderRadius: 10,
+    borderWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
+    flex: 1,
     paddingBottom: 10,
-    paddingLeft: 10,
-    paddingTop: 10,
+    paddingLeft: 5,
+    paddingTop: 5,
+    width: '92%',
   },
   defaultColor: {
     color: DEFAULT_COLOR,
   },
-  interactionBar: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 15,
+
+
+  loadingScreen: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: '95%',
   },
-  likedColor: {
-    color: LIKED_COLOR,
+  mediaContent: {
+    alignSelf: 'auto',
+    borderRadius: 8,
+    //left: 0,
+    height: 290,
+    marginTop: 5,
+    //position: 'absolute',
+    width: '99%',
   },
-  retweetedColor: {
-    color: RETWEET_COLOR,
-  },
+
   rightContainer: {
-    paddingLeft: 15,
-    width: '88%',
+    width: '95%',
+  },
+  textContent: {
+    textAlign: 'justify',
+    width: '91%',
+  },
+  userAvatar: {
+    borderRadius: 50,
+    height: 20,
+    width: 20,
   },
   userInfo: {
     flexDirection: 'row',
-    paddingBottom: 5,
     textAlign: 'right',
+  },
+  username: {
+    paddingLeft: 5,
   },
 });

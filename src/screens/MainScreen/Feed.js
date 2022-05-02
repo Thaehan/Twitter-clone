@@ -30,10 +30,14 @@ export default function Feed({ navigation }) {
   const [text, setText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigation();
+
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refreshFeed().then(() => setRefreshing(false))
   }, [])
+
+
   const refreshFeed = async () => {
     getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
@@ -41,14 +45,20 @@ export default function Feed({ navigation }) {
         const tempDataList = [];
         docs.forEach((doc) => {
           tempDataList.push({
-            ...doc.data(),
+            dateCreated: doc.data().dateCreated,
             tweetId: doc.id,
           });
         });
-        tempList.sort((a, b) => {
-          return new Date(b.dateCreated) - new Date(a.dateCreated);
-        })
+        tempDataList.sort((a, b) => {
+          return (
+            a.dateCreated.toDate() < b.dateCreated.toDate()
+          );
+        });
+        tempDataList.forEach((data) => {
+          tempList.push(data.tweetId);
+        });
         setTweetList(tempList);
+        console.log(tempList);
 
       })
       .catch((error) => {
@@ -56,14 +66,12 @@ export default function Feed({ navigation }) {
       });
   }
   useEffect(() => {
-    //const user = useSelector((state) => state.user);
 
-    //var tweets = getFollowedUserTweet()
-    // setTweetList(tweetsList);
     refreshFeed();
   }, []);
 
   return (
+
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
@@ -97,14 +105,17 @@ export default function Feed({ navigation }) {
         size={30}
         style={styles.circleButton}
         onPress={() => {
-          navigation.navigate(TWEET_POST, { navigation })
+          navigation.navigate(TWEET_POST, {
+            navigation,
+            postFunction: refreshFeed(),
+            //referedTweetId: "YBlYFQL2xrZmMFZIz36U"
+          })
         }}
       />
 
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   circleButton: {
     alignItems: 'center',

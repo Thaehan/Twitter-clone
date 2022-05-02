@@ -41,48 +41,48 @@ export default function Notifi(props) {
 }
 
 const notification = StyleSheet.create({
-  container: {
-    width: SCREEN_WIDTH,
-    height: 230,
-    borderBottomColor: '#EDF0F1',
-    borderBottomWidth: 0.5,
-
-    backgroundColor: '#ffffff',
-  },
-  star: {
-    position: 'absolute',
-    width: 24,
-    height: 22,
-    left: 18,
-    top: 10,
-    color: '#724DBD',
-  },
   avatar: {
-    position: 'absolute',
-    width: 37,
+    borderRadius: 37 / 2,
     height: 33,
     left: 50,
+    position: 'absolute',
     top: 10,
-    borderRadius: 37 / 2,
+    width: 37,
+  },
+  container: {
+    backgroundColor: '#ffffff',
+    borderBottomColor: '#EDF0F1',
+    borderBottomWidth: 0.5,
+    height: 230,
+
+    width: SCREEN_WIDTH,
+  },
+  content: {
+    color: '#A0A9B2',
+    fontSize: 15,
+    height: 154,
+    left: 63,
+    position: 'absolute',
+    textAlign: 'left',
+    top: 78,
+    width: 311,
   },
 
   noti_of_system: {
-    position: 'absolute',
+    color: '#A0A9B2',
+    fontSize: 15,
+    height: 18,
     left: 63,
+    position: 'absolute',
     top: 50,
     width: 310,
-    height: 18,
-    fontSize: 15,
-    color: '#A0A9B2',
   },
-  content: {
+  star: {
+    color: '#724DBD',
+    height: 22,
+    left: 18,
     position: 'absolute',
-    left: 63,
-    top: 78,
-    width: 311,
-    height: 154,
-    textAlign: 'left',
-    fontSize: 15,
-    color: '#A0A9B2',
+    top: 10,
+    width: 24,
   },
 });

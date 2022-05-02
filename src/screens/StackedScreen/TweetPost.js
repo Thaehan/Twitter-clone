@@ -31,11 +31,11 @@ import IconButton from '../../components/button/IconButton';
 
 import * as ImagePicker from 'expo-image-picker';
 import { upLoadImage, deleteImage } from '../../api/image';
-
+import QuotedTweet from '../../components/tweet/QuotedTweet';
 const CHAR_LIMIT = 280;
-export default function TweetPost({ navigation, postFunction }) {
+export default function TweetPost({ route, navigation }) {
 
-
+    const { postFunction, referedTweetId } = route.params;
     const [textContent, setTextContent] = useState("");
     const [mediaContent, setMediaContent] = useState(null);
 
@@ -97,16 +97,17 @@ export default function TweetPost({ navigation, postFunction }) {
                         //onsole.log(imageUrl);
                         //setMediaContent(imageUrl)
                         //console.log(imageUrl)
-                        createTweet(user.userId, textContent, imageUrl, [], "");
+                        createTweet(user.userId, textContent, imageUrl, [], referedTweetId);
                     })
                     .catch((error) => {
                         console.log(error);
                     });
             else {
-                createTweet(user.userId, textContent, mediaContent, [], "");
+                createTweet(user.userId, textContent, mediaContent, [], referedTweetId);
 
             }
-
+            if (postFunction != null)
+                postFunction()
             navigation.goBack();
         }
     }
@@ -122,6 +123,8 @@ export default function TweetPost({ navigation, postFunction }) {
 
     useEffect(() => {
         //postTweetAction = createTweet()
+        console.log("Tweep posting")
+        console.log(referedTweetId)
         navigation.setParams()
     }, []);
     const numberOfLine = (text, textInputWidth) => {
@@ -134,15 +137,11 @@ export default function TweetPost({ navigation, postFunction }) {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}>
-
-
-
                 <View style={styles.upperPart}>
                     <View style={styles.avatarVanity}>
                         <Image
                             style={styles.avatar}
                             source={{ uri: user.avatar }}
-
                         />
                     </View>
                     <View style={styles.contentArea}>
@@ -152,6 +151,7 @@ export default function TweetPost({ navigation, postFunction }) {
                                 setTextContent(newText);
                                 //setTextBoxHeight(Math.max(70, newText.length));
                             }}
+
                             placeholder="Type something here..."
                             multiline
                             keyboardType="default"
@@ -169,6 +169,11 @@ export default function TweetPost({ navigation, postFunction }) {
                                 onPress={() => { }}
                             />
                         </View>
+                        )}
+                        {referedTweetId != null && (
+                            <QuotedTweet
+                                tweetId={referedTweetId}>
+                            </QuotedTweet>
                         )}
                     </View>
 

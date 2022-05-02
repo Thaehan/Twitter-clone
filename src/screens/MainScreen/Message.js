@@ -77,7 +77,7 @@ export default function Message({ navigation }) {
               avatar={conversation.avatar}
               content={
                 conversation.content[
-                  conversation.content.length - 1
+                conversation.content.length - 1
                 ]
               }
               email={conversation.email}
@@ -105,11 +105,11 @@ export default function Message({ navigation }) {
 
 const styles = StyleSheet.create({
   circleButton: {
-    borderRadius: 50,
     alignItems: 'center',
+    borderRadius: 50,
     bottom: 20,
-    right: 20,
     position: 'absolute',
+    right: 20,
   },
   container: {
     backgroundColor: BACKGROUND_COLOR,
@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
   },
   text: {
-    textAlign: 'center',
-    fontWeight: 'bold',
     fontSize: 17,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
