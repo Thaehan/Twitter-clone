@@ -99,8 +99,8 @@ export default function Feed({ navigation }) {
       }
 
       <CircleButton
-        icon="plus"
-        type="font-awesome-5"
+        icon="create-outline"
+        type="ionicon"
         color="#ffffff"
         size={30}
         style={styles.circleButton}

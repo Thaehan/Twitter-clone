@@ -9,7 +9,7 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import {} from 'firebase/storage';
+import { } from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
 import { MessageModel } from '../models';
@@ -57,6 +57,8 @@ const getMultipleMessage = async (
   param2 = ''
 ) => {
   try {
+
+
     const q = query(
       messageCollection,
       where(param1, operation, param2)

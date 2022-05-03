@@ -18,6 +18,9 @@ import {
   deleteConversationById,
 } from '../../api/conversation';
 import {
+  getMultipleUsers
+} from '../../api/user'
+import {
   GLOBAL_STYLES,
   BACKGROUND_COLOR,
 } from '../../styles/Style';
@@ -29,22 +32,23 @@ import { DocumentSnapshot } from 'firebase/firestore/lite';
 import {
   CONVERSATION,
   MESSAGESTACK,
+  NEW_CONVERSATION
 } from '../../constants/ScreenName';
 
 export default function Message({ navigation }) {
-  const [conversationList, setConversationList] = useState(
-    []
-  );
+  const [conversationList, setConversationList] = useState([]);
+  const [userList, setUserList] = useState([]);
+
   const currentUser = useSelector((state) => state.user);
   //console.log('current User: ' + currentUser.userId);
   useEffect(() => {
-    //load all conversations of an user base on userId
+    //load all conversations which current user take part in
     getMultipleConversation('conversationName', '!=', '')
       .then((docs) => {
         var tempList = [];
         docs.forEach((doc) => {
-          if (doc.data().userId == currentUser.userId) {
-            tempList.push({ ...doc.data(), id: doc.id });
+          if (doc.data().users.includes(currentUser.userId)) {
+            tempList.push({ ...doc.data(), conversationId: doc.id });
           }
         });
         setConversationList(tempList);
@@ -70,19 +74,19 @@ export default function Message({ navigation }) {
         {conversationList.length != 0 &&
           conversationList.map((conversation) => (
             <ListItemMessageUser
-              key={conversation.id}
-              conversationName={
-                conversation.conversationName
-              }
-              avatar={conversation.avatar}
+              key={conversation.conversationId}
+              //conversationName={
+              //  conversation.conversationName
+              //}
+              //avatar={conversation.avatar}
               content={
                 conversation.content[
                 conversation.content.length - 1
                 ]
               }
-              email={conversation.email}
+              //email={conversation.email}
               onPress={() =>
-                conversationClickHandle(conversation.id)
+                conversationClickHandle(conversation.conversationId)
               }
             />
           ))}
@@ -93,11 +97,12 @@ export default function Message({ navigation }) {
         )}
       </ScrollView>
       <CircleButton
-        type="font-awesome-5"
-        icon="plus"
+        type="material-community"
+        icon="message-plus"
         color="#ffffff"
         size={30}
         style={styles.circleButton}
+        onPress={() => { navigation.push(NEW_CONVERSATION, { navigation }) }}
       />
     </SafeAreaView>
   );

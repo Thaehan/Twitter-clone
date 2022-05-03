@@ -148,9 +148,9 @@ export default function TweetPost({ route, navigation }) {
                             style={[styles.textInput, { height: textBoxHeight }]}
                             onChangeText={newText => {
                                 setTextContent(newText);
-                                //setTextBoxHeight(Math.max(70, newText.length));
+                                setTextBoxHeight(Math.max(150, 70 * textContent.length / (40)));
                             }}
-
+                            //numberOfLines={}
                             placeholder="Type something here..."
                             multiline
                             keyboardType="default"

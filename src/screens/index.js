@@ -9,6 +9,7 @@ import Conversation from './StackedScreen/Conversation';
 import TweetDetail from './StackedScreen/TweetDetail';
 import Profile from './StackedScreen/Profile';
 import TweetPost from './StackedScreen/TweetPost';
+import NewConversation from './StackedScreen/NewConversation';
 export {
   Profile,
   Login,
@@ -19,6 +20,7 @@ export {
   Search,
   Notification,
   Conversation,
+  NewConversation,
   TweetDetail,
   TweetPost
 };

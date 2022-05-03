@@ -21,22 +21,17 @@ const conversationCollection = collection(
 );
 
 const createConversation = async (
-  conversationName = '',
   content = [],
-  userId = '',
-  avatar = '',
-  email = ''
+  users = [],
 ) => {
   try {
     const newConversation = ConversationModel(
-      (conversationName = conversationName),
       (content = content),
-      (userId = userId),
-      (avatar = avatar),
-      (email = email)
+      (users = users),
     );
 
-    await addDoc(conversationCollection, newConversation);
+    docId = await addDoc(conversationCollection, newConversation);
+    return docId
   } catch (error) {
     alert(error);
   }
@@ -53,9 +48,9 @@ const getConversationById = async (id) => {
 };
 
 const getMultipleConversation = async (
-  param1 = 'conversationName',
+  param1 = 'users',
   operation = '!=',
-  param2 = ''
+  param2 = []
 ) => {
   try {
     const q = query(

@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Button,
   TextInput,
+  TouchableOpacity
 } from 'react-native';
 import {
   NavigationContainer,
@@ -26,6 +27,7 @@ import {
   NOTIFICATIONSTACK,
   FEEDSTACK,
   TWEET_DETAIL,
+  NEW_CONVERSATION,
   PROFILE,
   TWEET_POST,
 } from '../constants/ScreenName.js';
@@ -37,7 +39,8 @@ import {
   Search,
   TweetDetail,
   Profile,
-  TweetPost
+  TweetPost,
+  NewConversation
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -48,7 +51,7 @@ import {
 import IconButton from '../components/button/IconButton.js';
 import AvatarButton from '../components/button/AvatarButton';
 import PrimaryButton from '../components/button/PrimaryButton.js';
-
+import TextButton from '../components/button/TextButton.js';
 const MainTabs = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
 const SearchStack = createNativeStackNavigator();
@@ -345,6 +348,29 @@ function MessageStackScreen() {
           },
           headerTitle: 'Message',
           headerTitleAlign: 'center',
+        }}
+      />
+      <MessageStack.Screen
+        name={NEW_CONVERSATION}
+        component={NewConversation}
+        options={{
+
+          headerTitle: 'Message',
+          headerTitleAlign: 'center',
+          headerLeft: ({ navigation }) => {
+            return (
+              <TextButton
+                title="Cancel"
+                onPress={() => navigations.goBack()}
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }} />
+
+            );
+
+          },
+
         }}
       />
       <MessageStack.Screen

@@ -24,7 +24,6 @@ import TextInputMessage from '../../components/Message/TextInputMessage';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-
 export default function Conversation({
   navigation,
   route,
@@ -32,15 +31,12 @@ export default function Conversation({
   const [messageList, setMessageList] = useState([]);
   const currentUser = useSelector((state) => state.user);
   useEffect(() => {
-    getMultipleMessage('content', '!=', '')
+    getMultipleMessage('conversationId', '==', route.params.conversationId)
       .then((docs) => {
+        console.log(docs)
         var tempList = [];
         docs.forEach((doc) => {
-          if (
-            (doc.conversationId =
-              route.params.conversationId)
-          )
-            tempList.push({ ...doc.data(), id: doc.id });
+          tempList.push({ ...doc.data(), id: doc.id });
         });
         setMessageList(tempList);
       })
@@ -79,13 +75,8 @@ export default function Conversation({
           ))}
       </ScrollView>
 
-      <TextInputMessage />
-      <CircleButton
-        type="material-community"
-        icon="message-plus"
-        color="#ffffff"
-        size={30}
-        style={styles.circleButton}
+      <TextInputMessage
+
       />
     </View>
   );
@@ -109,7 +100,6 @@ const styles = StyleSheet.create({
   conversation: {
     backgroundColor: BACKGROUND_COLOR,
 
-    fontFamily: 'Open Sans',
     fontSize: 16,
 
     height: CONTENT_SCREEN_HEIGHT - 60,
@@ -118,7 +108,6 @@ const styles = StyleSheet.create({
   },
   header_bar_message: {
     backgroundColor: BACKGROUND_COLOR,
-    fontFamily: 'Open Sans',
     fontSize: 16,
     height: 70,
     position: 'relative',

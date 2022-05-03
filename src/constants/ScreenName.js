@@ -16,8 +16,9 @@ const TWEET_DETAIL = 'TweetDetail';
 const TWEET_POST = 'TweetPost'
 const CONVERSATION = 'Conversation';
 const PROFILE = 'Profile';
-
+const NEW_CONVERSATION = "NewConversation"
 export {
+  NEW_CONVERSATION,
   CONVERSATION,
   PROFILE,
   LOGIN,
