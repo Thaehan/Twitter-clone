@@ -24,6 +24,7 @@ import { SIGN_UP } from '../../constants/ScreenName';
 import { auth } from '../../firebase';
 import { setUser } from '../../redux/userSlice';
 import { getMultipleUsers } from '../../api/user';
+import moment from 'moment';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -43,6 +44,14 @@ export default function Login({ navigation }) {
               fullname: userData.fullname,
               username: userData.username,
               banner: userData.banner,
+              bio: userData.bio,
+              country: userData.country,
+              dateCreated: moment(
+                new Date(userData.dateCreated.toDate())
+              ).format('DD/MM/YYYY'),
+              dateOfBirth: moment(
+                new Date(userData.dateOfBirth.toDate())
+              ).format('DD/MM/YYYY'),
               liked: userData.liked,
               followers: userData.followers,
               following: userData.following,

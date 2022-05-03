@@ -14,6 +14,8 @@ const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
 const TWEET_DETAIL = 'TweetDetail';
 const PROFILE = 'Profile';
+const SETTINGS = 'Settings';
+
 export {
   PROFILE,
   LOGIN,
@@ -29,4 +31,5 @@ export {
   NOTIFICATIONSTACK,
   FEEDSTACK,
   TWEET_DETAIL,
+  SETTINGS,
 };
