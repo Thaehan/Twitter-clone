@@ -10,6 +10,8 @@ import TweetDetail from './StackedScreen/TweetDetail';
 import Profile from './StackedScreen/Profile';
 import TweetPost from './StackedScreen/TweetPost';
 import NewConversation from './StackedScreen/NewConversation';
+import Settings from './StackedScreen/Settings';
+
 export {
   Profile,
   Login,
@@ -22,5 +24,6 @@ export {
   Conversation,
   NewConversation,
   TweetDetail,
-  TweetPost
+  TweetPost,
+  Settings,
 };

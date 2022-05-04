@@ -66,7 +66,7 @@ export default function Search({ navigation }) {
       );
       setUserList(searchResult);
     }
-  }, [searchText]);
+  }, [searchText, currentUser.userId]);
 
   const deleteHandle = () => {
     setSeacrhText('');

@@ -17,6 +17,8 @@ const TWEET_POST = 'TweetPost'
 const CONVERSATION = 'Conversation';
 const PROFILE = 'Profile';
 const NEW_CONVERSATION = "NewConversation"
+const SETTINGS = 'Settings';
+
 export {
   NEW_CONVERSATION,
   CONVERSATION,
@@ -34,5 +36,6 @@ export {
   NOTIFICATIONSTACK,
   FEEDSTACK,
   TWEET_DETAIL,
-  TWEET_POST
+  TWEET_POST,
+  SETTINGS,
 };

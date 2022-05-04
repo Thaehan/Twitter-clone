@@ -9,6 +9,10 @@ export const userSlice = createSlice({
     fullname: '',
     username: '',
     banner: '',
+    bio: '',
+    country: '',
+    dateCreated: '',
+    dateOfBirth: '',
     liked: [],
     followers: [],
     following: [],
@@ -24,6 +28,10 @@ export const userSlice = createSlice({
         fullname: action.payload.fullname,
         username: action.payload.username,
         banner: action.payload.banner,
+        bio: action.payload.bio,
+        country: action.payload.country,
+        dateCreated: action.payload.dateCreated,
+        dateOfBirth: action.payload.dateOfBirth,
         followers: action.payload.followers,
         following: action.payload.following,
         liked: action.payload.liked,
@@ -34,6 +42,10 @@ export const userSlice = createSlice({
       state.fullname = user.fullname;
       state.username = user.username;
       state.banner = user.banner;
+      state.bio = user.bio;
+      state.country = user.country;
+      state.dateCreated = user.dateCreated;
+      state.dateOfBirth = user.dateOfBirth;
       state.isLoading = false;
       state.followers = user.followers;
       state.following = user.following;
@@ -48,6 +60,10 @@ export const userSlice = createSlice({
         fullname: '',
         username: '',
         banner: '',
+        bio: '',
+        country: '',
+        dateCreated: '',
+        dateOfBirth: '',
         followers: [],
         following: [],
         liked: [],
@@ -59,6 +75,10 @@ export const userSlice = createSlice({
       state.fullname = user.fullname;
       state.username = user.username;
       state.banner = user.banner;
+      state.bio = user.bio;
+      state.country = user.country;
+      state.dateCreated = user.dateCreated;
+      state.dateOfBirth = user.dateOfBirth;
       state.isLoading = true;
       state.followers = user.followers;
       state.following = user.following;

@@ -139,6 +139,7 @@ export default function SignupInfo({ navigation, route }) {
         <DateTimePicker
           value={dateOfBirth}
           mode="date"
+          display="default"
           is24Hour={true}
           onChange={onChangeDate}
         />

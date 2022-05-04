@@ -30,6 +30,7 @@ import {
   NEW_CONVERSATION,
   PROFILE,
   TWEET_POST,
+  SETTINGS,
 } from '../constants/ScreenName.js';
 import {
   Feed,
@@ -40,7 +41,8 @@ import {
   TweetDetail,
   Profile,
   TweetPost,
-  NewConversation
+  NewConversation,
+  Settings,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -57,6 +59,18 @@ const FeedStack = createNativeStackNavigator();
 const SearchStack = createNativeStackNavigator();
 const NotificationStack = createNativeStackNavigator();
 const MessageStack = createNativeStackNavigator();
+
+const animationConfig = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 
 export default function MainTabsNavigator() {
   return (
@@ -143,6 +157,12 @@ function FeedStackScreen() {
         animation: 'slide_from_right',
         headerStyle: [styles.headerBarStyle],
         headerShadowVisible: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        transitionSpec: {
+          open: animationConfig,
+          close: animationConfig,
+        },
       }}
     >
       <FeedStack.Screen
@@ -172,6 +192,9 @@ function FeedStackScreen() {
                 icon="gear"
                 color="black"
                 size={30}
+                onPress={() => {
+                  navigations.navigate(SETTINGS);
+                }}
               />
             );
           },
@@ -236,6 +259,22 @@ function FeedStackScreen() {
           }
         }}
       />
+      <FeedStack.Screen
+        name={SETTINGS}
+        component={Settings}
+        options={{
+          headerTitle: 'Settings',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
+      />
     </FeedStack.Navigator>
   );
 }
@@ -268,6 +307,7 @@ function SearchStackScreen() {
 
 function NotificationStackScreen() {
   const user = useSelector((state) => state.user);
+  const navigations = useNavigation();
 
   return (
     <NotificationStack.Navigator
@@ -299,11 +339,30 @@ function NotificationStackScreen() {
                 icon="gear"
                 color="black"
                 size={30}
+                onPress={() => {
+                  navigations.navigate(SETTINGS);
+                }}
               />
             );
           },
           headerTitle: 'Notification',
           headerTitleAlign: 'center',
+        }}
+      />
+      <NotificationStack.Screen
+        name={SETTINGS}
+        component={Settings}
+        options={{
+          headerTitle: 'Settings',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
         }}
       />
     </NotificationStack.Navigator>
@@ -313,6 +372,7 @@ function NotificationStackScreen() {
 function MessageStackScreen() {
   const user = useSelector((state) => state.user);
   const navigations = useNavigation();
+
   return (
     <MessageStack.Navigator
       screenOptions={{
@@ -343,6 +403,9 @@ function MessageStackScreen() {
                 icon="gear"
                 color="black"
                 size={30}
+                onPress={() => {
+                  navigations.navigate(SETTINGS);
+                }}
               />
             );
           },
@@ -392,6 +455,22 @@ function MessageStackScreen() {
       <SearchStack.Screen
         name={PROFILE}
         component={Profile}
+      />
+      <MessageStack.Screen
+        name={SETTINGS}
+        component={Settings}
+        options={{
+          headerTitle: 'Settings',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
       />
     </MessageStack.Navigator>
   );
