@@ -40,6 +40,7 @@ export default function TextInputMessage(props) {
         icon="paper-plane"
         color="#33C0FF"
         size={22}
+        onPress={props.onPress}
       ></IconButton>
     </View>
   );

@@ -10,8 +10,8 @@ import {
   MAIN_COLOR,
   BACKGROUND_COLOR,
   LIGHT_GRAY_TEXT_COLOR,
-  CHAT_BACKGROUND_COLOR
-} from "../../styles/Style"
+  CHAT_BACKGROUND_COLOR,
+} from '../../styles/Style';
 const Bubble_Send = (props) => {
   var [messagePressed, setMessagePressed] = useState(false);
 
@@ -181,7 +181,7 @@ const message = StyleSheet.create({
     position: 'absolute',
   },
   text_message_received: {
-    color: BACKGROUND_COLOR,
+    color: '#000000',
     fontWeight: '500',
     marginBottom: 10,
     marginLeft: 20,

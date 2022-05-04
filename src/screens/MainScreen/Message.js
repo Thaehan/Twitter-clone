@@ -6,9 +6,20 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
-import React from 'react';
-
+import React, { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
+import CircleButton from '../../components/button/CircleButton';
+import {
+  createConversation,
+  getConversationById,
+  getMultipleConversation,
+  updateConversation,
+  deleteConversationById,
+} from '../../api/conversation';
+import {
+  getMultipleUsers
+} from '../../api/user'
 import {
   GLOBAL_STYLES,
   BACKGROUND_COLOR,
@@ -17,11 +28,41 @@ import {
   CONTENT_SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '../../styles/Style';
+import { DocumentSnapshot } from 'firebase/firestore/lite';
 import {
-  logo,
-  no_avatar,
-} from '../../constants/ImageAssets';
+  CONVERSATION,
+  MESSAGESTACK,
+  NEW_CONVERSATION
+} from '../../constants/ScreenName';
+
 export default function Message({ navigation }) {
+  const [conversationList, setConversationList] = useState([]);
+  const [userList, setUserList] = useState([]);
+
+  const currentUser = useSelector((state) => state.user);
+  //console.log('current User: ' + currentUser.userId);
+  useEffect(() => {
+    //load all conversations which current user take part in
+    getMultipleConversation('conversationName', '!=', '')
+      .then((docs) => {
+        var tempList = [];
+        docs.forEach((doc) => {
+          if (doc.data().users.includes(currentUser.userId)) {
+            tempList.push({ ...doc.data(), conversationId: doc.id });
+          }
+        });
+        setConversationList(tempList);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  });
+  const conversationClickHandle = (conversationId) => {
+    //chuyen huong sang man hinh conversation
+    navigation.navigate(CONVERSATION, {
+      conversationId: conversationId,
+    });
+  };
   return (
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -30,55 +71,39 @@ export default function Message({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <ListItemMessageUser
-          user_name="Nowano"
-          user_email="_@hie"
-          content="Toi co the bus... anh duoc khong? Hay de cho toi bu anh mot cai de giang hoa di nao!"
-          avatar={no_avatar}
-        />
-        <ListItemMessageUser
-          user_name="Thaehan"
-          user_email="_@datdo"
-          content="Duoc thoi"
-          avatar="no-avatar"
-        />
-        <ListItemMessageUser
-          user_name="Nowano"
-          user_email="_@hie"
-          content="*Oi khong ban lam that a"
-          avatar="like"
-        />
-        <ListItemMessageUser
-          user_name="Thaehan"
-          user_email="_@datdo"
-          content="...."
-          avatar="like"
-        />
-        <ListItemMessageUser
-          user_name="Weed"
-          user_email="_@danh"
-          content="Hay qua cac ban oi, minh tham gia voi nhe, minh se tra tien ma"
-          avatar="like"
-        />
-        <ListItemMessageUser
-          user_name="Nowano"
-          user_email="_@hie"
-          content="Khong can dau bro, chung ta la dong doi, cai nay mien phi"
-          avatar="like"
-        />
-        <ListItemMessageUser
-          user_name="Thaehan"
-          user_email="_@datdo"
-          content="Dung vay"
-          avatar="like"
-        />
-        <ListItemMessageUser
-          user_name="Weed"
-          user_email="_@danh"
-          content="Toi co thang em sinh nam 96, hoc bach khoa co khi bo ngang sang IT"
-          avatar="like"
-        />
+        {conversationList.length != 0 &&
+          conversationList.map((conversation) => (
+            <ListItemMessageUser
+              key={conversation.conversationId}
+              //conversationName={
+              //  conversation.conversationName
+              //}
+              //avatar={conversation.avatar}
+              content={
+                conversation.content[
+                conversation.content.length - 1
+                ]
+              }
+              //email={conversation.email}
+              onPress={() =>
+                conversationClickHandle(conversation.conversationId)
+              }
+            />
+          ))}
+        {conversationList.length == 0 && (
+          <Text style={styles.text}>
+            No conversation. Let's make some!
+          </Text>
+        )}
       </ScrollView>
+      <CircleButton
+        type="material-community"
+        icon="message-plus"
+        color="#ffffff"
+        size={30}
+        style={styles.circleButton}
+        onPress={() => { navigation.push(NEW_CONVERSATION, { navigation }) }}
+      />
     </SafeAreaView>
   );
 }
@@ -86,7 +111,6 @@ export default function Message({ navigation }) {
 const styles = StyleSheet.create({
   circleButton: {
     alignItems: 'center',
-
     borderRadius: 50,
     bottom: 20,
     position: 'absolute',
@@ -98,5 +122,10 @@ const styles = StyleSheet.create({
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
+  },
+  text: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

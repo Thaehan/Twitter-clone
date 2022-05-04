@@ -1,13 +1,13 @@
 import moment from 'moment';
 
-//Member Array[Users]
+//content Array[Messages]
 function ConversationModel(
-  conversationName = '',
-  member = []
+  content = [],
+  users = [],
 ) {
   const newConversation = {
-    conversationName,
-    member,
+    content,
+    users,
   };
 
   return newConversation;

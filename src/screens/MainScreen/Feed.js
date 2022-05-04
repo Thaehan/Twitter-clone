@@ -5,15 +5,15 @@ import {
   TextInput,
   Button,
   SafeAreaView,
+  RefreshControl
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   getFollowedUserTweet,
-  getMultipleTweet,
-  getTweetById,
+  getMultipleTweet
 } from '../../api/tweet';
-import { db, doc, setDoc } from '../../firebase';
 import Tweet from '../../components/tweet/Tweet';
+import { TWEET_POST } from '../../constants/ScreenName';
 import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
@@ -21,20 +21,31 @@ import {
   MAIN_COLOR,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
-import TweetModel from '../../models/TweetModel';
 import { useSelector } from 'react-redux';
-
+import { useNavigation } from '@react-navigation/native';
 export default function Feed({ navigation }) {
-  const [tweetList, setTweetList] = useState([]);
 
-  useEffect(() => {
+  const [tweetList, setTweetList] = useState([]);
+  const [creator, setCreator] = useState('');
+  const [text, setText] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  const navigate = useNavigation();
+
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refreshFeed().then(() => setRefreshing(false))
+  }, [])
+
+
+  const refreshFeed = async () => {
     getMultipleTweet('textContent', '!=', '')
       .then((docs) => {
         const tempList = [];
         const tempDataList = [];
         docs.forEach((doc) => {
           tempDataList.push({
-            ...doc.data(),
+            dateCreated: doc.data().dateCreated,
             tweetId: doc.id,
           });
         });
@@ -48,13 +59,19 @@ export default function Feed({ navigation }) {
         });
         setTweetList(tempList);
         console.log(tempList);
+
       })
       .catch((error) => {
         alert(error);
       });
+  }
+  useEffect(() => {
+
+    refreshFeed();
   }, []);
 
   return (
+
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
@@ -62,6 +79,14 @@ export default function Feed({ navigation }) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[MAIN_COLOR]}
+              title={"Refresh"}
+            />
+          }
         >
           {tweetList.map((tweet) => (
             <Tweet
@@ -74,16 +99,22 @@ export default function Feed({ navigation }) {
       }
 
       <CircleButton
-        icon="plus"
-        type="font-awesome-5"
+        icon="create-outline"
+        type="ionicon"
         color="#ffffff"
         size={30}
         style={styles.circleButton}
+        onPress={() => {
+          navigation.navigate(TWEET_POST, {
+            navigation,
+            //referedTweetId: "YBlYFQL2xrZmMFZIz36U"
+          })
+        }}
       />
+
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   circleButton: {
     alignItems: 'center',

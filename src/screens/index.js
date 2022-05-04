@@ -8,6 +8,8 @@ import Notification from './MainScreen/Notification';
 import Conversation from './StackedScreen/Conversation';
 import TweetDetail from './StackedScreen/TweetDetail';
 import Profile from './StackedScreen/Profile';
+import TweetPost from './StackedScreen/TweetPost';
+import NewConversation from './StackedScreen/NewConversation';
 import Settings from './StackedScreen/Settings';
 
 export {
@@ -20,6 +22,8 @@ export {
   Search,
   Notification,
   Conversation,
+  NewConversation,
   TweetDetail,
+  TweetPost,
   Settings,
 };

@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Button,
   TextInput,
+  TouchableOpacity
 } from 'react-native';
 import {
   NavigationContainer,
@@ -16,6 +17,7 @@ import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
+  CONVERSATION,
   FEED,
   MESSAGE,
   NOTIFICATION,
@@ -25,16 +27,21 @@ import {
   NOTIFICATIONSTACK,
   FEEDSTACK,
   TWEET_DETAIL,
+  NEW_CONVERSATION,
   PROFILE,
+  TWEET_POST,
   SETTINGS,
 } from '../constants/ScreenName.js';
 import {
   Feed,
   Message,
   Notification,
+  Conversation,
   Search,
   TweetDetail,
   Profile,
+  TweetPost,
+  NewConversation,
   Settings,
 } from '../screens/index.js';
 import {
@@ -45,7 +52,8 @@ import {
 } from '../styles/Style.js';
 import IconButton from '../components/button/IconButton.js';
 import AvatarButton from '../components/button/AvatarButton';
-
+import PrimaryButton from '../components/button/PrimaryButton.js';
+import TextButton from '../components/button/TextButton.js';
 const MainTabs = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
 const SearchStack = createNativeStackNavigator();
@@ -236,6 +244,22 @@ function FeedStackScreen() {
         }}
       />
       <FeedStack.Screen
+        name={TWEET_POST}
+        component={TweetPost}
+        options={{
+          headerTitle: " ",
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="close-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          }
+        }}
+      />
+      <FeedStack.Screen
         name={SETTINGS}
         component={Settings}
         options={{
@@ -389,7 +413,45 @@ function MessageStackScreen() {
           headerTitleAlign: 'center',
         }}
       />
+      <MessageStack.Screen
+        name={NEW_CONVERSATION}
+        component={NewConversation}
+        options={{
 
+          headerTitle: 'Message',
+          headerTitleAlign: 'center',
+          headerLeft: ({ navigation }) => {
+            return (
+              <TextButton
+                title="Cancel"
+                onPress={() => navigations.goBack()}
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }} />
+
+            );
+
+          },
+
+        }}
+      />
+      <MessageStack.Screen
+        name={CONVERSATION}
+        component={Conversation}
+        options={{
+          headerTitle: 'Message',
+          headerLeft: ({ navigation }) => {
+            return (
+              <IconButton
+                type="ionicon"
+                icon="ios-arrow-back-outline"
+                onPress={() => navigations.goBack()}
+              />
+            );
+          },
+        }}
+      />
       <SearchStack.Screen
         name={PROFILE}
         component={Profile}

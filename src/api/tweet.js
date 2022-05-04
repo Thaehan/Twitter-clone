@@ -25,7 +25,6 @@ const createTweet = async (
   mediaContent = '',
   userMentioned = [],
   referedPostId = '',
-  dateCreated = ''
 ) => {
   try {
     const newTweet = TweetModel(
@@ -33,8 +32,7 @@ const createTweet = async (
       (textContent = textContent),
       (mediaContent = mediaContent),
       (userMentioned = userMentioned),
-      (referedPostId = referedPostId),
-      (dateCreated = dateCreated)
+      (referedPostId = referedPostId)
     );
 
     await addDoc(tweetCollection, newTweet);
@@ -52,7 +50,23 @@ const getTweetById = async (id) => {
     console.log(e);
   }
 };
-
+const getTweetByUser = async (
+  userId,
+  param1 = 'content',
+  operation = '!=',
+  param2 = ''
+) => {
+  try {
+    const q = query(
+      tweetCollection, where("userPosted", "==", userId)
+      //, where(param1, operation, param2)
+    );
+    const docs = (await getDocs(q)).docs;
+    return docs;
+  } catch (e) {
+    console.log(e);
+  }
+};
 const getMultipleTweet = async (
   param1 = 'content',
   operation = '!=',
@@ -132,6 +146,7 @@ const deleteTweetById = async (id) => {
 export {
   createTweet,
   getTweetById,
+  getTweetByUser,
   getMultipleTweet,
   updateTweet,
   deleteTweetById,
