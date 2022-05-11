@@ -5,8 +5,9 @@ const SCREEN_WIDTH = 414;
 // phần màn hình còn lại sau khi trừ navbar (65), topheader (55) trừ status (20) hơi ảo k hiểu sao ra 540
 const HEADER_HEIGHT = 55;
 const NAVBAR_HEIGHT = 55;
-const CONTENT_SCREEN_HEIGHT = 540;
-//Just the ammount of padding 
+const CONTENT_SCREEN_HEIGHT =
+  SCREEN_HEIGHT - HEADER_HEIGHT - NAVBAR_HEIGHT;
+//Just the ammount of padding
 const HORI_PAD = 7;
 
 const LIKED_COLOR = '#CE395F';

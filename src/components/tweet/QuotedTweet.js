@@ -4,7 +4,6 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  Modal
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -85,17 +84,17 @@ export default function QuotedTweet({ tweetId }) {
       userId: userId,
     });
   };
-  var isOnFeed = false
+  var isOnFeed = false;
   const tweetHandle = () => {
     navigation.navigate(TWEET_DETAIL, {
       tweetId,
-      isOnFeed
+      isOnFeed,
     });
   };
 
   //lấy dữ liệu tweet và người dùng
   useEffect(() => {
-    console.log(tweetId)
+    console.log(tweetId);
     getTweetById(tweetId)
       .then((tweet) => {
         setTweetData({
@@ -121,7 +120,7 @@ export default function QuotedTweet({ tweetId }) {
       });
   }, []);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   return isLoading ? (
     <View style={styles.loadingScreen}>
@@ -135,12 +134,8 @@ export default function QuotedTweet({ tweetId }) {
           width={45}
           style={{ padding: 15 }}
         />
-        <PlaceholderLine
-
-        />
-        <PlaceholderLine
-
-        />
+        <PlaceholderLine />
+        <PlaceholderLine />
         <PlaceholderLine />
         <PlaceholderLine />
         <View
@@ -179,8 +174,7 @@ export default function QuotedTweet({ tweetId }) {
           }}
           onPress={() => {
             //avatarHandle(userPostedData.userId)
-          }
-          }
+          }}
         >
           <Image
             source={{ uri: userPostedData.avatar }}
@@ -214,20 +208,15 @@ export default function QuotedTweet({ tweetId }) {
           </Text>
         )}
         {tweetData.mediaContent != '' && (
-
-
           <Image
             source={{ uri: tweetData.mediaContent }}
             resizeMode="contain"
             style={styles.mediaContent}
           />
         )}
-
-
-
       </View>
     </TouchableOpacity>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -240,6 +229,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   container: {
+    alignSelf: 'center',
     backgroundColor: BACKGROUND_COLOR,
     borderColor: LIGHT_GREY_TEXT_COLOR,
     borderRadius: 10,
@@ -249,12 +239,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 5,
     paddingTop: 5,
-    width: '92%',
+    width: '95%',
   },
   defaultColor: {
     color: DEFAULT_COLOR,
   },
-
 
   loadingScreen: {
     paddingLeft: 10,
@@ -268,7 +257,7 @@ const styles = StyleSheet.create({
     height: 290,
     marginTop: 5,
     //position: 'absolute',
-    width: '99%',
+    width: '95%',
   },
 
   rightContainer: {

@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Button,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import {
   NavigationContainer,
@@ -13,7 +13,6 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
@@ -50,10 +49,7 @@ import {
   HEADER_HEIGHT,
   MAIN_COLOR,
 } from '../styles/Style.js';
-import IconButton from '../components/button/IconButton.js';
-import AvatarButton from '../components/button/AvatarButton';
-import PrimaryButton from '../components/button/PrimaryButton.js';
-import TextButton from '../components/button/TextButton.js';
+
 const MainTabs = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
 const SearchStack = createNativeStackNavigator();
@@ -149,8 +145,6 @@ export default function MainTabsNavigator() {
 }
 
 function FeedStackScreen() {
-  const user = useSelector((state) => state.user);
-  const navigations = useNavigation();
   return (
     <FeedStack.Navigator
       screenOptions={{
@@ -165,123 +159,28 @@ function FeedStackScreen() {
         },
       }}
     >
+      <FeedStack.Screen name={FEED} component={Feed} />
       <FeedStack.Screen
-        name={FEED}
-        component={Feed}
-        options={{
-          headerLeft: ({ navigation, route }) => {
-            return (
-              <AvatarButton
-                style={styles.leftHeader}
-                source={user.avatar}
-                userId={user.userId}
-                size={30}
-                onPress={() => {
-                  navigations.navigate(PROFILE, {
-                    userId: user.userId,
-                  });
-                }}
-              />
-            );
-          },
-          headerRight: () => {
-            return (
-              <IconButton
-                style={styles.rightHeader}
-                type="evilicon"
-                icon="gear"
-                color="black"
-                size={30}
-                onPress={() => {
-                  navigations.navigate(SETTINGS);
-                }}
-              />
-            );
-          },
-          headerTitle: () => (
-            <IconButton
-              style={styles.centerHeader}
-              type="entypo"
-              icon="twitter"
-              color={MAIN_COLOR}
-              size={30}
-            />
-          ),
-          headerTitleAlign: 'center',
-        }}
-      />
-
-      <SearchStack.Screen
         name={PROFILE}
         component={Profile}
-        options={{
-          headerTitle: 'Profile',
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="ios-arrow-back-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          },
-        }}
       />
       <FeedStack.Screen
         name={TWEET_DETAIL}
         component={TweetDetail}
-        options={{
-          headerTitle: 'Tweet',
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="ios-arrow-back-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          },
-        }}
       />
       <FeedStack.Screen
         name={TWEET_POST}
         component={TweetPost}
-        options={{
-          headerTitle: " ",
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="close-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          }
-        }}
       />
       <FeedStack.Screen
         name={SETTINGS}
         component={Settings}
-        options={{
-          headerTitle: 'Settings',
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="ios-arrow-back-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          },
-        }}
       />
     </FeedStack.Navigator>
   );
 }
 
 function SearchStackScreen() {
-  const [searchText, setSearchText] = useState('');
-
   return (
     <SearchStack.Navigator
       screenOptions={{
@@ -306,9 +205,6 @@ function SearchStackScreen() {
 }
 
 function NotificationStackScreen() {
-  const user = useSelector((state) => state.user);
-  const navigations = useNavigation();
-
   return (
     <NotificationStack.Navigator
       screenOptions={{
@@ -320,59 +216,20 @@ function NotificationStackScreen() {
       <NotificationStack.Screen
         name={NOTIFICATION}
         component={Notification}
-        options={{
-          headerLeft: () => {
-            return (
-              <AvatarButton
-                style={styles.leftHeader}
-                source={user.avatar}
-                userId={user.userId}
-                size={30}
-              />
-            );
-          },
-          headerRight: () => {
-            return (
-              <IconButton
-                style={styles.rightHeader}
-                type="evilicon"
-                icon="gear"
-                color="black"
-                size={30}
-                onPress={() => {
-                  navigations.navigate(SETTINGS);
-                }}
-              />
-            );
-          },
-          headerTitle: 'Notification',
-          headerTitleAlign: 'center',
-        }}
       />
       <NotificationStack.Screen
         name={SETTINGS}
         component={Settings}
-        options={{
-          headerTitle: 'Settings',
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="ios-arrow-back-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          },
-        }}
+      />
+      <NotificationStack.Screen
+        name={PROFILE}
+        component={Profile}
       />
     </NotificationStack.Navigator>
   );
 }
 
 function MessageStackScreen() {
-  const user = useSelector((state) => state.user);
-  const navigations = useNavigation();
-
   return (
     <MessageStack.Navigator
       screenOptions={{
@@ -384,73 +241,14 @@ function MessageStackScreen() {
       <MessageStack.Screen
         name={MESSAGE}
         component={Message}
-        options={{
-          headerLeft: () => {
-            return (
-              <AvatarButton
-                style={styles.leftHeader}
-                source={user.avatar}
-                userId={user.userId}
-                size={30}
-              />
-            );
-          },
-          headerRight: () => {
-            return (
-              <IconButton
-                style={styles.rightHeader}
-                type="evilicon"
-                icon="gear"
-                color="black"
-                size={30}
-                onPress={() => {
-                  navigations.navigate(SETTINGS);
-                }}
-              />
-            );
-          },
-          headerTitle: 'Message',
-          headerTitleAlign: 'center',
-        }}
       />
       <MessageStack.Screen
         name={NEW_CONVERSATION}
         component={NewConversation}
-        options={{
-
-          headerTitle: 'Message',
-          headerTitleAlign: 'center',
-          headerLeft: ({ navigation }) => {
-            return (
-              <TextButton
-                title="Cancel"
-                onPress={() => navigations.goBack()}
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }} />
-
-            );
-
-          },
-
-        }}
       />
       <MessageStack.Screen
         name={CONVERSATION}
         component={Conversation}
-        options={{
-          headerTitle: 'Message',
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="ios-arrow-back-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          },
-        }}
       />
       <SearchStack.Screen
         name={PROFILE}
@@ -459,18 +257,6 @@ function MessageStackScreen() {
       <MessageStack.Screen
         name={SETTINGS}
         component={Settings}
-        options={{
-          headerTitle: 'Settings',
-          headerLeft: ({ navigation }) => {
-            return (
-              <IconButton
-                type="ionicon"
-                icon="ios-arrow-back-outline"
-                onPress={() => navigations.goBack()}
-              />
-            );
-          },
-        }}
       />
     </MessageStack.Navigator>
   );

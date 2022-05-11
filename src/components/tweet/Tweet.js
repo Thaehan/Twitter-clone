@@ -4,9 +4,9 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  Modal
+  Modal,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { doc } from 'firebase/firestore/lite';
@@ -38,11 +38,15 @@ import { getTweetById, updateTweet } from '../../api/tweet';
 import {
   TWEET_DETAIL,
   PROFILE,
-  TWEET_POST
+  TWEET_POST,
 } from '../../constants/ScreenName';
 import tempAvatar from '../../assets/avatar4.png';
-import { setUser } from '../../redux/userSlice';
-import QuotedTweet from './QuotedTweet'
+import {
+  dislikeTweet,
+  likeTweet,
+  setUser,
+} from '../../redux/userSlice';
+import QuotedTweet from './QuotedTweet';
 
 export default function Tweet({ tweetId, isOnFeed }) {
   const currentUser = useSelector((state) => state.user);
@@ -50,73 +54,39 @@ export default function Tweet({ tweetId, isOnFeed }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [userLiked, setUserLiked] = useState([]);
   const [tweetData, setTweetData] = useState({});
-  const [userPostedData, setuserPostedData] = useState({});
+  const [userPostedData, setUserPostedData] = useState({});
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
   const [retweetCount, setRetweetCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
   const retweetHandle = () => {
-
     navigation.navigate(TWEET_POST, {
       navigation,
-      referedTweetId: tweetId
-    })
+      referedTweetId: tweetId,
+    });
   };
 
   const likeHandle = () => {
-    //Ấn vào nút like => thay đổi global state =>  => update database => update local state
-    // getTweetById(tweetId)
-    //   .then((doc) => {
-    //     const newLiked = [...currentUser.liked];
-    //     const newUserLiked = [...doc.data().userLiked];
-    //     if (isLiked) {
-    //       newLiked.splice(
-    //         currentUser.liked.indexOf(tweetId),
-    //         1
-    //       );
-    //       newUserLiked.splice(
-    //         newUserLiked.indexOf(currentUser.userId),
-    //         1
-    //       );
-    //     } else {
-    //       if (newLiked.indexOf(tweetId == -1)) {
-    //         newLiked.push(tweetId);
-    //       }
-    //       if (
-    //         newUserLiked.indexOf(currentUser.userId) == -1
-    //       ) {
-    //         newUserLiked.push(currentUser.userId);
-    //       }
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // updateTweet(tweetId, { userLiked: newUserLiked })
-    //   .then(() => {
-    //     updateUser(currentUser.userId, { liked: newLiked })
-    //       .then(() => {
-    //         dispatch(
-    //           setUser({
-    //             ...currentUser,
-    //             liked: newLiked,
-    //           })
-    //         );
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    if (!isLiked) {
+      dispatch(likeTweet({ tweetId }));
+    } else {
+      dispatch(dislikeTweet({ tweetId }));
+    }
+    updateTweet(tweetId, { userLiked: userLiked })
+      .then(() => {
+        console.log('Update Tweet Like');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const commentHandle = () => { };
+  const commentHandle = () => {};
 
-  const shareHandle = () => { };
+  const shareHandle = () => {};
 
   const getTimeStamp = () => {
     const day = tweetData.dateCreated.getDate();
@@ -171,10 +141,13 @@ export default function Tweet({ tweetId, isOnFeed }) {
         });
         getUserById(tweet.data().userPosted)
           .then((user) => {
-            setuserPostedData({
+            setUserPostedData({
               ...user.data(),
               userId: user.id,
             });
+            setUserLiked(tweet.data().userLiked);
+            setLikeCount(tweet.data().userLiked.length);
+            setCommentCount(tweet.data().comments.length);
             setIsLoading(false);
           })
           .catch((error) => {
@@ -186,46 +159,15 @@ export default function Tweet({ tweetId, isOnFeed }) {
       });
   }, []);
 
-  useEffect(() => { }, []);
+  useEffect(() => {
+    if (currentUser.liked.indexOf(tweetId) != -1) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [currentUser.liked]);
 
-  // useEffect(() => {
-  //   getUserById(tweetData.userPosted)
-  //     .then((doc) => {
-  //       //Lấy thông tin người post
-  //       setuserPostedData({
-  //         ...doc.data(),
-  //         userId: doc.id,
-  //       });
-  //       //Lấy thông tin đã like hay chưa
-  //       if (currentUser.liked.indexOf(tweetId) == -1) {
-  //         setIsLiked(false);
-  //       } else {
-  //         setIsLiked(true);
-  //       }
-  //       //Lấy thông tin số like, retweet
-  //       setLikeCount(tweetData.userLiked.length);
-  //       setRetweetCount(tweetData.userRetweeted.length);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   setIsLiked(!isLiked);
-  //   // set lại state sau khi thay đổi global State
-  // }, [currentUser.liked]);
-
-  // useEffect(() => {
-  //   getTweetById(tweetId)
-  //     .then((doc) => {
-  //       setLikeCount(doc.data().userLiked.length);
-  //       console.log(doc.data().userLiked);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [isLiked]);
+  useEffect(() => {}, [userLiked]);
 
   return isLoading ? (
     <View style={styles.loadingScreen}>
@@ -239,14 +181,8 @@ export default function Tweet({ tweetId, isOnFeed }) {
           width={45}
           style={{ padding: 15 }}
         />
-        <PlaceholderLine
-        // style={{ paddingLeft: 10, paddingRight: 10 }}
-        // height={30}
-        />
-        <PlaceholderLine
-        // style={{ paddingLeft: 10, paddingRight: 10 }}
-        // height={30}
-        />
+        <PlaceholderLine />
+        <PlaceholderLine />
         <PlaceholderLine />
         <PlaceholderLine />
         <PlaceholderLine />
@@ -333,13 +269,11 @@ export default function Tweet({ tweetId, isOnFeed }) {
             style={styles.mediaContent}
           />
         )}
-        {
-          tweetData.referedPostId != '' && (
-            <QuotedTweet
-              tweetId={tweetData.referedPostId}>
-            </QuotedTweet>
-          )
-        }
+        {tweetData.referedPostId != '' && (
+          <QuotedTweet
+            tweetId={tweetData.referedPostId}
+          ></QuotedTweet>
+        )}
         {/* Interaction bar */}
         <View style={styles.interactionBar}>
           <View style={styles.buttonWithCount}>
@@ -370,7 +304,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
                 icon="heart"
                 type="evilicon"
                 size={28}
-                onPress={() => likeHandle()}
+                onPress={likeHandle}
                 color={
                   isLiked ? LIKED_COLOR : DEFAULT_COLOR
                 }
@@ -437,17 +371,14 @@ export default function Tweet({ tweetId, isOnFeed }) {
           />
         )}
 
-        {
-          tweetData.referedPostId != '' && (
-            <>
-              <Text>{'\n'}</Text>
-              <QuotedTweet
-
-                tweetId={tweetData.referedPostId}>
-              </QuotedTweet>
-
-            </>)
-        }
+        {tweetData.referedPostId != '' && (
+          <>
+            <Text>{'\n'}</Text>
+            <QuotedTweet
+              tweetId={tweetData.referedPostId}
+            ></QuotedTweet>
+          </>
+        )}
       </View>
       <Text
         style={[
@@ -514,7 +445,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
               icon="heart"
               type="evilicon"
               size={30}
-              onPress={() => likeHandle()}
+              onPress={likeHandle}
               color={isLiked ? LIKED_COLOR : DEFAULT_COLOR}
             />
           </View>

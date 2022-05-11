@@ -22,12 +22,26 @@ import CircleButton from '../../components/button/CircleButton';
 import UserItemButton from '../../components/button/UserItemButton';
 import { getMultipleUsers } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
+import IconButton from '../../components/button/IconButton';
 
 export default function Search({ navigation }) {
   const currentUser = useSelector((state) => state.user);
   const initData = useRef({ data: [], isLoaded: false });
   const [searchText, setSeacrhText] = useState('');
   const [userList, setUserList] = useState([]);
+
+  navigation.setOptions({
+    headerTitle: 'Profile',
+    headerLeft: () => {
+      return (
+        <IconButton
+          type="ionicon"
+          icon="ios-arrow-back-outline"
+          onPress={() => navigation.goBack()}
+        />
+      );
+    },
+  });
 
   useEffect(() => {
     initData.current = { data: [], isLoaded: false };

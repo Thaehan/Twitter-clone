@@ -22,14 +22,36 @@ import CircleButton from '../../components/button/CircleButton';
 import UserItemButton from '../../components/button/UserItemButton';
 import { getMultipleUsers } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
-import { getMultipleConversation, createConversation } from '../../api/conversation';
+import {
+  getMultipleConversation,
+  createConversation,
+} from '../../api/conversation';
 
 export default function NewConversation({ navigation }) {
   const currentUser = useSelector((state) => state.user);
   const initData = useRef({ data: [], isLoaded: false });
   const [searchText, setSeacrhText] = useState('');
   const [userList, setUserList] = useState([]);
-  const [conversationList, setConversationList] = useState([]);
+  const [conversationList, setConversationList] = useState(
+    []
+  );
+
+  navigation.setOptions({
+    headerTitle: 'Message',
+    headerTitleAlign: 'center',
+    headerLeft: () => {
+      return (
+        <TextButton
+          title="Cancel"
+          onPress={() => navigation.goBack()}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      );
+    },
+  });
 
   useEffect(() => {
     initData.current = { data: [], isLoaded: false };
@@ -54,8 +76,15 @@ export default function NewConversation({ navigation }) {
             .then((conversationDocs) => {
               var tempList = [];
               conversationDocs.forEach((doc) => {
-                if (doc.data().users.includes(currentUser.userId)) {
-                  tempList.push({ ...doc.data(), conversationId: doc.id });
+                if (
+                  doc
+                    .data()
+                    .users.includes(currentUser.userId)
+                ) {
+                  tempList.push({
+                    ...doc.data(),
+                    conversationId: doc.id,
+                  });
                 }
               });
               setConversationList(tempList);
@@ -90,30 +119,29 @@ export default function NewConversation({ navigation }) {
 
   const userClickHandle = (userId) => {
     //Push and navigate to User Profile
-    var conversationIdToGo = ""
+    var conversationIdToGo = '';
     conversationList.forEach((conversation) => {
-      if (conversation.users.includes(userId) && conversation.users.includes(currentUser.userId)) {
-        conversationIdToGo = conversation.conversationId
-
+      if (
+        conversation.users.includes(userId) &&
+        conversation.users.includes(currentUser.userId)
+      ) {
+        conversationIdToGo = conversation.conversationId;
       }
-    })
-    if (conversationIdToGo != "") {
+    });
+    if (conversationIdToGo != '') {
       navigation.navigate(CONVERSATION, {
-        conversationId: conversationIdToGo
-
+        conversationId: conversationIdToGo,
       });
     } else {
-      createConversation([], [userId, currentUser.userId])
-        .then((newConversation) => {
-          navigation.push(CONVERSATION,
-            {
-              conversationId: newConversation.id
-            });
-        }
-        )
-
+      createConversation(
+        [],
+        [userId, currentUser.userId]
+      ).then((newConversation) => {
+        navigation.push(CONVERSATION, {
+          conversationId: newConversation.id,
+        });
+      });
     }
-
   };
 
   return (
@@ -162,8 +190,6 @@ export default function NewConversation({ navigation }) {
           </Text>
         )}
       </ScrollView>
-
-
     </SafeAreaView>
   );
 }

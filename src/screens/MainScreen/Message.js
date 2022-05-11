@@ -17,9 +17,7 @@ import {
   updateConversation,
   deleteConversationById,
 } from '../../api/conversation';
-import {
-  getMultipleUsers
-} from '../../api/user'
+import { getMultipleUsers } from '../../api/user';
 import {
   GLOBAL_STYLES,
   BACKGROUND_COLOR,
@@ -32,23 +30,74 @@ import { DocumentSnapshot } from 'firebase/firestore/lite';
 import {
   CONVERSATION,
   MESSAGESTACK,
-  NEW_CONVERSATION
+  NEW_CONVERSATION,
+  SETTINGS,
+  PROFILE,
 } from '../../constants/ScreenName';
+import AvatarButton from '../../components/button/AvatarButton';
+import IconButton from '../../components/button/IconButton';
 
 export default function Message({ navigation }) {
-  const [conversationList, setConversationList] = useState([]);
+  const currentUser = useSelector((state) => state.user);
+  const [conversationList, setConversationList] = useState(
+    []
+  );
   const [userList, setUserList] = useState([]);
 
-  const currentUser = useSelector((state) => state.user);
-  //console.log('current User: ' + currentUser.userId);
+  const conversationClickHandle = (conversationId) => {
+    //chuyen huong sang man hinh conversation
+    navigation.navigate(CONVERSATION, {
+      conversationId: conversationId,
+    });
+  };
+
+  navigation.setOptions({
+    headerLeft: () => {
+      return (
+        <AvatarButton
+          style={styles.leftHeader}
+          source={currentUser.avatar}
+          userId={currentUser.userId}
+          size={30}
+          onPress={() => {
+            navigation.navigate(PROFILE, {
+              userId: currentUser.userId,
+            });
+          }}
+        />
+      );
+    },
+    headerRight: () => {
+      return (
+        <IconButton
+          style={styles.rightHeader}
+          type="evilicon"
+          icon="gear"
+          color="black"
+          size={30}
+          onPress={() => {
+            navigation.navigate(SETTINGS);
+          }}
+        />
+      );
+    },
+    headerTitle: 'Message',
+    headerTitleAlign: 'center',
+  });
+
   useEffect(() => {
     //load all conversations which current user take part in
     getMultipleConversation('conversationName', '!=', '')
       .then((docs) => {
         var tempList = [];
         docs.forEach((doc) => {
-          if (doc.data().users.includes(currentUser.userId)) {
-            tempList.push({ ...doc.data(), conversationId: doc.id });
+          if (
+            doc.data().users.includes(currentUser.userId)
+          ) {
+            tempList.push({
+              ...doc.data(),
+              conversationId: doc.id,
+            });
           }
         });
         setConversationList(tempList);
@@ -57,12 +106,7 @@ export default function Message({ navigation }) {
         alert(error);
       });
   });
-  const conversationClickHandle = (conversationId) => {
-    //chuyen huong sang man hinh conversation
-    navigation.navigate(CONVERSATION, {
-      conversationId: conversationId,
-    });
-  };
+
   return (
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -81,12 +125,14 @@ export default function Message({ navigation }) {
               //avatar={conversation.avatar}
               content={
                 conversation.content[
-                conversation.content.length - 1
+                  conversation.content.length - 1
                 ]
               }
               //email={conversation.email}
               onPress={() =>
-                conversationClickHandle(conversation.conversationId)
+                conversationClickHandle(
+                  conversation.conversationId
+                )
               }
             />
           ))}
@@ -102,7 +148,9 @@ export default function Message({ navigation }) {
         color="#ffffff"
         size={30}
         style={styles.circleButton}
-        onPress={() => { navigation.push(NEW_CONVERSATION, { navigation }) }}
+        onPress={() => {
+          navigation.push(NEW_CONVERSATION, { navigation });
+        }}
       />
     </SafeAreaView>
   );

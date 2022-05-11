@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 
 import IconButton from '../button/IconButton';
@@ -14,6 +14,9 @@ import {
   GLOBAL_STYLES,
   BACKGROUND_COLOR,
   DEFAULT_COLOR,
+  DARK_GREY_TEXT_COLOR,
+  RETWEET_COLOR,
+  LIKED_COLOR,
 } from '../../styles/Style';
 
 //Nhận vào props: avatar, avatarPress, onPress, fullname, username, content
@@ -25,7 +28,11 @@ export default function Comment({
   textContent,
   dateCreated,
 }) {
-  const getTimeStamp = (dateCreated) => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const avatarHandle = (userId) => {};
+
+  const getTimeStamp = () => {
     const day = dateCreated.getDate();
     const month = dateCreated.getMonth();
     const year = dateCreated.getFullYear();
@@ -54,68 +61,109 @@ export default function Comment({
   };
 
   return (
-    <View
-      styles={[GLOBAL_STYLES.container, styles.container]}
-    >
-      <TouchableOpacity style={styles.leftContainer}>
-        <Image
-          style={styles.avatar}
-          source={{ uri: avatar }}
-        />
-      </TouchableOpacity>
+    <TouchableOpacity style={styles.container}>
+      <View style={styles.avatarContainer}>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() =>
+            avatarHandle(userPostedData.userId)
+          }
+        >
+          <Image
+            source={{ uri: avatar }}
+            style={{
+              height: 50,
+              width: 50,
+              borderRadius: 50,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.rightContainer}>
         <View style={styles.userInfo}>
-          <Text>{fullname}</Text>
-          <Text>{username}</Text>
-          <Text>{getTimeStamp(dateCreated)}</Text>
+          <Text style={GLOBAL_STYLES.fullname}>
+            {fullname}
+          </Text>
+          <Text
+            style={[
+              GLOBAL_STYLES.username,
+              styles.username,
+            ]}
+          >
+            {'@' + username + ' • '}
+          </Text>
+          <Text style={GLOBAL_STYLES.username}>
+            {getTimeStamp()}
+          </Text>
         </View>
-        <Text style={styles.textContent}>
+
+        <Text
+          style={[GLOBAL_STYLES.text, styles.textContent]}
+        >
           {textContent}
         </Text>
-        <View style={styles.interactionBar}>
-          <IconButton
-            icon="comment"
-            type="evilicon"
-            size={28}
-            onPress={() => {}}
-          />
-          <IconButton
-            icon="heart"
-            type="evilicon"
-            size={28}
-            onPress={() => {}}
-            color={''}
-          />
-          <IconButton
-            icon="share-apple"
-            type="evilicon"
-            size={28}
-            onPress={() => {}}
-            color={DEFAULT_COLOR}
-          />
-        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  avatar: {
-    borderRadius: 50,
-    height: 50,
-    width: 50,
+  avatarContainer: {
+    width: '12%',
   },
   container: {
+    backgroundColor: BACKGROUND_COLOR,
+    borderBottomColor: DARK_GREY_TEXT_COLOR,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
-    width: '100%',
+    flex: 1,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+  defaultColor: {
+    color: DEFAULT_COLOR,
   },
   interactionBar: {
+    alignItems: 'center',
+    // paddingTop: 15,
+    marginTop: 10,
+  },
+  likedColor: {
+    color: LIKED_COLOR,
+  },
+  loadingScreen: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: '95%',
+  },
+  mediaContent: {
+    alignSelf: 'auto',
+    borderRadius: 8,
+    height: 310,
+    marginTop: 10,
+    width: '93%',
+  },
+  retweetedColor: {
+    color: RETWEET_COLOR,
+  },
+  rightContainer: {
+    paddingLeft: 15,
+    width: '88%',
+  },
+  textContent: {
+    marginTop: 3,
+    textAlign: 'justify',
+    width: '90%',
+  },
+  userInfo: {
     flexDirection: 'row',
+    textAlign: 'right',
   },
-  leftContainer: {
-    width: '15%',
+  username: {
+    paddingLeft: 5,
   },
-  rightContainer: { width: '85%' },
-  textContent: {},
-  userInfo: {},
 });

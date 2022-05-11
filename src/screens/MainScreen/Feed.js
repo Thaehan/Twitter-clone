@@ -5,38 +5,50 @@ import {
   TextInput,
   Button,
   SafeAreaView,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+
+import AvatarButton from '../../components/button/AvatarButton';
+import IconButton from '../../components/button/IconButton';
 import {
   getFollowedUserTweet,
-  getMultipleTweet
+  getMultipleTweet,
 } from '../../api/tweet';
 import Tweet from '../../components/tweet/Tweet';
-import { TWEET_POST } from '../../constants/ScreenName';
+import {
+  TWEET_POST,
+  PROFILE,
+  SETTINGS,
+} from '../../constants/ScreenName';
 import {
   GLOBAL_STYLES,
   SCREEN_WIDTH,
   BACKGROUND_COLOR,
   MAIN_COLOR,
+  HEADER_HEIGHT,
+  NAVBAR_HEIGHT,
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-export default function Feed({ navigation }) {
 
+export default function Feed({ navigation }) {
+  const currentUser = useSelector((state) => state.user);
   const [tweetList, setTweetList] = useState([]);
   const [creator, setCreator] = useState('');
   const [text, setText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigation();
 
-
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refreshFeed().then(() => setRefreshing(false))
-  }, [])
-
+    refreshFeed().then(() => setRefreshing(false));
+  }, []);
 
   const refreshFeed = async () => {
     getMultipleTweet('textContent', '!=', '')
@@ -59,19 +71,59 @@ export default function Feed({ navigation }) {
         });
         setTweetList(tempList);
         console.log(tempList);
-
       })
       .catch((error) => {
         alert(error);
       });
-  }
-  useEffect(() => {
+  };
 
+  navigation.setOptions({
+    headerLeft: () => {
+      return (
+        <AvatarButton
+          style={styles.leftHeader}
+          source={currentUser.avatar}
+          userId={currentUser.userId}
+          size={30}
+          onPress={() => {
+            navigation.navigate(PROFILE, {
+              userId: currentUser.userId,
+            });
+          }}
+        />
+      );
+    },
+    headerRight: () => {
+      return (
+        <IconButton
+          style={styles.rightHeader}
+          type="evilicon"
+          icon="gear"
+          color="black"
+          size={30}
+          onPress={() => {
+            navigation.navigate(SETTINGS);
+          }}
+        />
+      );
+    },
+    headerTitle: () => (
+      <IconButton
+        style={styles.centerHeader}
+        type="entypo"
+        icon="twitter"
+        color={MAIN_COLOR}
+        size={30}
+      />
+    ),
+    headerTitleAlign: 'center',
+  });
+
+  useEffect(() => {
     refreshFeed();
   }, []);
 
   return (
-
     <SafeAreaView
       style={[GLOBAL_STYLES.container, styles.container]}
     >
@@ -84,7 +136,7 @@ export default function Feed({ navigation }) {
               refreshing={refreshing}
               onRefresh={onRefresh}
               colors={[MAIN_COLOR]}
-              title={"Refresh"}
+              title={'Refresh'}
             />
           }
         >
@@ -108,10 +160,9 @@ export default function Feed({ navigation }) {
           navigation.navigate(TWEET_POST, {
             navigation,
             //referedTweetId: "YBlYFQL2xrZmMFZIz36U"
-          })
+          });
         }}
       />
-
     </SafeAreaView>
   );
 }
@@ -126,6 +177,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     // height: CONTENT_SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
+  },
+  headerBarStyle: {
+    height: HEADER_HEIGHT,
+  },
+  headerContainer: {
+    backgroundColor: 'white',
+    height: HEADER_HEIGHT,
+  },
+  leftHeader: {
+    width: 60,
+  },
+  rightHeader: {
+    width: 60,
+  },
+  tabBarStyle: {
+    height: NAVBAR_HEIGHT,
+    justifyContent: 'space-around',
     width: SCREEN_WIDTH,
   },
   textInput: {

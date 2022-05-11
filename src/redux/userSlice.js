@@ -84,9 +84,25 @@ export const userSlice = createSlice({
       state.following = user.following;
       state.liked = user.liked;
     },
+    //Like a tweet
+    likeTweet: (state, action) => {
+      state.liked.push(action.payload.tweetId);
+    },
+    //Dislike a tweet
+    dislikeTweet: (state, action) => {
+      state.liked.splice(
+        state.liked.indexOf(action.payload.tweetId),
+        1
+      );
+    },
   },
   extraReducers: {},
 });
 
 export default userSlice.reducer;
-export const { setUser, removeUser } = userSlice.actions;
+export const {
+  setUser,
+  removeUser,
+  likeTweet,
+  dislikeTweet,
+} = userSlice.actions;
