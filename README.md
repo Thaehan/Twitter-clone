@@ -44,14 +44,15 @@ yarn install
   Login And Register
   Tweet Posting
   Search
-- Almost done
+  Setting
   Profile
   NewFeed
   TweetDetail
-- TODO
+- Almost done
   Message
+- TODO
   Comment
-  Setting
+  
 
 ## Tech
 
