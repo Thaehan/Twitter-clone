@@ -8,7 +8,11 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { useSelector } from 'react-redux';
 
 import { getMultipleMessage } from '../../api/message';
@@ -36,18 +40,20 @@ export default function Conversation({
 
   const sendHandle = () => {};
 
-  navigation.setOptions({
-    headerTitle: 'Message',
-    headerLeft: () => {
-      return (
-        <IconButton
-          type="ionicon"
-          icon="ios-arrow-back-outline"
-          onPress={() => navigation.goBack()}
-        />
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Message',
+      headerLeft: () => {
+        return (
+          <IconButton
+            type="ionicon"
+            icon="ios-arrow-back-outline"
+            onPress={() => navigation.goBack()}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     getMultipleMessage(

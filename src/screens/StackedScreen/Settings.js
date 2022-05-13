@@ -10,7 +10,12 @@ import {
   TextInput,
 } from 'react-native';
 import moment from 'moment';
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   signOut,
@@ -78,18 +83,20 @@ export default function Settings({ navigation }) {
   //
   const [saveVisible, setSaveVisible] = useState(false);
 
-  navigation.setOptions({
-    headerTitle: 'Settings',
-    headerLeft: () => {
-      return (
-        <IconButton
-          type="ionicon"
-          icon="ios-arrow-back-outline"
-          onPress={() => navigation.goBack()}
-        />
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Settings',
+      headerLeft: () => {
+        return (
+          <IconButton
+            type="ionicon"
+            icon="ios-arrow-back-outline"
+            onPress={() => navigation.goBack()}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     setFullname(currentUser.fullname);

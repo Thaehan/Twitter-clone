@@ -5,7 +5,11 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 
 import {
   SCREEN_WIDTH,
@@ -25,18 +29,20 @@ export default function TweetDetail({ navigation, route }) {
   const [commentData, setCommentData] = useState([]);
   const { tweetId, isOnFeed = false } = route.params;
 
-  navigation.setOptions({
-    headerTitle: 'Tweet',
-    headerLeft: () => {
-      return (
-        <IconButton
-          type="ionicon"
-          icon="ios-arrow-back-outline"
-          onPress={() => navigation.goBack()}
-        />
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Tweet',
+      headerLeft: () => {
+        return (
+          <IconButton
+            type="ionicon"
+            icon="ios-arrow-back-outline"
+            onPress={() => navigation.goBack()}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     getTweetById(tweetId).then((doc) => {

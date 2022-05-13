@@ -8,7 +8,12 @@ import {
   TextInput,
   StatusBar,
 } from 'react-native';
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -30,18 +35,20 @@ export default function Search({ navigation }) {
   const [searchText, setSeacrhText] = useState('');
   const [userList, setUserList] = useState([]);
 
-  navigation.setOptions({
-    headerTitle: 'Profile',
-    headerLeft: () => {
-      return (
-        <IconButton
-          type="ionicon"
-          icon="ios-arrow-back-outline"
-          onPress={() => navigation.goBack()}
-        />
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Profile',
+      headerLeft: () => {
+        return (
+          <IconButton
+            type="ionicon"
+            icon="ios-arrow-back-outline"
+            onPress={() => navigation.goBack()}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     initData.current = { data: [], isLoaded: false };
@@ -138,10 +145,10 @@ export default function Search({ navigation }) {
       </ScrollView>
 
       <CircleButton
-        type="font-awesome-5"
+        type="material-community"
         icon="plus"
         color="#ffffff"
-        size={30}
+        size={35}
         style={styles.circleButton}
       />
     </SafeAreaView>

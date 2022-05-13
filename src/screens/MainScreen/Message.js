@@ -6,7 +6,12 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { ScreenContainer } from 'react-native-screens';
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import { useSelector } from 'react-redux';
 import ListItemMessageUser from '../../components/Message/ListItemMessageUser';
 import CircleButton from '../../components/button/CircleButton';
@@ -51,39 +56,41 @@ export default function Message({ navigation }) {
     });
   };
 
-  navigation.setOptions({
-    headerLeft: () => {
-      return (
-        <AvatarButton
-          style={styles.leftHeader}
-          source={currentUser.avatar}
-          userId={currentUser.userId}
-          size={30}
-          onPress={() => {
-            navigation.navigate(PROFILE, {
-              userId: currentUser.userId,
-            });
-          }}
-        />
-      );
-    },
-    headerRight: () => {
-      return (
-        <IconButton
-          style={styles.rightHeader}
-          type="evilicon"
-          icon="gear"
-          color="black"
-          size={30}
-          onPress={() => {
-            navigation.navigate(SETTINGS);
-          }}
-        />
-      );
-    },
-    headerTitle: 'Message',
-    headerTitleAlign: 'center',
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AvatarButton
+            style={styles.leftHeader}
+            source={currentUser.avatar}
+            userId={currentUser.userId}
+            size={30}
+            onPress={() => {
+              navigation.navigate(PROFILE, {
+                userId: currentUser.userId,
+              });
+            }}
+          />
+        );
+      },
+      headerRight: () => {
+        return (
+          <IconButton
+            style={styles.rightHeader}
+            type="evilicon"
+            icon="gear"
+            color="black"
+            size={30}
+            onPress={() => {
+              navigation.navigate(SETTINGS);
+            }}
+          />
+        );
+      },
+      headerTitle: 'Message',
+      headerTitleAlign: 'center',
+    });
+  }, []);
 
   useEffect(() => {
     //load all conversations which current user take part in

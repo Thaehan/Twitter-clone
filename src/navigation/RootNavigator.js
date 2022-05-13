@@ -27,9 +27,3 @@ export default function RootNavigator() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    //backgroundColor: 'black',
-  },
-});

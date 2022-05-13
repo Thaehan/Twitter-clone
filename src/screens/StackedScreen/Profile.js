@@ -5,7 +5,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useEffect, useState } from 'react';
 import { Icon } from 'react-native-elements';
 import { useSelector } from 'react-redux';
@@ -133,18 +133,20 @@ export default function Profile({ navigation, route }) {
       });
   };
 
-  navigation.setOptions({
-    headerTitle: 'Profile',
-    headerLeft: () => {
-      return (
-        <IconButton
-          type="ionicon"
-          icon="ios-arrow-back-outline"
-          onPress={() => navigation.goBack()}
-        />
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Profile',
+      headerLeft: () => {
+        return (
+          <IconButton
+            type="ionicon"
+            icon="ios-arrow-back-outline"
+            onPress={() => navigation.goBack()}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     getUserById(route.params.userId)

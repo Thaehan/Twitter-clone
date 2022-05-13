@@ -11,6 +11,7 @@ import Profile from './StackedScreen/Profile';
 import TweetPost from './StackedScreen/TweetPost';
 import NewConversation from './StackedScreen/NewConversation';
 import Settings from './StackedScreen/Settings';
+import CommentPost from './StackedScreen/CommentPost';
 
 export {
   Profile,
@@ -26,4 +27,5 @@ export {
   TweetDetail,
   TweetPost,
   Settings,
+  CommentPost,
 };

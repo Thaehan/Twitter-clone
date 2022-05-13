@@ -11,6 +11,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useLayoutEffect,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -77,47 +78,49 @@ export default function Feed({ navigation }) {
       });
   };
 
-  navigation.setOptions({
-    headerLeft: () => {
-      return (
-        <AvatarButton
-          style={styles.leftHeader}
-          source={currentUser.avatar}
-          userId={currentUser.userId}
-          size={30}
-          onPress={() => {
-            navigation.navigate(PROFILE, {
-              userId: currentUser.userId,
-            });
-          }}
-        />
-      );
-    },
-    headerRight: () => {
-      return (
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AvatarButton
+            style={styles.leftHeader}
+            source={currentUser.avatar}
+            userId={currentUser.userId}
+            size={30}
+            onPress={() => {
+              navigation.navigate(PROFILE, {
+                userId: currentUser.userId,
+              });
+            }}
+          />
+        );
+      },
+      headerRight: () => {
+        return (
+          <IconButton
+            style={styles.rightHeader}
+            type="evilicon"
+            icon="gear"
+            color="black"
+            size={30}
+            onPress={() => {
+              navigation.navigate(SETTINGS);
+            }}
+          />
+        );
+      },
+      headerTitle: () => (
         <IconButton
-          style={styles.rightHeader}
-          type="evilicon"
-          icon="gear"
-          color="black"
+          style={styles.centerHeader}
+          type="entypo"
+          icon="twitter"
+          color={MAIN_COLOR}
           size={30}
-          onPress={() => {
-            navigation.navigate(SETTINGS);
-          }}
         />
-      );
-    },
-    headerTitle: () => (
-      <IconButton
-        style={styles.centerHeader}
-        type="entypo"
-        icon="twitter"
-        color={MAIN_COLOR}
-        size={30}
-      />
-    ),
-    headerTitleAlign: 'center',
-  });
+      ),
+      headerTitleAlign: 'center',
+    });
+  }, []);
 
   useEffect(() => {
     refreshFeed();
@@ -151,10 +154,10 @@ export default function Feed({ navigation }) {
       }
 
       <CircleButton
-        icon="create-outline"
-        type="ionicon"
+        type="material-community"
+        icon="plus"
         color="#ffffff"
-        size={30}
+        size={35}
         style={styles.circleButton}
         onPress={() => {
           navigation.navigate(TWEET_POST, {

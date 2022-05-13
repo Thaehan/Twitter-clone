@@ -30,6 +30,7 @@ import {
   PROFILE,
   TWEET_POST,
   SETTINGS,
+  COMMENT_POST,
 } from '../constants/ScreenName.js';
 import {
   Feed,
@@ -42,6 +43,7 @@ import {
   TweetPost,
   NewConversation,
   Settings,
+  CommentPost,
 } from '../screens/index.js';
 import {
   NAVBAR_HEIGHT,
@@ -176,6 +178,10 @@ function FeedStackScreen() {
         name={SETTINGS}
         component={Settings}
       />
+      <FeedStack.Screen
+        name={COMMENT_POST}
+        component={CommentPost}
+      />
     </FeedStack.Navigator>
   );
 }
@@ -199,6 +205,10 @@ function SearchStackScreen() {
       <SearchStack.Screen
         name={PROFILE}
         component={Profile}
+      />
+      <SearchStack.Screen
+        name={COMMENT_POST}
+        component={CommentPost}
       />
     </SearchStack.Navigator>
   );

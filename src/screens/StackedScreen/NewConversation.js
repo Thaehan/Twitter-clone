@@ -8,7 +8,12 @@ import {
   TextInput,
   StatusBar,
 } from 'react-native';
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -36,22 +41,24 @@ export default function NewConversation({ navigation }) {
     []
   );
 
-  navigation.setOptions({
-    headerTitle: 'Message',
-    headerTitleAlign: 'center',
-    headerLeft: () => {
-      return (
-        <TextButton
-          title="Cancel"
-          onPress={() => navigation.goBack()}
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        />
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Message',
+      headerTitleAlign: 'center',
+      headerLeft: () => {
+        return (
+          <TextButton
+            title="Cancel"
+            onPress={() => navigation.goBack()}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     initData.current = { data: [], isLoaded: false };

@@ -39,6 +39,7 @@ import {
   TWEET_DETAIL,
   PROFILE,
   TWEET_POST,
+  COMMENT_POST,
 } from '../../constants/ScreenName';
 import tempAvatar from '../../assets/avatar4.png';
 import {
@@ -84,7 +85,11 @@ export default function Tweet({ tweetId, isOnFeed }) {
       });
   };
 
-  const commentHandle = () => {};
+  const commentHandle = () => {
+    navigation.navigate(COMMENT_POST, {
+      tweetId,
+    });
+  };
 
   const shareHandle = () => {};
 

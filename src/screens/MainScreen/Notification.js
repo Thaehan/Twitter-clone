@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -39,39 +39,41 @@ export default function Notification({ navigation }) {
     []
   );
 
-  navigation.setOptions({
-    headerLeft: () => {
-      return (
-        <AvatarButton
-          style={styles.leftHeader}
-          source={currentUser.avatar}
-          userId={currentUser.userId}
-          size={30}
-          onPress={() => {
-            navigation.navigate(PROFILE, {
-              userId: currentUser.userId,
-            });
-          }}
-        />
-      );
-    },
-    headerRight: () => {
-      return (
-        <IconButton
-          style={styles.rightHeader}
-          type="evilicon"
-          icon="gear"
-          color="black"
-          size={30}
-          onPress={() => {
-            navigation.navigate(SETTINGS);
-          }}
-        />
-      );
-    },
-    headerTitle: 'Notification',
-    headerTitleAlign: 'center',
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AvatarButton
+            style={styles.leftHeader}
+            source={currentUser.avatar}
+            userId={currentUser.userId}
+            size={30}
+            onPress={() => {
+              navigation.navigate(PROFILE, {
+                userId: currentUser.userId,
+              });
+            }}
+          />
+        );
+      },
+      headerRight: () => {
+        return (
+          <IconButton
+            style={styles.rightHeader}
+            type="evilicon"
+            icon="gear"
+            color="black"
+            size={30}
+            onPress={() => {
+              navigation.navigate(SETTINGS);
+            }}
+          />
+        );
+      },
+      headerTitle: 'Notification',
+      headerTitleAlign: 'center',
+    });
+  }, []);
 
   const notificationClickhandle = (conversationId) => {
     //chuyen huong sang thong bao ???

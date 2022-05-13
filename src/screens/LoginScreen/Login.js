@@ -116,6 +116,7 @@ export default function Login({ navigation }) {
         title="Login"
         onPress={loginHandle}
         style={styles.loginButton}
+        testId={'loginButton'}
       />
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>

@@ -7,7 +7,14 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useLayoutEffect,
+} from 'react';
+import { useSelector } from 'react-redux';
+import { Icon } from 'react-native-elements';
+import * as ImagePicker from 'expo-image-picker';
 
 import {
   SCREEN_WIDTH,
@@ -18,22 +25,13 @@ import {
   MAIN_COLOR,
   LIGHT_GREY_TEXT_COLOR,
 } from '../../styles/Style';
-import Comment from '../../components/tweet/Comment';
-import { getCommentById } from '../../api/comment';
-import { getUserById } from '../../api/user';
 import { createTweet } from '../../api/tweet';
-import Tweet from '../../components/tweet/Tweet';
-import { useSelector } from 'react-redux';
-import { Icon } from 'react-native-elements';
-
 import PrimaryButton from '../../components/button/PrimaryButton';
 import IconButton from '../../components/button/IconButton';
-
-import * as ImagePicker from 'expo-image-picker';
 import { upLoadImage, deleteImage } from '../../api/image';
 import QuotedTweet from '../../components/tweet/QuotedTweet';
 const CHAR_LIMIT = 280;
-export default function TweetPost({ route, navigation }) {
+export default function TweetPost({ navigation, route }) {
   const { postFunction, referedTweetId } = route.params;
   const [textContent, setTextContent] = useState('');
   const [mediaContent, setMediaContent] = useState(null);
@@ -42,29 +40,9 @@ export default function TweetPost({ route, navigation }) {
   const [imageUrl, setImageUrl] = useState(
     'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2FXXQXEw2JgwXkewtfm42RsNdddcn2%2FTue%20Apr%2012%202022%2001%3A15%3A16%20GMT%2B0700%20(%2B07)?alt=media&token=5e822d9e-8e4b-4421-986c-02dbb96d22bd'
   );
-  //For putting tweet posting button on header
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => {
-        return (
-          <PrimaryButton
-            title={'Tweet'}
-            onPress={tweetPostingHandle}
-          />
-        );
-      },
-      headerTitle: ' ',
-      headerLeft: () => {
-        return (
-          <IconButton
-            type="ionicon"
-            icon="close-outline"
-            onPress={() => navigation.goBack()}
-          />
-        );
-      },
-    });
-  });
+
+  const [textBoxHeight, setTextBoxHeight] = useState(70);
+  const numberOfLine = (text, textInputWidth) => {};
 
   const mediaChoosingHandle = async () => {
     // No permissions request is necessary for launching the image library
@@ -90,6 +68,7 @@ export default function TweetPost({ route, navigation }) {
         console.log(error);
       });
   };
+
   const tweetPostingHandle = () => {
     if (textContent == '' && mediaContent == null) {
       alert("You can't post empty tweet");
@@ -131,7 +110,29 @@ export default function TweetPost({ route, navigation }) {
     setTextContent(newText);
   };
   const cameraHandle = () => {};
-  const [textBoxHeight, setTextBoxHeight] = useState(70);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <PrimaryButton
+            title={'Tweet'}
+            onPress={tweetPostingHandle}
+          />
+        );
+      },
+      headerTitle: ' ',
+      headerLeft: () => {
+        return (
+          <IconButton
+            type="ionicon"
+            icon="close-outline"
+            onPress={() => navigation.goBack()}
+          />
+        );
+      },
+    });
+  }, []);
 
   useEffect(() => {
     //postTweetAction = createTweet()
@@ -139,7 +140,7 @@ export default function TweetPost({ route, navigation }) {
     console.log(referedTweetId);
     navigation.setParams();
   }, []);
-  const numberOfLine = (text, textInputWidth) => {};
+
   return (
     <View
       style={[GLOBAL_STYLES.container, styles.container]}
@@ -274,6 +275,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 60,
     justifyContent: 'center',
+    marginBottom: 5,
     marginHorizontal: HORI_PAD,
     width: 60,
   },

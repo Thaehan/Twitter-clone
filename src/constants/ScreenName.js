@@ -13,11 +13,12 @@ const SEARCHSTACK = 'SearchStack';
 const NOTIFICATIONSTACK = 'NotificationStack';
 const FEEDSTACK = 'FeedStack';
 const TWEET_DETAIL = 'TweetDetail';
-const TWEET_POST = 'TweetPost'
+const TWEET_POST = 'TweetPost';
 const CONVERSATION = 'Conversation';
 const PROFILE = 'Profile';
-const NEW_CONVERSATION = "NewConversation"
+const NEW_CONVERSATION = 'NewConversation';
 const SETTINGS = 'Settings';
+const COMMENT_POST = 'CommentPost';
 
 export {
   NEW_CONVERSATION,
@@ -38,4 +39,5 @@ export {
   TWEET_DETAIL,
   TWEET_POST,
   SETTINGS,
+  COMMENT_POST,
 };
