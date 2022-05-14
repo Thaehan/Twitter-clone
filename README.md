@@ -58,6 +58,7 @@ yarn install
  ![image](https://user-images.githubusercontent.com/62579790/168421288-f82c2a1a-c5fb-45eb-97d5-af30b5b5b690.png)
  
  - The testing result:
+
  ![image](https://user-images.githubusercontent.com/62579790/168428089-e2aa8499-1ee9-4e40-8c03-ed9a671e5957.png)
  
  - All the functions testing is detailed in the __test__ folder. 
