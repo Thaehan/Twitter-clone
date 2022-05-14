@@ -53,6 +53,15 @@ yarn install
 - TODO
   Comment
   
+ ## Testing
+ - Unit testing: Using Jest with React native. Test for all components and screens by checking each snapshot.
+
+ ![image](https://user-images.githubusercontent.com/62579790/168421288-f82c2a1a-c5fb-45eb-97d5-af30b5b5b690.png)
+ 
+ - 
+
+ 
+  
 
 ## Tech
 
