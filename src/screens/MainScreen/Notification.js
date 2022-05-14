@@ -73,7 +73,7 @@ export default function Notification({ navigation }) {
       headerTitle: 'Notification',
       headerTitleAlign: 'center',
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   const notificationClickhandle = (conversationId) => {
     //chuyen huong sang thong bao ???

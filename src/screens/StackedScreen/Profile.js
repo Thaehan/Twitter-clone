@@ -146,7 +146,7 @@ export default function Profile({ navigation, route }) {
         );
       },
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     getUserById(route.params.userId)

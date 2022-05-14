@@ -13,9 +13,9 @@ export default function AvatarButton({
   userId,
   source,
   size,
-  onPress
+  onPress,
 }) {
-  const redirectToUserProfileScreen = (id) => { };
+  const redirectToUserProfileScreen = (id) => {};
   return (
     <View style={style}>
       <TouchableOpacity
@@ -29,6 +29,7 @@ export default function AvatarButton({
             width: size,
             borderRadius: 50,
           }}
+          testID="AvatarImage"
         />
       </TouchableOpacity>
     </View>

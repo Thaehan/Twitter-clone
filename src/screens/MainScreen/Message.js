@@ -90,7 +90,7 @@ export default function Message({ navigation }) {
       headerTitle: 'Message',
       headerTitleAlign: 'center',
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     //load all conversations which current user take part in

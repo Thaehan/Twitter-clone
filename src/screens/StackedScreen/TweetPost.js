@@ -36,7 +36,7 @@ export default function TweetPost({ navigation, route }) {
   const [textContent, setTextContent] = useState('');
   const [mediaContent, setMediaContent] = useState(null);
 
-  const user = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user);
   const [imageUrl, setImageUrl] = useState(
     'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2FXXQXEw2JgwXkewtfm42RsNdddcn2%2FTue%20Apr%2012%202022%2001%3A15%3A16%20GMT%2B0700%20(%2B07)?alt=media&token=5e822d9e-8e4b-4421-986c-02dbb96d22bd'
   );
@@ -70,6 +70,7 @@ export default function TweetPost({ navigation, route }) {
   };
 
   const tweetPostingHandle = () => {
+    console.log(textContent);
     if (textContent == '' && mediaContent == null) {
       alert("You can't post empty tweet");
     } else if (textContent.length > CHAR_LIMIT) {
@@ -82,7 +83,7 @@ export default function TweetPost({ navigation, route }) {
             //setMediaContent(imageUrl)
             //console.log(imageUrl)
             createTweet(
-              user.userId,
+              currentUser.userId,
               textContent,
               imageUrl,
               [],
@@ -94,7 +95,7 @@ export default function TweetPost({ navigation, route }) {
           });
       else {
         createTweet(
-          user.userId,
+          currentUser.userId,
           textContent,
           mediaContent,
           [],
@@ -109,6 +110,7 @@ export default function TweetPost({ navigation, route }) {
   const tweetTextContentHandle = (newText) => {
     setTextContent(newText);
   };
+
   const cameraHandle = () => {};
 
   useLayoutEffect(() => {
@@ -132,12 +134,10 @@ export default function TweetPost({ navigation, route }) {
         );
       },
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     //postTweetAction = createTweet()
-    console.log('Tweep posting');
-    console.log(referedTweetId);
     navigation.setParams();
   }, []);
 
@@ -153,7 +153,7 @@ export default function TweetPost({ navigation, route }) {
           <View style={styles.avatarVanity}>
             <Image
               style={styles.avatar}
-              source={{ uri: user.avatar }}
+              source={{ uri: currentUser.avatar }}
             />
           </View>
           <View style={styles.contentArea}>
@@ -164,6 +164,7 @@ export default function TweetPost({ navigation, route }) {
               ]}
               onChangeText={(newText) => {
                 setTextContent(newText);
+                console.log(textContent);
                 setTextBoxHeight(
                   Math.max(
                     150,

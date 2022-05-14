@@ -10,6 +10,7 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import moment from 'moment';
 
 import { logo } from '../../constants/ImageAssets';
 import PrimaryButton from '../../components/button/PrimaryButton';
@@ -24,7 +25,6 @@ import { SIGN_UP } from '../../constants/ScreenName';
 import { auth } from '../../firebase';
 import { setUser } from '../../redux/userSlice';
 import { getMultipleUsers } from '../../api/user';
-import moment from 'moment';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');

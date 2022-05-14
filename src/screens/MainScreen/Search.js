@@ -48,10 +48,14 @@ export default function Search({ navigation }) {
         );
       },
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     initData.current = { data: [], isLoaded: false };
+
+    return () => {
+      initData.current = null;
+    };
   }, [currentUser.userId]);
 
   useEffect(() => {

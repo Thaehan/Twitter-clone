@@ -102,12 +102,12 @@ export default function Tweet({ tweetId, isOnFeed }) {
       relativeTime: {
         future: 'in %s',
         past: '%s ago',
+        h: 'an hour',
+        hh: '%d seconds',
         s: 'a few seconds',
         ss: '%d seconds',
         m: 'a minute',
         mm: '%d minutes',
-        h: 'an hour',
-        hh: '%d hours',
         d: 'a day',
         dd: '%d days',
         w: 'a week',
@@ -163,6 +163,15 @@ export default function Tweet({ tweetId, isOnFeed }) {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    if (userPostedData.userId == currentUser.userId) {
+      setUserPostedData({
+        ...userPostedData,
+        avatar: currentUser.avatar,
+      });
+    }
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     if (currentUser.liked.indexOf(tweetId) != -1) {

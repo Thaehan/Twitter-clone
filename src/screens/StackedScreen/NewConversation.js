@@ -58,7 +58,7 @@ export default function NewConversation({ navigation }) {
         );
       },
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     initData.current = { data: [], isLoaded: false };

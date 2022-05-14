@@ -120,10 +120,14 @@ export default function Feed({ navigation }) {
       ),
       headerTitleAlign: 'center',
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     refreshFeed();
+
+    return () => {
+      setTweetList([]);
+    };
   }, []);
 
   return (

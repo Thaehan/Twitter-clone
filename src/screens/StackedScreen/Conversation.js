@@ -53,7 +53,7 @@ export default function Conversation({
         );
       },
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   useEffect(() => {
     getMultipleMessage(

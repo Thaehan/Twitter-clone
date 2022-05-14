@@ -295,6 +295,16 @@ export default function Settings({ navigation }) {
               .catch((error) => {
                 console.log(error);
               });
+            dispatch(
+              setUser({
+                ...currentUser,
+                ...newUserData,
+                dateOfBirth:
+                  moment(newDateOfBirth).format(
+                    'DD/MM/YYYY'
+                  ),
+              })
+            );
           }
           if (newAvatar != null) {
             deleteImage(oldAvatar)

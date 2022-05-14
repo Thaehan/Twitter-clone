@@ -48,7 +48,7 @@ export default function CommentPost({ navigation, route }) {
         );
       },
     });
-  }, []);
+  }, [currentUser.avatar]);
 
   return (
     <View>

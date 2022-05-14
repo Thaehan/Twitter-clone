@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserItemButton /> Render UserItemButton 1`] = `
+<View>
+  <View
+    accessible={true}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": 60,
+        "opacity": 1,
+        "width": 414,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 60,
+          "justifyContent": "center",
+          "width": 74,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": undefined,
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 50,
+            "height": undefined,
+            "width": undefined,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+          "height": 60,
+          "paddingTop": 10,
+          "width": 340,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#86939A",
+              "fontSize": 15,
+              "fontWeight": "400",
+            },
+            Object {
+              "marginTop": 5,
+            },
+          ]
+        }
+      >
+        @
+      </Text>
+    </View>
+  </View>
+</View>
+`;

@@ -17,6 +17,7 @@ import {
   Fade,
   ShineOverlay,
 } from 'rn-placeholder';
+import { StackActions } from '@react-navigation/native';
 
 import {
   CONTENT_SCREEN_HEIGHT,
@@ -84,12 +85,14 @@ export default function QuotedTweet({ tweetId }) {
       userId: userId,
     });
   };
-  var isOnFeed = false;
+
   const tweetHandle = () => {
-    navigation.navigate(TWEET_DETAIL, {
-      tweetId,
-      isOnFeed,
-    });
+    navigation.dispatch(
+      StackActions.push(TWEET_DETAIL, {
+        tweetId,
+        isOnFeed: true,
+      })
+    );
   };
 
   //lấy dữ liệu tweet và người dùng
