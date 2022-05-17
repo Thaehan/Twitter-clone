@@ -42,7 +42,7 @@ export default function TweetPost({ navigation, route }) {
   );
 
   const [textBoxHeight, setTextBoxHeight] = useState(70);
-  const numberOfLine = (text, textInputWidth) => {};
+  const numberOfLine = (text, textInputWidth) => { };
 
   const mediaChoosingHandle = async () => {
     // No permissions request is necessary for launching the image library
@@ -111,7 +111,7 @@ export default function TweetPost({ navigation, route }) {
     setTextContent(newText);
   };
 
-  const cameraHandle = () => {};
+  const cameraHandle = () => { };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -134,7 +134,7 @@ export default function TweetPost({ navigation, route }) {
         );
       },
     });
-  }, [currentUser.avatar]);
+  });
 
   useEffect(() => {
     //postTweetAction = createTweet()
@@ -188,7 +188,7 @@ export default function TweetPost({ navigation, route }) {
                   type={'ionicon'}
                   name={'close-outline'}
                   size={50}
-                  onPress={() => {}}
+                  onPress={() => { }}
                 />
               </View>
             )}
