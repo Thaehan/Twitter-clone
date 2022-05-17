@@ -59,6 +59,7 @@ This project uses a number of open source projects to work properly:
 - [VSCode] - IDE
 
 ## Demo
+Video Demo (90%): https://drive.google.com/file/d/1npgEr9Tny3Z4f5OHumG3YeSsq86ItK7L/view?usp=sharing
 
 ![Login-Signup](https://user-images.githubusercontent.com/62579790/161212117-6b73d2c6-1d3d-4b7d-93e9-af5f5c4f38a5.gif)
 
