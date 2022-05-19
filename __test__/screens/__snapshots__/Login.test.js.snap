@@ -16,77 +16,139 @@ exports[`<Login /> Render Login 1`] = `
     ]
   }
 >
-  <Image
-    source={1}
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onLayout={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "height": 88,
-        "marginBottom": 66,
-        "marginLeft": 163,
-        "width": 88,
-      }
-    }
-  />
-  <Text
-    style={
-      Object {
-        "fontWeight": "500",
-        "marginBottom": 30,
-        "marginLeft": 30,
+        "paddingBottom": 0,
       }
     }
   >
-    Login to Twitter
-  </Text>
-  <TextInput
-    allowFontScaling={true}
-    onChangeText={[Function]}
-    placeholder="Email"
-    placeholderTextColor="#BDBDBD"
-    rejectResponderTermination={true}
-    style={
-      Object {
-        "backgroundColor": "#f6f6f6",
-        "borderColor": "#f8f8f8",
-        "borderRadius": 8,
-        "borderWidth": 1,
-        "fontSize": 16,
-        "height": 50,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "paddingLeft": 16,
-        "width": 350,
+    <Image
+      source={1}
+      style={
+        Object {
+          "height": 88,
+          "marginBottom": 66,
+          "marginLeft": 163,
+          "width": 88,
+        }
       }
-    }
-    underlineColorAndroid="transparent"
-    value=""
-  />
-  <TextInput
-    allowFontScaling={true}
-    onChangeText={[Function]}
-    placeholder="Password"
-    placeholderTextColor="#BDBDBD"
-    rejectResponderTermination={true}
-    secureTextEntry={true}
-    style={
-      Object {
-        "backgroundColor": "#f6f6f6",
-        "borderColor": "#f8f8f8",
-        "borderRadius": 8,
-        "borderWidth": 1,
-        "fontSize": 16,
-        "height": 50,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "paddingLeft": 16,
-        "width": 350,
+    />
+    <Text
+      style={
+        Object {
+          "fontWeight": "500",
+          "marginBottom": 30,
+          "marginLeft": 30,
+        }
       }
-    }
-    underlineColorAndroid="transparent"
-    value=""
-  />
-  <View>
+    >
+      Login to Twitter
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Email"
+      placeholderTextColor="#BDBDBD"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "backgroundColor": "#f6f6f6",
+          "borderColor": "#f8f8f8",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "height": 50,
+          "marginBottom": 20,
+          "marginLeft": 30,
+          "paddingLeft": 16,
+          "width": 350,
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Password"
+      placeholderTextColor="#BDBDBD"
+      rejectResponderTermination={true}
+      secureTextEntry={true}
+      style={
+        Object {
+          "backgroundColor": "#f6f6f6",
+          "borderColor": "#f8f8f8",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "height": 50,
+          "marginBottom": 20,
+          "marginLeft": 30,
+          "paddingLeft": 16,
+          "width": 350,
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
     <View>
+      <View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignContent": "center",
+              "alignSelf": "center",
+              "borderRadius": 50,
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "500",
+                  "padding": 0,
+                },
+                Object {
+                  "color": "#1da1f2",
+                },
+              ]
+            }
+          >
+            Forgot your password?
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "marginLeft": 271,
+          "marginTop": 20,
+        }
+      }
+    >
       <View
         accessible={true}
         focusable={true}
@@ -99,130 +161,86 @@ exports[`<Login /> Render Login 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignContent": "center",
             "alignSelf": "center",
-            "borderRadius": 50,
+            "backgroundColor": "#1da1f2",
+            "borderRadius": 100,
+            "fontWeight": "500",
             "opacity": 1,
           }
         }
       >
         <Text
           style={
-            Array [
-              Object {
-                "fontWeight": "500",
-                "padding": 0,
-              },
-              Object {
-                "color": "#1da1f2",
-              },
-            ]
+            Object {
+              "color": "white",
+              "fontWeight": "bold",
+              "paddingBottom": 8,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 6,
+            }
           }
         >
-          Forgot your password?
+          Login
         </Text>
       </View>
     </View>
-  </View>
-  <View
-    style={
-      Object {
-        "marginLeft": 271,
-        "marginTop": 20,
-      }
-    }
-  >
     <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "alignSelf": "center",
-          "backgroundColor": "#1da1f2",
-          "borderRadius": 100,
-          "fontWeight": "500",
-          "opacity": 1,
+          "flexDirection": "row",
+          "marginLeft": 85,
+          "marginTop": 30,
         }
       }
     >
       <Text
         style={
           Object {
-            "color": "white",
-            "fontWeight": "bold",
-            "paddingBottom": 8,
-            "paddingLeft": 15,
-            "paddingRight": 15,
-            "paddingTop": 6,
+            "fontWeight": "400",
+            "marginLeft": 15,
+            "marginRight": 8,
           }
         }
       >
-        Login
+        Do not have an account?
       </Text>
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flexDirection": "row",
-        "marginLeft": 85,
-        "marginTop": 30,
-      }
-    }
-  >
-    <Text
-      style={
-        Object {
-          "fontWeight": "400",
-          "marginLeft": 15,
-          "marginRight": 8,
-        }
-      }
-    >
-      Do not have an account?
-    </Text>
-    <View>
-      <View
-        accessible={true}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignContent": "center",
-            "alignSelf": "center",
-            "borderRadius": 50,
-            "opacity": 1,
-          }
-        }
-      >
-        <Text
+      <View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "fontWeight": "500",
-                "padding": 0,
-              },
-              Object {
-                "color": "#1da1f2",
-              },
-            ]
+            Object {
+              "alignContent": "center",
+              "alignSelf": "center",
+              "borderRadius": 50,
+              "opacity": 1,
+            }
           }
         >
-          Sign up
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "500",
+                  "padding": 0,
+                },
+                Object {
+                  "color": "#1da1f2",
+                },
+              ]
+            }
+          >
+            Sign up
+          </Text>
+        </View>
       </View>
     </View>
   </View>

@@ -53,8 +53,8 @@ export default function Tweet({ tweetId, isOnFeed }) {
   const currentUser = useSelector((state) => state.user);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [userLiked, setUserLiked] = useState([]);
   const [tweetData, setTweetData] = useState({});
   const [userPostedData, setUserPostedData] = useState({});
@@ -71,18 +71,81 @@ export default function Tweet({ tweetId, isOnFeed }) {
   };
 
   const likeHandle = () => {
+    const newLiked = [...currentUser.liked];
+    const newUserLiked = [...userLiked];
     if (!isLiked) {
+      setLikeCount((pre) => pre + 1);
+      newLiked.push(tweetId);
       dispatch(likeTweet({ tweetId }));
-    } else {
-      dispatch(dislikeTweet({ tweetId }));
-    }
-    updateTweet(tweetId, { userLiked: userLiked })
-      .then(() => {
-        console.log('Update Tweet Like');
-      })
-      .catch((error) => {
-        console.log(error);
+      //Update Tweet
+      setUserLiked((pre) => {
+        newUserLiked.push(currentUser.userId);
+        updateTweet(tweetId, {
+          userLiked: newUserLiked,
+        })
+          .then(() => {
+            //Update User
+            updateUser(currentUser.userId, {
+              liked: newLiked,
+            }).catch((error) => {
+              console.log(error);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        return newUserLiked;
       });
+      updateUser(currentUser.userId, {});
+    } else {
+      setLikeCount((pre) => pre - 1);
+      newLiked.splice(newLiked.indexOf(tweetId), 1);
+      dispatch(dislikeTweet({ tweetId }));
+      //Update tweet
+      setUserLiked((pre) => {
+        const index = newUserLiked.indexOf(
+          currentUser.userId
+        );
+        if (index != -1) {
+          newUserLiked.splice(index, 1);
+        }
+        updateTweet(tweetId, {
+          userLiked: newUserLiked,
+        })
+          .then(() => {
+            //Update User
+            updateUser(currentUser.userId, {
+              liked: newLiked,
+            }).catch((error) => {
+              console.log(error);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        return newUserLiked;
+      });
+    }
+
+    // console.log(currentUser.liked);
+    // console.log(userLiked);
+
+    // updateTweet(tweetId, { userLiked: userLiked })
+    //   .then(() => {
+    //     console.log('Update Tweet Like');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // updateUser(currentUser.userId, {
+    //   liked: currentUser.liked,
+    // })
+    //   .then(() => {
+    //     console.log('Updated user');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   const commentHandle = () => {
@@ -98,25 +161,25 @@ export default function Tweet({ tweetId, isOnFeed }) {
     const month = tweetData.dateCreated.getMonth();
     const year = tweetData.dateCreated.getFullYear();
 
-    moment.updateLocale('en', {
-      relativeTime: {
-        future: 'in %s',
-        past: '%s ago',
-        h: 'an hour',
-        hh: '%d seconds',
-        s: 'a few seconds',
-        ss: '%d seconds',
-        m: 'a minute',
-        mm: '%d minutes',
-        d: 'a day',
-        dd: '%d days',
-        w: 'a week',
-        ww: '%d weeks',
-        M: 'a month',
-        MM: '%d months',
-        y: 'a year',
-        yy: '%d years',
-      },
+    moment.updateLocale('vi', {
+      // relativeTime: {
+      //   future: 'in %s',
+      //   past: '%s ago',
+      //   h: 'an hour',
+      //   hh: '%d seconds',
+      //   // s: 'a few seconds',
+      //   // ss: '%d seconds',
+      //   m: 'a minute',
+      //   mm: '%d minutes',
+      //   d: 'a day',
+      //   dd: '%d days',
+      //   w: 'a week',
+      //   ww: '%d weeks',
+      //   M: 'a month',
+      //   MM: '%d months',
+      //   y: 'a year',
+      //   yy: '%d years',
+      // },
     });
     return moment([year, month, day]).fromNow();
   };
@@ -180,8 +243,6 @@ export default function Tweet({ tweetId, isOnFeed }) {
       setIsLiked(false);
     }
   }, [currentUser.liked]);
-
-  useEffect(() => {}, [userLiked]);
 
   return isLoading ? (
     <View style={styles.loadingScreen}>
@@ -297,7 +358,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
               size={28}
               onPress={() => commentHandle()}
             />
-            <Text>{commentCount}</Text>
+            {/* <Text>{commentCount}</Text> */}
           </View>
           {
             /* retweet */
@@ -308,7 +369,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
                 size={28}
                 onPress={() => retweetHandle()}
               />
-              <Text>{retweetCount}</Text>
+              {/* <Text>{retweetCount}</Text> */}
             </View>
           }
           {
@@ -323,7 +384,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
                   isLiked ? LIKED_COLOR : DEFAULT_COLOR
                 }
               />
-              <Text
+              {/* <Text
                 style={
                   isLiked
                     ? styles.likedColor
@@ -331,7 +392,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
                 }
               >
                 {likeCount}
-              </Text>
+              </Text> */}
             </View>
           }
 

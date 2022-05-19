@@ -8,8 +8,9 @@ import {
   where,
   deleteDoc,
   updateDoc,
+  orderBy,
 } from 'firebase/firestore/lite';
-import { } from 'firebase/storage';
+import {} from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
 import { CommentModel } from '../models';
@@ -28,10 +29,9 @@ const createComment = async (
     const newComment = CommentModel(
       (tweetId = tweetId),
       (userComment = userComment),
-      (textContent = textContent),
       (userLiked = userLiked),
-      (mediaContent = mediaContent),
-      (textContent = textContent)
+      (textContent = textContent),
+      (mediaContent = mediaContent)
     );
 
     await addDoc(commentCollection, newComment);
@@ -53,12 +53,15 @@ const getCommentById = async (id) => {
 const getMultipleComment = async (
   param1 = 'content',
   operation = '!=',
-  param2 = ''
+  param2 = '',
+  orderBy = '',
+  priority = 'desc'
 ) => {
   try {
     const q = query(
       commentCollection,
       where(param1, operation, param2)
+      // orderBy(orderBy, priority)
     );
     const docs = (await getDocs(q)).docs;
     return docs;

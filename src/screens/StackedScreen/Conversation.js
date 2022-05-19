@@ -29,11 +29,13 @@ import {
   DARK_GREY_TEXT_COLOR,
 } from '../../styles/Style';
 import IconButton from '../../components/button/IconButton';
+import { MESSAGE } from '../../constants/ScreenName';
 
 export default function Conversation({
   navigation,
   route,
 }) {
+  const { conversationId } = route.params;
   const [messageList, setMessageList] = useState([]);
   const currentUser = useSelector((state) => state.user);
   const [text, setText] = useState('');
@@ -48,7 +50,9 @@ export default function Conversation({
           <IconButton
             type="ionicon"
             icon="ios-arrow-back-outline"
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+              navigation.navigate(MESSAGE, {});
+            }}
           />
         );
       },
@@ -59,11 +63,11 @@ export default function Conversation({
     getMultipleMessage(
       'conversationId',
       '==',
-      route.params.conversationId
+      conversationId
     )
       .then((docs) => {
         console.log(docs);
-        var tempList = [];
+        let tempList = [];
         docs.forEach((doc) => {
           tempList.push({ ...doc.data(), id: doc.id });
         });
@@ -72,6 +76,10 @@ export default function Conversation({
       .catch((error) => {
         alert(error);
       });
+
+    return () => {
+      tempList = [];
+    };
   }, []);
 
   return (

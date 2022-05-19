@@ -16,140 +16,100 @@ exports[`<Signup /> Render Signup 1`] = `
     ]
   }
 >
-  <Image
-    source={1}
-    style={
-      Object {
-        "height": 88,
-        "marginBottom": 66,
-        "marginLeft": 163,
-        "width": 88,
-      }
-    }
-  />
-  <Text
-    style={
-      Object {
-        "fontWeight": "500",
-        "marginBottom": 20,
-        "marginLeft": 30,
-      }
-    }
-  >
-    Sign up an account
-  </Text>
-  <TextInput
-    allowFontScaling={true}
-    onChangeText={[Function]}
-    placeholder="Email"
-    placeholderTextColor="#BDBDBD"
-    rejectResponderTermination={true}
-    style={
-      Object {
-        "backgroundColor": "#f6f6f6",
-        "borderColor": "#e8e8e8",
-        "borderRadius": 8,
-        "borderWidth": 1,
-        "fontSize": 16,
-        "height": 50,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "paddingLeft": 16,
-        "width": 350,
-      }
-    }
-    underlineColorAndroid="transparent"
-    value=""
-  />
-  <TextInput
-    allowFontScaling={true}
-    onChangeText={[Function]}
-    placeholder="Password"
-    placeholderTextColor="#BDBDBD"
-    rejectResponderTermination={true}
-    secureTextEntry={true}
-    style={
-      Object {
-        "backgroundColor": "#f6f6f6",
-        "borderColor": "#e8e8e8",
-        "borderRadius": 8,
-        "borderWidth": 1,
-        "fontSize": 16,
-        "height": 50,
-        "marginBottom": 20,
-        "marginLeft": 30,
-        "paddingLeft": 16,
-        "width": 350,
-      }
-    }
-    underlineColorAndroid="transparent"
-    value=""
-  />
   <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onLayout={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "marginLeft": 255,
-        "marginTop": 20,
+        "paddingBottom": 0,
       }
     }
   >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Image
+      source={1}
       style={
         Object {
-          "alignSelf": "center",
-          "backgroundColor": "#1da1f2",
-          "borderRadius": 100,
-          "fontWeight": "500",
-          "opacity": 1,
+          "height": 88,
+          "marginBottom": 66,
+          "marginLeft": 163,
+          "width": 88,
         }
       }
-    >
-      <Text
-        style={
-          Object {
-            "color": "white",
-            "fontWeight": "bold",
-            "paddingBottom": 8,
-            "paddingLeft": 15,
-            "paddingRight": 15,
-            "paddingTop": 6,
-          }
-        }
-      >
-        Register
-      </Text>
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flexDirection": "row",
-        "marginLeft": 90,
-        "marginTop": 20,
-      }
-    }
-  >
+    />
     <Text
       style={
         Object {
-          "fontWeight": "400",
-          "marginLeft": 15,
-          "marginRight": 8,
+          "fontWeight": "500",
+          "marginBottom": 20,
+          "marginLeft": 30,
         }
       }
     >
-      Already got an account?
+      Sign up an account
     </Text>
-    <View>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Email"
+      placeholderTextColor="#BDBDBD"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "backgroundColor": "#f6f6f6",
+          "borderColor": "#e8e8e8",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "height": 50,
+          "marginBottom": 20,
+          "marginLeft": 30,
+          "paddingLeft": 16,
+          "width": 350,
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Password"
+      placeholderTextColor="#BDBDBD"
+      rejectResponderTermination={true}
+      secureTextEntry={true}
+      style={
+        Object {
+          "backgroundColor": "#f6f6f6",
+          "borderColor": "#e8e8e8",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "height": 50,
+          "marginBottom": 20,
+          "marginLeft": 30,
+          "paddingLeft": 16,
+          "width": 350,
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <View
+      style={
+        Object {
+          "marginLeft": 255,
+          "marginTop": 20,
+        }
+      }
+    >
       <View
         accessible={true}
         focusable={true}
@@ -162,28 +122,86 @@ exports[`<Signup /> Render Signup 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignContent": "center",
             "alignSelf": "center",
-            "borderRadius": 50,
+            "backgroundColor": "#1da1f2",
+            "borderRadius": 100,
+            "fontWeight": "500",
             "opacity": 1,
           }
         }
       >
         <Text
           style={
-            Array [
-              Object {
-                "fontWeight": "500",
-                "padding": 0,
-              },
-              Object {
-                "color": "#1da1f2",
-              },
-            ]
+            Object {
+              "color": "white",
+              "fontWeight": "bold",
+              "paddingBottom": 8,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 6,
+            }
           }
         >
-          Login
+          Register
         </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "marginLeft": 90,
+          "marginTop": 20,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontWeight": "400",
+            "marginLeft": 15,
+            "marginRight": 8,
+          }
+        }
+      >
+        Already got an account?
+      </Text>
+      <View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignContent": "center",
+              "alignSelf": "center",
+              "borderRadius": 50,
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "500",
+                  "padding": 0,
+                },
+                Object {
+                  "color": "#1da1f2",
+                },
+              ]
+            }
+          >
+            Login
+          </Text>
+        </View>
       </View>
     </View>
   </View>

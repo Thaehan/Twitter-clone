@@ -6,6 +6,10 @@ import {
   SafeAreaView,
   StyleSheet,
   StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -72,38 +76,48 @@ export default function Signup({ navigation }) {
         hidden={false}
         barStyle="dark-content"
       />
-      <Image source={logo} style={styles.image} />
-      <Text style={styles.title}>Sign up an account</Text>
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
-        style={styles.textInput}
-        placeholder="Email"
-        placeholderTextColor="#BDBDBD"
-      />
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        style={styles.textInput}
-        placeholder="Password"
-        placeholderTextColor="#BDBDBD"
-        secureTextEntry={true}
-      />
-      <PrimaryButton
-        title="Register"
-        onPress={registerHandle}
-        style={styles.registerButton}
-      />
-      <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>
-          Already got an account?
-        </Text>
-        <TextButton
-          color={MAIN_COLOR}
-          title="Login"
-          onPress={loginHandle}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={
+            Platform.OS === 'ios' ? 'padding' : 'height'
+          }
+        >
+          <Image source={logo} style={styles.image} />
+          <Text style={styles.title}>
+            Sign up an account
+          </Text>
+          <TextInput
+            value={email}
+            onChangeText={setEmail}
+            style={styles.textInput}
+            placeholder="Email"
+            placeholderTextColor="#BDBDBD"
+          />
+          <TextInput
+            value={password}
+            onChangeText={setPassword}
+            style={styles.textInput}
+            placeholder="Password"
+            placeholderTextColor="#BDBDBD"
+            secureTextEntry={true}
+          />
+          <PrimaryButton
+            title="Register"
+            onPress={registerHandle}
+            style={styles.registerButton}
+          />
+          <View style={styles.loginContainer}>
+            <Text style={styles.loginText}>
+              Already got an account?
+            </Text>
+            <TextButton
+              color={MAIN_COLOR}
+              title="Login"
+              onPress={loginHandle}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }

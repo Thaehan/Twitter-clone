@@ -31,8 +31,12 @@ import {
   getMultipleConversation,
   createConversation,
 } from '../../api/conversation';
+import { StackActions } from '@react-navigation/native';
 
-export default function NewConversation({ navigation }) {
+export default function NewConversation({
+  navigation,
+  route,
+}) {
   const currentUser = useSelector((state) => state.user);
   const initData = useRef({ data: [], isLoaded: false });
   const [searchText, setSeacrhText] = useState('');
@@ -125,7 +129,7 @@ export default function NewConversation({ navigation }) {
   };
 
   const userClickHandle = (userId) => {
-    //Push and navigate to User Profile
+    //CHuyển hướng đến trang conversation kèm theo id của hai bên.
     var conversationIdToGo = '';
     conversationList.forEach((conversation) => {
       if (
@@ -144,9 +148,11 @@ export default function NewConversation({ navigation }) {
         [],
         [userId, currentUser.userId]
       ).then((newConversation) => {
-        navigation.push(CONVERSATION, {
-          conversationId: newConversation.id,
-        });
+        navigation.dispatch(
+          StackActions.push(CONVERSATION, {
+            conversationId: newConversation.id,
+          })
+        );
       });
     }
   };

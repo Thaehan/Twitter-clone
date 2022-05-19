@@ -72,16 +72,19 @@ export default function Profile({ navigation, route }) {
         user.followers.indexOf(currentUser.userId),
         1
       );
-      //currentUser.following.splice(currentUser.following.indexOf(user.userId), 1)
+      currentUser.following.splice(
+        currentUser.following.indexOf(user.userId),
+        1
+      );
     } else {
       user.followers.push(currentUser.userId);
-      //currentUser.following.push(user.userId)
+      currentUser.following.push(user.userId);
     }
 
     updateUser(user.userId, { followers: user.followers });
     getUserById(currentUser.userId)
       .then((doc) => {
-        var following = doc.data().following;
+        let following = doc.data().following;
         if (!isFollow(currentUser.userId)) {
           following.splice(
             following.indexOf(user.userId),
@@ -280,10 +283,10 @@ export default function Profile({ navigation, route }) {
             </View>
           </Tabs.Tab>
           <Tabs.Tab name="Media">
-            <Tabs.ScrollView></Tabs.ScrollView>
+            <View style={styles.tweetContainer}></View>
           </Tabs.Tab>
           <Tabs.Tab name="Likes">
-            <Tabs.ScrollView></Tabs.ScrollView>
+            <View style={styles.tweetContainer}></View>
           </Tabs.Tab>
         </Tabs.Container>
       </View>

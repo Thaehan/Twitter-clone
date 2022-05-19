@@ -31,12 +31,12 @@ describe('<Feed />', () => {
     following: [],
     isLoading: true,
   };
-  const localStore = configureStore({
-    user: initialState,
-  });
+  // const localStore = configureStore({
+  //   user: initialState,
+  // });
   const Stack = createNativeStackNavigator();
   const FeedScreen = render(
-    <Provider store={localStore}>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen component={Feed} name={'Feed'} />

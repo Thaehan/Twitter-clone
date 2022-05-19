@@ -6,6 +6,9 @@ import {
   SafeAreaView,
   Image,
   StatusBar,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -108,60 +111,70 @@ export default function SignupInfo({ navigation, route }) {
         hidden={false}
         barStyle="dark-content"
       />
-      <Image source={logo} style={styles.image} />
-      <TextInput
-        value={username}
-        onChangeText={setUsername}
-        style={styles.textInput}
-        placeholder="Username"
-        placeholderTextColor="#BDBDBD"
-      />
-      <TextInput
-        value={fullname}
-        onChangeText={setFullname}
-        style={styles.textInput}
-        placeholder="Fullname"
-        placeholderTextColor="#BDBDBD"
-      />
-      <View style={styles.dateContainer}>
-        <IconButton
-          type={'fontisto'}
-          icon={'date'}
-          color={'black'}
-          onPress={() => setShowDatePicker(!showDatepicker)}
-          style={styles.dateIcon}
-        />
-        <Text style={styles.dateText}>
-          {moment(dateOfBirth).format('DD/MM/YYYY')}
-        </Text>
-      </View>
-      {showDatepicker && (
-        <DateTimePicker
-          value={dateOfBirth}
-          mode="date"
-          display="default"
-          is24Hour={true}
-          onChange={onChangeDate}
-        />
-      )}
-      <TextInput
-        value={country}
-        onChangeText={setCountry}
-        style={styles.textInput}
-        placeholder="Country"
-        placeholderTextColor="#BDBDBD"
-      />
-      <PrimaryButton
-        style={styles.button}
-        title="Register"
-        onPress={createHandle}
-      />
-      <TextButton
-        color={MAIN_COLOR}
-        style={styles.button}
-        title="Go back to previous"
-        onPress={backHandle}
-      />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={
+            Platform.OS === 'ios' ? 'padding' : 'height'
+          }
+        >
+          <Image source={logo} style={styles.image} />
+          <TextInput
+            value={username}
+            onChangeText={setUsername}
+            style={styles.textInput}
+            placeholder="Username"
+            placeholderTextColor="#BDBDBD"
+          />
+          <TextInput
+            value={fullname}
+            onChangeText={setFullname}
+            style={styles.textInput}
+            placeholder="Fullname"
+            placeholderTextColor="#BDBDBD"
+          />
+          <View style={styles.dateContainer}>
+            <IconButton
+              type={'fontisto'}
+              icon={'date'}
+              color={'black'}
+              onPress={() =>
+                setShowDatePicker(!showDatepicker)
+              }
+              style={styles.dateIcon}
+            />
+            <Text style={styles.dateText}>
+              {moment(dateOfBirth).format('DD/MM/YYYY')}
+            </Text>
+          </View>
+          {showDatepicker && (
+            <DateTimePicker
+              value={dateOfBirth}
+              mode="date"
+              display="default"
+              is24Hour={true}
+              onChange={onChangeDate}
+            />
+          )}
+          <TextInput
+            value={country}
+            onChangeText={setCountry}
+            style={styles.textInput}
+            placeholder="Country"
+            placeholderTextColor="#BDBDBD"
+          />
+          <PrimaryButton
+            style={styles.button}
+            title="Register"
+            onPress={createHandle}
+          />
+          <TextButton
+            color={MAIN_COLOR}
+            style={styles.button}
+            title="Go back to previous"
+            onPress={backHandle}
+          />
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }

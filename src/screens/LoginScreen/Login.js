@@ -6,6 +6,10 @@ import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -88,46 +92,54 @@ export default function Login({ navigation }) {
         hidden={false}
         barStyle="dark-content"
       />
-      <Image source={logo} style={styles.image} />
-      <Text style={styles.title}>Login to Twitter</Text>
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
-        style={styles.textInput}
-        placeholder="Email"
-        placeholderTextColor="#BDBDBD"
-      />
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        style={styles.textInput}
-        placeholder="Password"
-        placeholderTextColor="#BDBDBD"
-        secureTextEntry={true}
-      />
-      <View style={styles.buttonContainer}>
-        <TextButton
-          color={MAIN_COLOR}
-          title="Forgot your password?"
-          onPress={forgotHandle}
-        />
-      </View>
-      <PrimaryButton
-        title="Login"
-        onPress={loginHandle}
-        style={styles.loginButton}
-        testId={'loginButton'}
-      />
-      <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>
-          Do not have an account?
-        </Text>
-        <TextButton
-          color={MAIN_COLOR}
-          title="Sign up"
-          onPress={signupHandle}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={
+            Platform.OS === 'ios' ? 'padding' : 'height'
+          }
+        >
+          <Image source={logo} style={styles.image} />
+          <Text style={styles.title}>Login to Twitter</Text>
+          <TextInput
+            value={email}
+            onChangeText={setEmail}
+            style={styles.textInput}
+            placeholder="Email"
+            placeholderTextColor="#BDBDBD"
+          />
+          <TextInput
+            value={password}
+            onChangeText={setPassword}
+            style={styles.textInput}
+            placeholder="Password"
+            placeholderTextColor="#BDBDBD"
+            secureTextEntry={true}
+          />
+          <View style={styles.buttonContainer}>
+            <TextButton
+              color={MAIN_COLOR}
+              title="Forgot your password?"
+              onPress={forgotHandle}
+            />
+          </View>
+          <PrimaryButton
+            title="Login"
+            onPress={loginHandle}
+            style={styles.loginButton}
+            testId={'loginButton'}
+          />
+          <View style={styles.signupContainer}>
+            <Text style={styles.signupText}>
+              Do not have an account?
+            </Text>
+            <TextButton
+              color={MAIN_COLOR}
+              title="Sign up"
+              onPress={signupHandle}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }

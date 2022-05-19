@@ -96,7 +96,7 @@ export default function Message({ navigation }) {
     //load all conversations which current user take part in
     getMultipleConversation('conversationName', '!=', '')
       .then((docs) => {
-        var tempList = [];
+        let tempList = [];
         docs.forEach((doc) => {
           if (
             doc.data().users.includes(currentUser.userId)
@@ -112,6 +112,10 @@ export default function Message({ navigation }) {
       .catch((error) => {
         alert(error);
       });
+
+    return () => {
+      templist = [];
+    };
   });
 
   return (

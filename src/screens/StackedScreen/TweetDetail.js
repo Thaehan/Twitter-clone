@@ -18,7 +18,10 @@ import {
   CONTENT_SCREEN_HEIGHT,
 } from '../../styles/Style';
 import Comment from '../../components/tweet/Comment';
-import { getCommentById } from '../../api/comment';
+import {
+  getCommentById,
+  getMultipleComment,
+} from '../../api/comment';
 import { getUserById } from '../../api/user';
 import Tweet from '../../components/tweet/Tweet';
 import { getTweetById } from '../../api/tweet';
@@ -45,9 +48,21 @@ export default function TweetDetail({ navigation, route }) {
   }, []);
 
   useEffect(() => {
-    getTweetById(tweetId).then((doc) => {
-      setComments(doc.data().comments);
-    });
+    let tempList = [];
+    getMultipleComment('tweetId', '==', tweetId)
+      .then((docs) => {
+        docs.forEach((doc) => {
+          tempList.push(doc.id);
+        });
+        setComments(tempList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return () => {
+      tempList = [];
+    };
   }, []);
 
   useEffect(() => {

@@ -82,7 +82,7 @@ export default function Notification({ navigation }) {
   useEffect(() => {
     getMultipleNotification('textContent', '!=', '')
       .then((docs) => {
-        var tempList = [];
+        let tempList = [];
         docs.forEach((doc) => {
           if (doc.fromUser != currentUser.userId) {
             tempList.push({ ...doc.data(), id: doc.id });
@@ -93,6 +93,10 @@ export default function Notification({ navigation }) {
       .catch((error) => {
         alert(error);
       });
+
+    return () => {
+      tempList = [];
+    };
   });
 
   return (
