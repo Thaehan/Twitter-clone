@@ -14,7 +14,10 @@ import React, {
   useLayoutEffect,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {
+  StackActions,
+  useNavigation,
+} from '@react-navigation/native';
 
 import AvatarButton from '../../components/button/AvatarButton';
 import IconButton from '../../components/button/IconButton';
@@ -38,13 +41,14 @@ import {
 } from '../../styles/Style';
 import CircleButton from '../../components/button/CircleButton';
 
-export default function Feed({ navigation }) {
+export default function Feed() {
+  const navigation = useNavigation();
   const currentUser = useSelector((state) => state.user);
   const [tweetList, setTweetList] = useState([]);
   const [creator, setCreator] = useState('');
   const [text, setText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
-  const navigate = useNavigation();
+  const [isLoading, setIsLoading] = useState(true);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -52,30 +56,39 @@ export default function Feed({ navigation }) {
   }, []);
 
   const refreshFeed = async () => {
-    getMultipleTweet('textContent', '!=', '')
-      .then((docs) => {
-        const tempList = [];
-        const tempDataList = [];
-        docs.forEach((doc) => {
-          tempDataList.push({
-            dateCreated: doc.data().dateCreated,
-            tweetId: doc.id,
+    // //get following list.
+    const followingList = currentUser.following;
+
+    followingList.forEach((user) => {
+      getMultipleTweet('userPosted', '!=', user)
+        .then((docs) => {
+          const tempList = [];
+          const tempDataList = [];
+          docs.forEach((doc) => {
+            tempDataList.push({
+              dateCreated: doc.data().dateCreated,
+              tweetId: doc.id,
+            });
           });
+          tempDataList.sort((a, b) => {
+            return (
+              a.dateCreated.toDate() <
+              b.dateCreated.toDate()
+            );
+          });
+          tempDataList.forEach((data) => {
+            tempList.push(data.tweetId);
+          });
+          setTweetList(tempList);
+        })
+        .catch((error) => {
+          alert(error);
         });
-        tempDataList.sort((a, b) => {
-          return (
-            a.dateCreated.toDate() < b.dateCreated.toDate()
-          );
-        });
-        tempDataList.forEach((data) => {
-          tempList.push(data.tweetId);
-        });
-        setTweetList(tempList);
-        console.log(tempList);
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    });
+  };
+
+  const newTweetHandle = () => {
+    navigation.dispatch(StackActions.push(TWEET_POST, {}));
   };
 
   useLayoutEffect(() => {
@@ -163,12 +176,7 @@ export default function Feed({ navigation }) {
         color="#ffffff"
         size={35}
         style={styles.circleButton}
-        onPress={() => {
-          navigation.navigate(TWEET_POST, {
-            navigation,
-            //referedTweetId: "YBlYFQL2xrZmMFZIz36U"
-          });
-        }}
+        onPress={newTweetHandle}
       />
     </SafeAreaView>
   );

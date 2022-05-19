@@ -8,7 +8,7 @@ import {
 import React, { useLayoutEffect } from 'react';
 import { useEffect, useState } from 'react';
 import { Icon } from 'react-native-elements';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tabs } from 'react-native-collapsible-tab-view';
 
 import { getUserById, updateUser } from '../../api/user';
@@ -32,6 +32,7 @@ import {
 } from '../../api/tweet';
 import IconButton from '../../components/button/IconButton';
 import AvatarButton from '../../components/button/AvatarButton';
+import { setCurrentUser } from '../../redux/userSlice';
 
 const NULL_BANNER =
   'https://cdn.wallpapersafari.com/20/4/QrzGEi.png';
@@ -56,6 +57,7 @@ export default function Profile({ navigation, route }) {
     dateCreatedString: '',
   };
   const currentUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
   const [avatar, setUserAvatar] = useState('');
@@ -72,19 +74,33 @@ export default function Profile({ navigation, route }) {
         user.followers.indexOf(currentUser.userId),
         1
       );
-      currentUser.following.splice(
+      const newFollowing = [...currentUser.following];
+      newFollowing.splice(
         currentUser.following.indexOf(user.userId),
         1
       );
+      dispatch(
+        setCurrentUser({
+          ...currentUser,
+          following: newFollowing,
+        })
+      );
     } else {
       user.followers.push(currentUser.userId);
-      currentUser.following.push(user.userId);
+      const newFollowing = [...currentUser.following];
+      newFollowing.push(user.userId);
+      dispatch(
+        setCurrentUser({
+          ...currentUser,
+          following: newFollowing,
+        })
+      );
     }
 
     updateUser(user.userId, { followers: user.followers });
     getUserById(currentUser.userId)
       .then((doc) => {
-        let following = doc.data().following;
+        var following = doc.data().following;
         if (!isFollow(currentUser.userId)) {
           following.splice(
             following.indexOf(user.userId),
@@ -96,7 +112,6 @@ export default function Profile({ navigation, route }) {
         updateUser(currentUser.userId, {
           following: following,
         });
-        console.log(following);
       })
       .catch((e) => alert(e));
     setFollowed(isFollow(currentUser.userId));
@@ -167,6 +182,10 @@ export default function Profile({ navigation, route }) {
         //console.log(doc.id)
       })
       .catch((e) => alert(e));
+
+    return () => {
+      tempList = [];
+    };
   }, []);
 
   return (

@@ -41,7 +41,6 @@ import {
   PROFILE,
 } from '../../constants/ScreenName';
 import tempAvatar from '../../assets/avatar4.png';
-import { setUser } from '../../redux/userSlice';
 
 export default function QuotedTweet({ tweetId }) {
   const currentUser = useSelector((state) => state.user);

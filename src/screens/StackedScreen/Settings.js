@@ -34,7 +34,10 @@ import {
   MAIN_COLOR,
   SCREEN_HEIGHT,
 } from '../../styles/Style';
-import { removeUser, setUser } from '../../redux/userSlice';
+import {
+  removeUser,
+  setCurrentUser,
+} from '../../redux/userSlice';
 import { updateUser } from '../../api/user';
 import TextButton from '../../components/button/TextButton';
 import IconButton from '../../components/button/IconButton';
@@ -279,7 +282,7 @@ export default function Settings({ navigation }) {
           const oldAvatar = currentUser.avatar;
           const oldBanner = currentUser.banner;
           dispatch(
-            setUser({
+            setCurrentUser({
               ...currentUser,
               ...newUserData,
               dateOfBirth:
@@ -296,7 +299,7 @@ export default function Settings({ navigation }) {
                 console.log(error);
               });
             dispatch(
-              setUser({
+              setCurrentUser({
                 ...currentUser,
                 ...newUserData,
                 dateOfBirth:

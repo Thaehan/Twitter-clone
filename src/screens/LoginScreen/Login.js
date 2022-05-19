@@ -27,7 +27,7 @@ import {
 } from '../../styles/Style';
 import { SIGN_UP } from '../../constants/ScreenName';
 import { auth } from '../../firebase';
-import { setUser } from '../../redux/userSlice';
+import { setCurrentUser } from '../../redux/userSlice';
 import { getMultipleUsers } from '../../api/user';
 
 export default function Login({ navigation }) {
@@ -61,7 +61,7 @@ export default function Login({ navigation }) {
               following: userData.following,
             };
             console.log(payLoad);
-            dispatch(setUser(payLoad));
+            dispatch(setCurrentUser(payLoad));
           })
           .catch(() => {
             alert('Can not find user with email ', email);

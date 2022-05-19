@@ -45,7 +45,6 @@ import tempAvatar from '../../assets/avatar4.png';
 import {
   dislikeTweet,
   likeTweet,
-  setUser,
 } from '../../redux/userSlice';
 import QuotedTweet from './QuotedTweet';
 

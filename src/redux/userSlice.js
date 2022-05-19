@@ -20,7 +20,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     //Login
-    setUser: (state, action) => {
+    setCurrentUser: (state, action) => {
       const user = {
         userId: action.payload.userId,
         email: action.payload.email,
@@ -101,7 +101,7 @@ export const userSlice = createSlice({
 
 export default userSlice.reducer;
 export const {
-  setUser,
+  setCurrentUser,
   removeUser,
   likeTweet,
   dislikeTweet,

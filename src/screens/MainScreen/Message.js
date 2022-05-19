@@ -96,7 +96,7 @@ export default function Message({ navigation }) {
     //load all conversations which current user take part in
     getMultipleConversation('conversationName', '!=', '')
       .then((docs) => {
-        let tempList = [];
+        var tempList = [];
         docs.forEach((doc) => {
           if (
             doc.data().users.includes(currentUser.userId)
