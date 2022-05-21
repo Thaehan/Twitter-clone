@@ -115,13 +115,13 @@ export default function Login({ navigation }) {
             placeholderTextColor="#BDBDBD"
             secureTextEntry={true}
           />
-          <View style={styles.buttonContainer}>
+          {/* <View style={styles.buttonContainer}>
             <TextButton
               color={MAIN_COLOR}
               title="Forgot your password?"
               onPress={forgotHandle}
             />
-          </View>
+          </View> */}
           <PrimaryButton
             title="Login"
             onPress={loginHandle}

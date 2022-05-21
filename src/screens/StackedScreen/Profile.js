@@ -193,12 +193,12 @@ export default function Profile({ navigation, route }) {
       style={styles.container}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
-      /*         refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={onRefresh}
-                />
-              } */
+    /*         refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            } */
     >
       <Image
         style={styles.banner}
@@ -302,11 +302,39 @@ export default function Profile({ navigation, route }) {
             </View>
           </Tabs.Tab>
           <Tabs.Tab name="Media">
-            <View style={styles.tweetContainer}></View>
+            <View style={styles.tweetContainer}>
+              <View style={{ height: 50 }}></View>
+              {isLoading ? (
+                <Text style={styles.nothing}>
+                  There's no tweets in this account
+                </Text>
+              ) : (
+                tweetList.filter(tweet => {
+                  return tweet.mediaContent != ""
+                }).map((tweet) => (
+                  <Tweet
+                    key={tweet.tweetId}
+                    tweetId={tweet.tweetId}
+                    userPosted={tweet.userPosted}
+                    textContent={tweet.textContent}
+                    mediaContent={tweet.mediaContent}
+                    dateCreated={tweet.dateCreated}
+                    referedPostId={tweet.referedPostId}
+                    userMentioned={tweet.userMentioned}
+                    comments={tweet.comments}
+                    userRetweeted={tweet.userRetweeted}
+                    userLiked={tweet.userLiked}
+                    isOnFeed={true}
+                  />
+                ))
+              )}
+            </View>
+
+
           </Tabs.Tab>
-          <Tabs.Tab name="Likes">
+          {/*          <Tabs.Tab name="Likes">
             <View style={styles.tweetContainer}></View>
-          </Tabs.Tab>
+          </Tabs.Tab> */}
         </Tabs.Container>
       </View>
     </ScrollView>
