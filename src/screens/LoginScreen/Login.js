@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 30,
     paddingLeft: 16,
-    width: 350,
+    width: SCREEN_WIDTH * 0.85,
   },
   title: {
     fontWeight: '500',

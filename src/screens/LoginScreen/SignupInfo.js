@@ -187,8 +187,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     paddingTop: 20,
-
-    // height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH,
   },
   // eslint-disable-next-line react-native/no-color-literals
@@ -205,7 +203,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 30,
     paddingLeft: 16,
-    width: 350,
+    width: SCREEN_WIDTH * 0.85,
   },
   dateIcon: {
     position: 'absolute',

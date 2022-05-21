@@ -291,8 +291,8 @@ const styles = StyleSheet.create({
   },
   mediaStyle: {
     borderRadius: 15,
-    height: SCREEN_WIDTH * 0.81,
-    width: SCREEN_WIDTH * 0.81,
+    height: SCREEN_WIDTH * 0.811,
+    width: SCREEN_WIDTH * 0.811,
   },
   textInput: {
     color: BLACK_TEXT_COLOR,

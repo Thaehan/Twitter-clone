@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: SCREEN_WIDTH - 330,
+    width: 25,
   },
   searchContainer: {
     alignItems: 'center',
