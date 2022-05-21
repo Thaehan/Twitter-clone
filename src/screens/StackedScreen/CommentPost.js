@@ -41,7 +41,20 @@ export default function CommentPost({ navigation, route }) {
   const [imageUrl, setImageUrl] = useState(
     'https://firebasestorage.googleapis.com/v0/b/twitter-clone-5bfb8.appspot.com/o/images%2FXXQXEw2JgwXkewtfm42RsNdddcn2%2FTue%20Apr%2012%202022%2001%3A15%3A16%20GMT%2B0700%20(%2B07)?alt=media&token=5e822d9e-8e4b-4421-986c-02dbb96d22bd'
   );
+  const cameraTakingHandle = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
 
+
+    if (!result.cancelled) {
+      setMediaContent(result.uri);
+    }
+  };
   const mediaChoosingHandle = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -187,7 +200,7 @@ export default function CommentPost({ navigation, route }) {
                   type={'ionicon'}
                   name={'close-outline'}
                   size={50}
-                  onPress={() => {}}
+                  onPress={() => { }}
                 />
               </View>
             )}
@@ -198,7 +211,7 @@ export default function CommentPost({ navigation, route }) {
       <View style={styles.lowwerPart}>
         <TouchableOpacity
           style={styles.choiceButton}
-          onPress={() => cameraHandle()}
+          onPress={() => cameraTakingHandle()}
         >
           <Icon
             style={{

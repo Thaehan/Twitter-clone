@@ -50,11 +50,25 @@ export default function TweetPost({ navigation, route }) {
       quality: 1,
     });
 
+
     if (!result.cancelled) {
       setMediaContent(result.uri);
     }
   };
+  const cameraTakingHandle = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
 
+
+    if (!result.cancelled) {
+      setMediaContent(result.uri);
+    }
+  };
   const uploadMediaHandle = async () => {
     upLoadImage(mediaContent)
       .then((imageUrl) => {
@@ -109,7 +123,7 @@ export default function TweetPost({ navigation, route }) {
     setTextContent(newText);
   };
 
-  const cameraHandle = () => {};
+  const cameraHandle = () => { };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -181,7 +195,7 @@ export default function TweetPost({ navigation, route }) {
                   type={'ionicon'}
                   name={'close-outline'}
                   size={50}
-                  onPress={() => {}}
+                  onPress={() => { }}
                 />
               </View>
             )}
@@ -197,7 +211,7 @@ export default function TweetPost({ navigation, route }) {
       <View style={styles.lowwerPart}>
         <TouchableOpacity
           style={styles.choiceButton}
-          onPress={() => cameraHandle()}
+          onPress={() => cameraTakingHandle()}
         >
           <Icon
             style={{

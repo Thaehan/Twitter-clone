@@ -134,7 +134,7 @@ export default function MainTabsNavigator() {
           tabBarIcon: ({ color, size = 30 }) => {
             return (
               <Ionicons
-                name="mail-outline"
+                name="settings-outline"
                 color={color}
                 size={size}
               />
@@ -253,26 +253,38 @@ function MessageStackScreen() {
       }}
     >
       <MessageStack.Screen
-        name={MESSAGE}
-        component={Message}
-      />
-      <MessageStack.Screen
-        name={NEW_CONVERSATION}
-        component={NewConversation}
-      />
-      <MessageStack.Screen
-        name={CONVERSATION}
-        component={Conversation}
-      />
-      <SearchStack.Screen
-        name={PROFILE}
-        component={Profile}
-      />
-      <MessageStack.Screen
         name={SETTINGS}
         component={Settings}
       />
     </MessageStack.Navigator>
+    /*  <MessageStack.Navigator
+       screenOptions={{
+         headerStyle: [styles.headerBarStyle],
+         headerShadowVisible: false,
+         gestureEnabled: true,
+       }}
+     >
+       <MessageStack.Screen
+         name={MESSAGE}
+         component={Message}
+       />
+       <MessageStack.Screen
+         name={NEW_CONVERSATION}
+         component={NewConversation}
+       />
+       <MessageStack.Screen
+         name={CONVERSATION}
+         component={Conversation}
+       />
+       <SearchStack.Screen
+         name={PROFILE}
+         component={Profile}
+       />
+       <MessageStack.Screen
+         name={SETTINGS}
+         component={Settings}
+       />
+     </MessageStack.Navigator> */
   );
 }
 
