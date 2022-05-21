@@ -59,32 +59,34 @@ export default function Feed() {
     // //get following list.
     const followingList = currentUser.following;
 
-    followingList.forEach((user) => {
-      getMultipleTweet('userPosted', '!=', user)
-        .then((docs) => {
-          const tempList = [];
-          const tempDataList = [];
-          docs.forEach((doc) => {
-            tempDataList.push({
-              dateCreated: doc.data().dateCreated,
-              tweetId: doc.id,
+    if (followingList.length != 0) {
+      followingList.forEach((user) => {
+        getMultipleTweet('userPosted', '!=', user)
+          .then((docs) => {
+            const tempList = [];
+            const tempDataList = [];
+            docs.forEach((doc) => {
+              tempDataList.push({
+                dateCreated: doc.data().dateCreated,
+                tweetId: doc.id,
+              });
             });
+            tempDataList.sort((a, b) => {
+              return (
+                a.dateCreated.toDate() <
+                b.dateCreated.toDate()
+              );
+            });
+            tempDataList.forEach((data) => {
+              tempList.push(data.tweetId);
+            });
+            setTweetList(tempList);
+          })
+          .catch((error) => {
+            alert(error);
           });
-          tempDataList.sort((a, b) => {
-            return (
-              a.dateCreated.toDate() <
-              b.dateCreated.toDate()
-            );
-          });
-          tempDataList.forEach((data) => {
-            tempList.push(data.tweetId);
-          });
-          setTweetList(tempList);
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    });
+      });
+    }
   };
 
   const newTweetHandle = () => {

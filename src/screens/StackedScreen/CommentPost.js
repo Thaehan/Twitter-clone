@@ -29,11 +29,12 @@ import IconButton from '../../components/button/IconButton';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import { upLoadImage, deleteImage } from '../../api/image';
 import { createComment } from '../../api/comment';
+import { createNotification } from '../../api/notification';
 
 export default function CommentPost({ navigation, route }) {
   const CHAR_LIMIT = 280;
   const currentUser = useSelector((state) => state.user);
-  const { tweetId } = route.params;
+  const { tweetId, ofUser } = route.params;
   const [textContent, setTextContent] = useState('');
   const [mediaContent, setMediaContent] = useState(null);
   const [textBoxHeight, setTextBoxHeight] = useState(70);
@@ -83,6 +84,12 @@ export default function CommentPost({ navigation, route }) {
             textContent,
             mediaContent
           );
+          await createNotification(
+            currentUser.userId,
+            'comment',
+            tweetId,
+            ofUser
+          );
           navigation.goBack();
         } catch (error) {
           console.log(error);
@@ -96,6 +103,12 @@ export default function CommentPost({ navigation, route }) {
             [],
             textContent,
             ''
+          );
+          await createNotification(
+            currentUser.userId,
+            'comment',
+            tweetId,
+            ofUser
           );
           navigation.goBack();
         } catch (error) {

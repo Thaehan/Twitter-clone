@@ -8,6 +8,7 @@ import {
 import React, { useLayoutEffect } from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { StackActions } from '@react-navigation/native';
 
 import { GLOBAL_STYLES } from '../../styles/Style';
 import {
@@ -31,6 +32,7 @@ import IconButton from '../../components/button/IconButton';
 import {
   SETTINGS,
   PROFILE,
+  TWEET_DETAIL,
 } from '../../constants/ScreenName';
 
 export default function Notification({ navigation }) {
@@ -38,6 +40,12 @@ export default function Notification({ navigation }) {
   const [notificationList, setNotificationList] = useState(
     []
   );
+
+  const touchHandle = (tweetId) => {
+    navigation.dispatch(
+      StackActions.push(TWEET_DETAIL, { tweetId })
+    );
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -75,18 +83,16 @@ export default function Notification({ navigation }) {
     });
   }, [currentUser.avatar]);
 
-  const notificationClickhandle = (conversationId) => {
-    //chuyen huong sang thong bao ???
-  };
-
   useEffect(() => {
-    getMultipleNotification('textContent', '!=', '')
+    var tempList = [];
+    getMultipleNotification(
+      'ofUser',
+      '==',
+      currentUser.userId
+    )
       .then((docs) => {
-        let tempList = [];
         docs.forEach((doc) => {
-          if (doc.fromUser != currentUser.userId) {
-            tempList.push({ ...doc.data(), id: doc.id });
-          }
+          tempList.push({ ...doc.data(), id: doc.id });
         });
         setNotificationList(tempList);
       })
@@ -111,8 +117,13 @@ export default function Notification({ navigation }) {
           notificationList.map((notification) => (
             <Notifi
               key={notification.id}
-              userName={notification.fromUser}
-              content={notification.textContent}
+              type={notification.type}
+              from={notification.from}
+              tweetId={notification.tweetId}
+              onPress={() => {
+                touchHandle(notification.tweetId);
+              }}
+              style={styles.notification}
             />
           ))}
       </ScrollView>
@@ -121,18 +132,10 @@ export default function Notification({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  circleButton: {
-    alignItems: 'center',
-    borderRadius: 50,
-    bottom: 20,
-    position: 'absolute',
-    right: 20,
-  },
   container: {
     backgroundColor: 'white',
-
-    flex: 2,
-    width: SCREEN_WIDTH,
+    flex: 1,
+    width: '100%',
   },
   headerBarStyle: {
     height: HEADER_HEIGHT,
@@ -143,6 +146,10 @@ const styles = StyleSheet.create({
   },
   leftHeader: {
     width: 60,
+  },
+  notification: {
+    flex: 1,
+    width: '100%',
   },
   rightHeader: {
     width: 60,

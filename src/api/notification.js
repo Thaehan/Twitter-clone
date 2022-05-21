@@ -9,7 +9,7 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
-import { } from 'firebase/storage';
+import {} from 'firebase/storage';
 
 import { storage, db, app, auth } from '../firebase';
 import { NotificationModel } from '../models';
@@ -21,15 +21,17 @@ const notificationCollection = collection(
 );
 
 const createNotification = async (
-  textContent = '',
-  hyperLink = '',
-  fromUser = ''
+  from,
+  type,
+  tweetId,
+  ofUser
 ) => {
   try {
     const newNotification = NotificationModel(
-      (textContent = textContent),
-      (hyperLink = hyperLink),
-      (fromUser = fromUser)
+      (from = from),
+      (type = type),
+      (tweetId = tweetId),
+      (ofUser = ofUser)
     );
 
     await addDoc(notificationCollection, newNotification);
@@ -49,7 +51,7 @@ const getNotificationById = async (id) => {
 };
 
 const getMultipleNotification = async (
-  param1 = 'content',
+  param1 = 'tweetId',
   operation = '!=',
   param2 = ''
 ) => {

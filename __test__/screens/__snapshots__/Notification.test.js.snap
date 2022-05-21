@@ -195,8 +195,8 @@ exports[`<Notification /> Render Notification 1`] = `
               },
               Object {
                 "backgroundColor": "white",
-                "flex": 2,
-                "width": 414,
+                "flex": 1,
+                "width": "100%",
               },
             ]
           }

@@ -252,7 +252,7 @@ exports[`<Feed /> Render Feed 1`] = `
               },
               Object {
                 "flex": 2,
-                "width": 414,
+                "width": 750,
               },
             ]
           }

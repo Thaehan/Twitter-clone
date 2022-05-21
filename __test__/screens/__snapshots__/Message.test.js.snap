@@ -184,7 +184,7 @@ exports[`<Message /> Render Message 1`] = `
               Object {
                 "backgroundColor": "white",
                 "flex": 2,
-                "width": 414,
+                "width": 750,
               },
             ]
           }

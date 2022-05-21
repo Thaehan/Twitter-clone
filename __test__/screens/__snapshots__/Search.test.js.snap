@@ -134,7 +134,7 @@ exports[`<Search /> Render Search 1`] = `
               Object {
                 "alignItems": "center",
                 "flex": 1,
-                "width": 414,
+                "width": 750,
               },
             ]
           }
@@ -145,7 +145,7 @@ exports[`<Search /> Render Search 1`] = `
                 "alignItems": "center",
                 "flexDirection": "row",
                 "height": 55,
-                "width": 414,
+                "width": 750,
               }
             }
           >
@@ -177,7 +177,7 @@ exports[`<Search /> Render Search 1`] = `
                 Object {
                   "alignItems": "center",
                   "justifyContent": "center",
-                  "width": 84,
+                  "width": "12%",
                 }
               }
             >

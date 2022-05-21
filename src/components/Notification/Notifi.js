@@ -7,82 +7,112 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import {
+  StackActions,
+  useNavigation,
+} from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
+
+import {
   MAIN_COLOR,
   BACKGROUND_COLOR,
   LIGHT_GRAY_TEXT_COLOR,
   CHAT_BACKGROUND_COLOR,
   SCREEN_WIDTH,
 } from '../../styles/Style';
-import IconButton from '../button/IconButton';
-import AvatarButton from '../button/AvatarButton';
+import { TWEET_DETAIL } from '../../constants/ScreenName';
 import { color } from 'react-native-reanimated';
+import { getUserById } from '../../api/user';
 //props nhan vao userName, avatar, content
-export default function Notifi(props) {
+export default function Notifi({
+  from,
+  type,
+  tweetId,
+  onPress,
+  style = {},
+}) {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    getUserById(from)
+      .then((doc) => {
+        setUserData({ ...doc.data(), userId: doc.id });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
-    <TouchableOpacity style={notification.container}>
-      <IconButton
-        icon="star-four-points"
-        type="material-community"
-        color="#724DBD"
-        style={notification.star}
-      />
-      <Image
-        source={{ uri: props.avatar }}
-        style={notification.avatar}
-      />
-      <Text style={notification.noti_of_system}>
-        In case you missed {props.userName}'s Tweet
-      </Text>
-      <Text style={notification.content}>
-        {props.content}
-      </Text>
-    </TouchableOpacity>
+    <View style={style}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={onPress}
+      >
+        <View style={styles.leftContainer}>
+          <Icon
+            name="star-four-points"
+            type="material-community"
+            color="#724DBD"
+            style={styles.star}
+          />
+        </View>
+        <View style={styles.rightContainer}>
+          {type == 'like' ? (
+            <Text style={styles.content}>
+              {from} likes your post!
+            </Text>
+          ) : (
+            <Text style={styles.content}>
+              {from} comments your post!
+            </Text>
+          )}
+          <Text style={styles.noti_of_system}>
+            Hey! Maybe you missed something new!
+          </Text>
+          <Text style={styles.noti_of_system}>
+            Check it out!
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 
-const notification = StyleSheet.create({
-  avatar: {
-    borderRadius: 37 / 2,
-    height: 33,
-    left: 50,
-    position: 'absolute',
-    top: 10,
-    width: 37,
-  },
+const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ffffff',
     borderBottomColor: '#EDF0F1',
     borderBottomWidth: 0.5,
-    height: 230,
-
-    width: SCREEN_WIDTH,
+    flexDirection: 'row',
+    flex: 1,
+    paddingBottom: 15,
+    width: '100%',
   },
   content: {
-    color: '#A0A9B2',
+    alignSelf: 'center',
     fontSize: 15,
-    height: 154,
-    left: 63,
-    position: 'absolute',
+    fontWeight: 'bold',
+    paddingBottom: 5,
     textAlign: 'left',
-    top: 78,
-    width: 311,
+    width: '90%',
   },
-
+  leftContainer: {
+    width: '10%',
+  },
   noti_of_system: {
+    alignSelf: 'center',
     color: '#A0A9B2',
     fontSize: 15,
-    height: 18,
-    left: 63,
-    position: 'absolute',
-    top: 50,
-    width: 310,
+    paddingBottom: 3,
+    width: '90%',
+  },
+  rightContainer: {
+    paddingTop: 15,
+    width: '90%',
   },
   star: {
     color: '#724DBD',
-    height: 22,
-    left: 18,
-    position: 'absolute',
-    top: 10,
-    width: 24,
+    paddingLeft: 10,
+    paddingTop: 5,
   },
 });

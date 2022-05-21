@@ -235,6 +235,10 @@ function NotificationStackScreen() {
         name={PROFILE}
         component={Profile}
       />
+      <NotificationStack.Screen
+        name={TWEET_DETAIL}
+        component={TweetDetail}
+      />
     </NotificationStack.Navigator>
   );
 }

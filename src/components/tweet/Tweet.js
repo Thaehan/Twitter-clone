@@ -18,6 +18,7 @@ import {
   Fade,
   ShineOverlay,
 } from 'rn-placeholder';
+import { createNotification } from '../../api/notification';
 
 import {
   CONTENT_SCREEN_HEIGHT,
@@ -90,12 +91,25 @@ export default function Tweet({ tweetId, isOnFeed }) {
               console.log(error);
             });
           })
+          .then(() => {
+            createNotification(
+              currentUser.userId,
+              'like',
+              tweetId,
+              userPostedData.userId
+            )
+              .then(() => {
+                console.log('Create Notification');
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          })
           .catch((error) => {
             console.log(error);
           });
         return newUserLiked;
       });
-      updateUser(currentUser.userId, {});
     } else {
       setLikeCount((pre) => pre - 1);
       newLiked.splice(newLiked.indexOf(tweetId), 1);
@@ -119,6 +133,7 @@ export default function Tweet({ tweetId, isOnFeed }) {
               console.log(error);
             });
           })
+          //Unsent notification.
           .catch((error) => {
             console.log(error);
           });
@@ -147,9 +162,10 @@ export default function Tweet({ tweetId, isOnFeed }) {
     //   });
   };
 
-  const commentHandle = () => {
+  const commentHandle = (ofUser) => {
     navigation.navigate(COMMENT_POST, {
       tweetId,
+      ofUser,
     });
   };
 
@@ -355,7 +371,9 @@ export default function Tweet({ tweetId, isOnFeed }) {
               icon="comment"
               type="evilicon"
               size={28}
-              onPress={() => commentHandle()}
+              onPress={() =>
+                commentHandle(userPostedData.userId)
+              }
             />
             {/* <Text>{commentCount}</Text> */}
           </View>
@@ -498,7 +516,9 @@ export default function Tweet({ tweetId, isOnFeed }) {
             icon="comment"
             type="evilicon"
             size={30}
-            onPress={() => commentHandle()}
+            onPress={() =>
+              commentHandle(userPostedData.userId)
+            }
           />
         </View>
         {

@@ -1,15 +1,12 @@
 import moment from 'moment';
 
 //Member Array[Users]
-function NotificationModel(
-  textContent = '',
-  hyperLink = '',
-  fromUser = ''
-) {
+function NotificationModel(from, type, tweetId, ofUser) {
   const newNotification = {
-    textContent,
-    hyperLink,
-    fromUser,
+    from,
+    type,
+    tweetId,
+    ofUser,
   };
 
   return newNotification;

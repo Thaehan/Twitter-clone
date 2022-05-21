@@ -17,7 +17,7 @@ exports[`<UserItemButton /> Render UserItemButton 1`] = `
         "flexDirection": "row",
         "height": 60,
         "opacity": 1,
-        "width": 414,
+        "width": 750,
       }
     }
   >
@@ -27,7 +27,7 @@ exports[`<UserItemButton /> Render UserItemButton 1`] = `
           "alignItems": "center",
           "height": 60,
           "justifyContent": "center",
-          "width": 74,
+          "width": 410,
         }
       }
     >

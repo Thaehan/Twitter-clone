@@ -11,7 +11,7 @@ exports[`<Login /> Render Login 1`] = `
       },
       Object {
         "flex": 2,
-        "width": 414,
+        "width": 750,
       },
     ]
   }
@@ -72,7 +72,7 @@ exports[`<Login /> Render Login 1`] = `
           "marginBottom": 20,
           "marginLeft": 30,
           "paddingLeft": 16,
-          "width": 350,
+          "width": 637.5,
         }
       }
       underlineColorAndroid="transparent"
@@ -96,7 +96,7 @@ exports[`<Login /> Render Login 1`] = `
           "marginBottom": 20,
           "marginLeft": 30,
           "paddingLeft": 16,
-          "width": 350,
+          "width": 637.5,
         }
       }
       underlineColorAndroid="transparent"
