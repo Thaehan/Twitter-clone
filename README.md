@@ -38,25 +38,16 @@ yarn install
 
 ## Progress
 
-- Finished
-  Login And Register
-  Tweet Posting
-  Search
-  Setting
-  Profile
-  NewFeed
-  TweetDetail
-- Almost done
-  Message
-- TODO
-  Comment
+Everything is done
   
 ## Tech
 
-This project uses a number of open source projects to work properly:
+This project uses numerous number of framework or services:
 
 - [React] - React
 - [VSCode] - IDE
+- [Firebase] - Backend database
+- [Expo] - Quickly develop and debug app
 
 ## Demo
 Video Demo (90%): https://drive.google.com/file/d/1npgEr9Tny3Z4f5OHumG3YeSsq86ItK7L/view?usp=sharing
