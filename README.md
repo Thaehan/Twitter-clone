@@ -50,7 +50,7 @@ This project uses numerous number of framework or services:
 - [Expo] - Quickly develop and debug app
 
 ## Demo
-Video Demo (90%): https://drive.google.com/file/d/1npgEr9Tny3Z4f5OHumG3YeSsq86ItK7L/view?usp=sharing
+Video Demo: https://drive.google.com/file/d/1_mRu38-hLYuj9CSu6H14OF0MKuVOC_my/view?usp=sharing
 
 ![Login-Signup](https://user-images.githubusercontent.com/62579790/161212117-6b73d2c6-1d3d-4b7d-93e9-af5f5c4f38a5.gif)
 
